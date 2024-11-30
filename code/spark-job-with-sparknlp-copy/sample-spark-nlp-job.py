@@ -43,8 +43,8 @@ submissions_df = spark.read.parquet(f"{wasbs_base_url}{submissions_path}")
 
 from pyspark.sql.functions import col, lower
 
-# sample approximately 0.001% of the data and limit to 50 rows
-comments_subset_df = comments_df.sample(withReplacement=False, fraction=0.001, seed=42).limit(50)
+# sample approximately 0.1 of the data
+comments_subset_df = comments_df.sample(withReplacement=False, fraction=0.1, seed=42)
 
 # Display the first few rows of subset DataFrame
 comments_subset_df.show(5)
@@ -54,9 +54,13 @@ print(f"Number of rows in the sampled and limited DataFrame: {comments_subset_df
 
 from pyspark.sql.functions import col, lower
 
-# Filter the subset for comments containing "frustrat" and "cancer"
+
+# Filter for subreddits related to project
+subreddit_list = ['CrohnsDisease', 'thyroidcancer', 'AskDocs', 'UlcerativeColitis', 'Autoimmune', 'BladderCancer', 'breastcancer', 'CancerFamilySupport', 'doihavebreastcancer', 'WomensHealth', 'ProstateCancer', 'cll', 'Microbiome', 'predental', 'endometrialcancer', 'cancer', 'Hashimotos', 'coloncancer', 'PreCervicalCancer', 'lymphoma', 'Lymphedema', 'CancerCaregivers', 'braincancer', 'lynchsyndrome', 'nursing', 'testicularcancer', 'leukemia', 'publichealth', 'Health', 'Fuckcancer', 'HealthInsurance', 'BRCA', 'Cancersurvivors', 'pancreaticcancer', 'skincancer', 'stomachcancer']
+
+# Filter the DataFrame
 filtered_comments_subset_df = comments_subset_df.filter(
-    (lower(col("body")).contains("frustrat")) & (lower(col("body")).contains("cancer"))
+    (col("subreddit").isin(subreddit_list))
 )
 
 # Preview the filtered DataFrame
@@ -68,7 +72,7 @@ workspace_wasbs_base_url = f"wasbs://{workspace_default_container}@{workspace_de
 
 
 # Save the filtered subset to a Parquet file
-output_path = f"{workspace_wasbs_base_url}subset_with_job.parquet"
+output_path = f"{workspace_wasbs_base_url}subset_job_0_1.parquet"
 filtered_comments_subset_df.write.parquet(output_path, mode="overwrite")
 
 print(f"Test results saved to {output_path}")
