@@ -63,8 +63,79 @@ filtered_comments_subset_df = comments_subset_df.filter(
     (col("subreddit").isin(subreddit_list))
 )
 
+# Filter the dataframe including body words of focus
+government_healthcare_programs = [
+    "medicare", "medicaid", "children’s health insurance program", "chip", 
+    "veterans health administration", "vha", "indian health service", "ihs", 
+    "federal employees health benefits program", "fehbp", "affordable care act", 
+    "aca", "health insurance marketplace", "public health depart", 
+    "local health depart", "national health service corps", "nhsc", 
+    "community health centers", "chcs", "national institutes of health", "nih", 
+    "nci", "national cancer institute"
+]
+
+cancer_charities = [
+    "american cancer society", "acs", "cancer research institute", 
+    "breast cancer research foundation", "bcrf", "leukemia lymphoma society", 
+    "lls", "stand up to cancer", "su2c", "susan g. komen for the cure", 
+    "st. jude children’s", "national foundation for cancer research", "nfcr", 
+    "livestrong", "mesothelioma research foundation", "prostate cancer foundation", 
+    "american brain tumor association", "abta", "colon cancer coalition", 
+    "the american institute for cancer research", "aicr"
+]
+
+charitable_religious_organizations = [
+    "catholic relief services", "crs", "world vision", "samaritan", 
+    "jewish federations of north america", "islamic relief worldwide", 
+    "buddhist global relief", "the salvation army", "christian aid", 
+    "lutheran world relief", "tzu chi foundation", "care", 
+    "cooperative for assistance and relief everywhere", "habitat for humanity", 
+    "church world service", "cws", "heifer international"
+]
+
+top_cancer_institutes = [
+    "researcher", "scientist", "physicians", "md anderson cancer center", 
+    "memorial sloan kettering cancer center", "msk", "mayo clinic cancer center", 
+    "johns hopkins sidney kimmel comprehensive cancer center", "cleveland clinic", 
+    "ucla medical center", "massachusetts general hospital cancer center", 
+    "duke cancer institute", "stanford cancer institute", 
+    "university of california, san francisco medical center", "ucsf", 
+    "northwestern medicine feinberg school of medicine", 
+    "university of pennsylvania abramson cancer center", 
+    "roswell park comprehensive cancer center", "fred hutchinson cancer research center"
+]
+
+
+filtered_comments_subset_df = filtered_comments_subset_df.filter(
+    (((lower(col("body")).contains("frustrat"))) & 
+     (lower(col("body")).contains("cancer"))) |
+    ((lower(col("body")).contains("cancer")) & 
+     ((lower(col("body")).contains("doctors")) | (lower(col("body")).contains("trust")))) |
+    ((lower(col("body")).contains("cancer")) & 
+     ((lower(col("body")).contains("family")) | (lower(col("body")).contains("friends")) |
+      (lower(col("body")).contains("sister")) | (lower(col("body")).contains("brother")) |
+      (lower(col("body")).contains("mother")) | (lower(col("body")).contains("mom")) |
+      (lower(col("body")).contains("father")) | (lower(col("body")).contains("cousin")) |
+      (lower(col("body")).contains("aunt")) | (lower(col("body")).contains("uncle")) |
+      (lower(col("body")).contains("trust")))) |
+    ((lower(col("body")).contains("cancer")) & 
+     ((col("body").rlike("|".join(government_healthcare_programs))) | 
+      (lower(col("body")).contains("trust")))) |
+    ((lower(col("body")).contains("cancer")) & 
+     ((col("body").rlike("|".join(cancer_charities))) | 
+      (lower(col("body")).contains("trust")))) |
+    ((lower(col("body")).contains("cancer")) & 
+     ((col("body").rlike("|".join(charitable_religious_organizations))) | 
+      (lower(col("body")).contains("trust")))) |
+    ((lower(col("body")).contains("cancer")) & 
+     ((col("body").rlike("|".join(top_cancer_institutes))) | 
+      (lower(col("body")).contains("trust"))))
+)
+
+
 # Preview the filtered DataFrame
 filtered_comments_subset_df.show(5)
+
 
 workspace_default_storage_account = "projectgstoragedfb938a3e"
 workspace_default_container = "azureml-blobstore-becc8696-e562-432e-af12-8a5e3e1f9b0f"
@@ -72,7 +143,7 @@ workspace_wasbs_base_url = f"wasbs://{workspace_default_container}@{workspace_de
 
 
 # Save the filtered subset to a Parquet file
-output_path = f"{workspace_wasbs_base_url}subset_job_0_1.parquet"
+output_path = f"{workspace_wasbs_base_url}subset_job_0_2.parquet"
 filtered_comments_subset_df.write.parquet(output_path, mode="overwrite")
 
 print(f"Test results saved to {output_path}")
