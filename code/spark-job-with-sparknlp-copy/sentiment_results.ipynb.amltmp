@@ -1,6 +1,23 @@
 {
   "cells": [
     {
+      "cell_type": "markdown",
+      "source": [
+        "# Review the Results of the NLP Pretrained Model\n",
+        "\n",
+        "This model is very basic, but this folder shows you how to create an NLP pipeline with a pretrained model.\n",
+        "\n",
+        "The .py file saved the results to a parquet that is stored in our container. We are reading it back here to review."
+      ],
+      "metadata": {
+        "nteract": {
+          "transient": {
+            "deleting": false
+          }
+        }
+      }
+    },
+    {
       "cell_type": "code",
       "source": [
         "spark"
@@ -19,24 +36,24 @@
               "livy_statement_state": "available",
               "spark_jobs": {
                 "numbers": {
-                  "SUCCEEDED": 0,
                   "UNKNOWN": 0,
-                  "FAILED": 0,
-                  "RUNNING": 0
+                  "SUCCEEDED": 0,
+                  "RUNNING": 0,
+                  "FAILED": 0
                 },
                 "jobs": [],
                 "limit": 20,
                 "rule": "ALL_DESC"
               },
-              "session_id": "15",
+              "session_id": "23",
               "normalized_state": "finished",
-              "queued_time": "2024-12-06T01:07:48.9441633Z",
-              "session_start_time": "2024-12-06T01:07:48.978707Z",
-              "execution_start_time": "2024-12-06T01:11:07.4513601Z",
-              "execution_finish_time": "2024-12-06T01:11:10.0516228Z",
-              "parent_msg_id": "48e46e64-56df-4ad1-b58c-1e4b61df876b"
+              "queued_time": "2024-12-06T04:37:01.7921671Z",
+              "session_start_time": "2024-12-06T04:37:01.8858922Z",
+              "execution_start_time": "2024-12-06T04:40:13.2339844Z",
+              "execution_finish_time": "2024-12-06T04:40:15.8160053Z",
+              "parent_msg_id": "4d058ec1-ac5e-4e23-b4be-ca025a05ecb7"
             },
-            "text/plain": "StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 15, 6, Finished, Available, Finished)"
+            "text/plain": "StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 23, 6, Finished, Available, Finished)"
           },
           "metadata": {}
         },
@@ -44,8 +61,8 @@
           "output_type": "execute_result",
           "execution_count": 11,
           "data": {
-            "text/plain": "<pyspark.sql.session.SparkSession at 0x7fdc480c2fb0>",
-            "text/html": "\n            <div>\n                <p><b>SparkSession - hive</b></p>\n                \n        <div>\n            <p><b>SparkContext</b></p>\n\n            <p><a href=\"http://vm-19560256:34065\">Spark UI</a></p>\n\n            <dl>\n              <dt>Version</dt>\n                <dd><code>v3.3.1.5.2.20240522.3</code></dd>\n              <dt>Master</dt>\n                <dd><code>yarn</code></dd>\n              <dt>AppName</dt>\n                <dd><code>Azure ML Experiment</code></dd>\n            </dl>\n        </div>\n        \n            </div>\n        "
+            "text/plain": "<pyspark.sql.session.SparkSession at 0x7f5575ce1a50>",
+            "text/html": "\n            <div>\n                <p><b>SparkSession - hive</b></p>\n                \n        <div>\n            <p><b>SparkContext</b></p>\n\n            <p><a href=\"http://vm-b9832801:39267\">Spark UI</a></p>\n\n            <dl>\n              <dt>Version</dt>\n                <dd><code>v3.3.1.5.2.20240522.3</code></dd>\n              <dt>Master</dt>\n                <dd><code>yarn</code></dd>\n              <dt>AppName</dt>\n                <dd><code>Azure ML Experiment</code></dd>\n            </dl>\n        </div>\n        \n            </div>\n        "
           },
           "metadata": {}
         }
@@ -53,7 +70,7 @@
       "execution_count": 1,
       "metadata": {
         "gather": {
-          "logged": 1733447470226
+          "logged": 1733460015919
         }
       }
     },
@@ -65,7 +82,7 @@
         "workspace_wasbs_base_url = f\"wasbs://{workspace_default_container}@{workspace_default_storage_account}.blob.core.windows.net/\"\n",
         "\n",
         "# the parquet path again\n",
-        "output_path = f\"{workspace_wasbs_base_url}subset_job_0_2.parquet\"\n",
+        "output_path = f\"{workspace_wasbs_base_url}nlp_result_sample_submissions.parquet\"\n",
         "\n",
         "# Read the Parquet file back into a dataframe\n",
         "df_read_back = spark.read.parquet(output_path)\n",
@@ -87,23 +104,23 @@
               "livy_statement_state": "available",
               "spark_jobs": {
                 "numbers": {
-                  "SUCCEEDED": 2,
                   "UNKNOWN": 0,
-                  "FAILED": 0,
-                  "RUNNING": 0
+                  "SUCCEEDED": 2,
+                  "RUNNING": 0,
+                  "FAILED": 0
                 },
                 "jobs": [
                   {
                     "displayName": "showString at NativeMethodAccessorImpl.java:0",
                     "dataWritten": 0,
-                    "dataRead": 58034,
-                    "rowCount": 9,
+                    "dataRead": 736376,
+                    "rowCount": 6,
                     "usageDescription": "",
                     "jobId": 1,
                     "name": "showString at NativeMethodAccessorImpl.java:0",
-                    "description": "Job group for statement 7:\nworkspace_default_storage_account = \"projectgstoragedfb938a3e\"\nworkspace_default_container = \"azureml-blobstore-becc8696-e562-432e-af12-8a5e3e1f9b0f\"\nworkspace_wasbs_base_url = f\"wasbs://{workspace_default_container}@{workspace_default_storage_account}.blob.core.windows.net/\"\n\n# the parquet path again\noutput_path = f\"{workspace_wasbs_base_url}subset_job_0_2.parquet\"\n\n# Read the Parquet file back into a dataframe\ndf_read_back = spark.read.parquet(output_path)\n\n# Show first 5 rows\ndf_read_back.show(5)",
-                    "submissionTime": "2024-12-06T01:12:05.704GMT",
-                    "completionTime": "2024-12-06T01:12:12.131GMT",
+                    "description": "Job group for statement 7:\nworkspace_default_storage_account = \"projectgstoragedfb938a3e\"\nworkspace_default_container = \"azureml-blobstore-becc8696-e562-432e-af12-8a5e3e1f9b0f\"\nworkspace_wasbs_base_url = f\"wasbs://{workspace_default_container}@{workspace_default_storage_account}.blob.core.windows.net/\"\n\n# the parquet path again\noutput_path = f\"{workspace_wasbs_base_url}nlp_result_sample_submissions.parquet\"\n\n# Read the Parquet file back into a dataframe\ndf_read_back = spark.read.parquet(output_path)\n\n# Show first 5 rows\ndf_read_back.show(5)",
+                    "submissionTime": "2024-12-06T04:40:32.630GMT",
+                    "completionTime": "2024-12-06T04:40:36.026GMT",
                     "stageIds": [
                       1
                     ],
@@ -130,9 +147,9 @@
                     "usageDescription": "",
                     "jobId": 0,
                     "name": "parquet at NativeMethodAccessorImpl.java:0",
-                    "description": "Job group for statement 7:\nworkspace_default_storage_account = \"projectgstoragedfb938a3e\"\nworkspace_default_container = \"azureml-blobstore-becc8696-e562-432e-af12-8a5e3e1f9b0f\"\nworkspace_wasbs_base_url = f\"wasbs://{workspace_default_container}@{workspace_default_storage_account}.blob.core.windows.net/\"\n\n# the parquet path again\noutput_path = f\"{workspace_wasbs_base_url}subset_job_0_2.parquet\"\n\n# Read the Parquet file back into a dataframe\ndf_read_back = spark.read.parquet(output_path)\n\n# Show first 5 rows\ndf_read_back.show(5)",
-                    "submissionTime": "2024-12-06T01:11:54.347GMT",
-                    "completionTime": "2024-12-06T01:12:02.398GMT",
+                    "description": "Job group for statement 7:\nworkspace_default_storage_account = \"projectgstoragedfb938a3e\"\nworkspace_default_container = \"azureml-blobstore-becc8696-e562-432e-af12-8a5e3e1f9b0f\"\nworkspace_wasbs_base_url = f\"wasbs://{workspace_default_container}@{workspace_default_storage_account}.blob.core.windows.net/\"\n\n# the parquet path again\noutput_path = f\"{workspace_wasbs_base_url}nlp_result_sample_submissions.parquet\"\n\n# Read the Parquet file back into a dataframe\ndf_read_back = spark.read.parquet(output_path)\n\n# Show first 5 rows\ndf_read_back.show(5)",
+                    "submissionTime": "2024-12-06T04:40:23.421GMT",
+                    "completionTime": "2024-12-06T04:40:29.347GMT",
                     "stageIds": [
                       0
                     ],
@@ -155,22 +172,22 @@
                 "limit": 20,
                 "rule": "ALL_DESC"
               },
-              "session_id": "15",
+              "session_id": "23",
               "normalized_state": "finished",
-              "queued_time": "2024-12-06T01:11:51.7821859Z",
+              "queued_time": "2024-12-06T04:40:22.1669225Z",
               "session_start_time": null,
-              "execution_start_time": "2024-12-06T01:11:52.3310939Z",
-              "execution_finish_time": "2024-12-06T01:12:15.0220189Z",
-              "parent_msg_id": "2b31ebec-665d-4016-bb9b-db641e0874b3"
+              "execution_start_time": "2024-12-06T04:40:22.289939Z",
+              "execution_finish_time": "2024-12-06T04:40:37.2609329Z",
+              "parent_msg_id": "d8b07440-008b-4ce5-ab7e-8ad53a3a6dae"
             },
-            "text/plain": "StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 15, 7, Finished, Available, Finished)"
+            "text/plain": "StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 23, 7, Finished, Available, Finished)"
           },
           "metadata": {}
         },
         {
           "output_type": "stream",
           "name": "stdout",
-          "text": "+--------------------+----------------------+-----------------+--------------------+----------------+-----------+-------------+------+------+-------+----------+----------+------------+-----+--------+-------------------+------------+----+---+\n|              author|author_flair_css_class|author_flair_text|                body|controversiality|created_utc|distinguished|edited|gilded|     id|   link_id| parent_id|retrieved_on|score|stickied|          subreddit|subreddit_id|yyyy| mm|\n+--------------------+----------------------+-----------------+--------------------+----------------+-----------+-------------+------+------+-------+----------+----------+------------+-----+--------+-------------------+------------+----+---+\n|Logical-Feature-1136|                  null|             null|Hey. I’m sorry ab...|               0| 1715637800|         null|  null|     0|l3wyrxc|t3_1crb5mr|t3_1crb5mr|  1715637814|    3|   false|CancerFamilySupport|    t5_3e65q|2024|  5|\n|       mildhot-sauce|                  null|             null|Professional voic...|               0| 1715640666|         null|  null|     0|l3x68e7|t3_1cqsj4p|t3_1cqsj4p|  1715640683|    1|   false|      thyroidcancer|    t5_3e8dw|2024|  5|\n|            MarsMorn|                  null|             null|Ok, breathe. This...|               0| 1715642425|         null|  null|     0|l3xaoht|t3_1cr90dc|t3_1cr90dc|  1715642440|   15|   false|       breastcancer|    t5_2t6dy|2024|  5|\n|     Internal-Ad8877|                  null|             null|Hi there, I'm als...|               0| 1715644426|         null|  null|     0|l3xfqbo|t3_1cr9114|t3_1cr9114|  1715644442|    1|   false|       breastcancer|    t5_2t6dy|2024|  5|\n|   halfbl00dprinc3ss|                  null|             null|Usually the way i...|               0| 1712181664|         null|  null|     0|kxx7qow|t3_1bv444n|t3_1bv444n|  1712181680|    5|   false|           leukemia|    t5_2rm1p|2024|  4|\n+--------------------+----------------------+-----------------+--------------------+----------------+-----------+-------------+------+------+-------+----------+----------+------------+-----+--------+-------------------+------------+----+---+\nonly showing top 5 rows\n\n"
+          "text": "+--------------------+--------------------+--------------------+--------------------+--------------------+--------------------+--------------------+--------------------+\n|                text|            document|            sentence|               token|               spell|              lemmas|               stems|                 pos|\n+--------------------+--------------------+--------------------+--------------------+--------------------+--------------------+--------------------+--------------------+\n|Hi, I hope this i...|[{document, 0, 85...|[{document, 0, 23...|[{token, 0, 1, Hi...|[{token, 0, 1, Hi...|[{token, 0, 1, Hi...|[{token, 0, 1, hi...|[{pos, 0, 1, NNP,...|\n|33 male, i have d...|[{document, 0, 27...|[{document, 0, 68...|[{token, 0, 1, 33...|[{token, 0, 1, 33...|[{token, 0, 1, 33...|[{token, 0, 1, 33...|[{pos, 0, 1, CD, ...|\n|           [removed]|[{document, 0, 8,...|[{document, 0, 8,...|[{token, 0, 8, [r...|[{token, 0, 8, [r...|[{token, 0, 8, [r...|[{token, 0, 8, [r...|[{pos, 0, 8, NN, ...|\n|           [removed]|[{document, 0, 8,...|[{document, 0, 8,...|[{token, 0, 8, [r...|[{token, 0, 8, [r...|[{token, 0, 8, [r...|[{token, 0, 8, [r...|[{pos, 0, 8, NN, ...|\n|83F, Cancer dx (u...|[{document, 0, 27...|[{document, 0, 16...|[{token, 0, 2, 83...|[{token, 0, 2, 83...|[{token, 0, 2, 83...|[{token, 0, 2, 83...|[{pos, 0, 2, CD, ...|\n+--------------------+--------------------+--------------------+--------------------+--------------------+--------------------+--------------------+--------------------+\nonly showing top 5 rows\n\n"
         }
       ],
       "execution_count": 2,
@@ -185,7 +202,7 @@
           }
         },
         "gather": {
-          "logged": 1733447535154
+          "logged": 1733460037426
         }
       }
     }
