@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Cancer &amp; Reddit</title>
+<title>eda_reddit – Cancer &amp; Reddit</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -93,7 +93,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">HINTS EDA</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./eda_reddit.html"> 
+    <a class="nav-link active" href="./eda_reddit.html" aria-current="page"> 
 <span class="menu-text">Reddit EDA</span></a>
   </li>  
   <li class="nav-item">
@@ -124,13 +124,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#data-sources" id="toc-data-sources" class="nav-link" data-scroll-target="#data-sources">Data Sources</a>
-  <ul class="collapse">
-  <li><a href="#the-health-information-national-trends-survey-hints" id="toc-the-health-information-national-trends-survey-hints" class="nav-link" data-scroll-target="#the-health-information-national-trends-survey-hints">The Health Information National Trends Survey (HINTS)</a></li>
-  <li><a href="#the-reddit-pushshift-data-set" id="toc-the-reddit-pushshift-data-set" class="nav-link" data-scroll-target="#the-reddit-pushshift-data-set">The Reddit PushShift Data Set</a></li>
-  </ul></li>
-  <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources:</a></li>
+  <li><a href="#reddit-questions-and-searches" id="toc-reddit-questions-and-searches" class="nav-link active" data-scroll-target="#reddit-questions-and-searches">Reddit Questions and Searches</a></li>
   </ul>
 </nav>
     </div>
@@ -140,55 +134,71 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
-<p>Project Authors: Tiana Le, Sheeba Moghal, Ishaan Babbar, Liz Kovalchuk</p>
-<p>In the digital age, where information is readily available at our fingertips, understanding how people navigate and trust health information is critical. With countless sources such as healthcare professionals, government agencies, social media, and online forums, it is essential to explore what the United States population believes about the reliability and accessibility of health information. To better understand this phenomenon, data was gathered from an online forum called Reddit. The Reddit dataset comprises textual data that offers valuable insights into the information shared online about health, particularly topics related to cancer. Using NLP methods, we can explore the most common topics and also the sentiment toward these topics. In addition to the textual data, we will also use the Health Information National Trends Survey (HINTS), which is administered by National Cancer Institute. In this survey, people were asked directly about what they think about health information. Using both the Reddit data and HINTS, we seek to understand trust, frustrations, and overall sentiment about healthcare and more specifically, cancer information.</p>
-<p>Our project explores the Pushshift Reddit Dataset to examine trust in healthcare, likely narrowing specifically to r/cancer forums. While there are some assumptions that need to be made to pair our corroborating dataset, the Health Information National Trends Survey (HINTS) survey, with the Reddit dataset, we believe that we compare and use both of these datasets to investigate the following questions:</p>
+<section id="reddit-questions-and-searches" class="level3">
+<h3 class="anchored" data-anchor-id="reddit-questions-and-searches">Reddit Questions and Searches</h3>
 <ul>
-<li>Is public sentiment toward healthcare and cancer generally positive, or negative, in an online social platform?</li>
-<li>Is there evidence of trust (or lack thereof) when the public discusses healthcare?</li>
-<li>Evidence of other interpersonal conflict in healthcare discussions and emotion / sentiment analysis (e.g.&nbsp;sadness, disgust, surprise, joy, anger).</li>
-</ul>
-</section>
-<section id="data-sources" class="level1">
-<h1>Data Sources</h1>
-<section id="the-health-information-national-trends-survey-hints" class="level2">
-<h2 class="anchored" data-anchor-id="the-health-information-national-trends-survey-hints">The Health Information National Trends Survey (HINTS)</h2>
-<p>The Health Information National Trends Survey (HINTS) is a significant research initiative launched by the National Cancer Institute (NCI) in 2001. It aims to assess how adults in the United States access and utilize health information with a particular focus on cancer-related topics. HINTS provides a rich source of data that helps researchers understand public interactions with health information, including trends in health communication, knowledge, attitudes, and behaviors regarding cancer prevention and control.</p>
-<p>It is an excellent starting place for structured questionnaires that would be helfpul to enhance in a “more accessible” format of Reddit data.</p>
-<p>HINTS employs a cross-sectional, nationally representative survey methodology targeting non-institutionalized adults aged 18 years and older. This design allows for the collection of data that reflects the diverse experiences and perspectives of the U.S. population13. Annual Administration: Initially conducted biennially, HINTS has transitioned to an annual survey format. This change enhances the ability to track evolving trends in health information access and utilization over time.</p>
-<p>The survey seeks information on:</p>
+<li>Entire comments and subcomments that contain the word “cancer”
 <ul>
-<li>Health information-seeking behaviors</li>
-<li>Cancer prevention and screening practices</li>
-<li>Knowledge and perceptions related to cancer risks</li>
-<li>Access to healthcare services</li>
-<li>Utilization of technology for health information37.</li>
-<li>Publicly Available Data: HINTS data is freely accessible through its website, allowing researchers, policymakers, and public health professionals to utilize this information for various applications, including the design and evaluation of health communication programs9.</li>
+<li>(Parallel to A1, B3a, B13 in HINTS?)</li>
+<li>Calculate frequency per year</li>
+</ul></li>
+<li>Reddits and subreddits that contain the word “cancer”</li>
 </ul>
-<p>Though HINTS was initially conducted biennially, HINTS has transitioned to an annual survey format. This change enhances the ability to track evolving trends in health information access and utilization over time.</p>
-</section>
-<section id="the-reddit-pushshift-data-set" class="level2">
-<h2 class="anchored" data-anchor-id="the-reddit-pushshift-data-set">The Reddit PushShift Data Set</h2>
-<p>The Pushshift Reddit dataset is a comprehensive collection of submissions and comments from Reddit, designed to facilitate social media research by providing easy access to historical data. Launched in 2015, Pushshift has become a crucial resource for researchers interested in analyzing user-generated content on one of the largest social media platforms.</p>
-<p>The data leveraged from the Reddit dataset was from the provided repository of pre-processed data:</p>
-<ul>
-<li>Spans the June-2023 to July-2024 in the 202306-202407 directory</li>
-<li>Spans Jan-2021 to March-2023 in the 202101-202303 directory</li>
-</ul>
-<p>The data queried is of both submissions and comments from the PushShift Dataset.</p>
-</section>
-</section>
-<section id="sources" class="level1">
-<h1>Sources:</h1>
-<ol type="1">
-<li>Finney Rutten, L. J., Arora, N. K., Bakken, S., &amp; Hesse, B. W. (2022). Expanding the Health Information National Trends Survey research: A comparison of health information seeking behaviors across countries. Health Communication, 37(1), 1-10. https://doi.org/10.1080/10810730.2022.2134522</li>
-<li>National Cancer Institute. (2021). Health Information National Trends Survey (HINTS). Retrieved from https://hints.cancer.gov</li>
-<li>Kreps, G. L., &amp; Neuhauser, L. (2020). The health information national trends survey: Research and implications for health communication. PubMed. https://pubmed.ncbi.nlm.nih.gov/33970822/</li>
-<li>Zannettou, S., Caulfield, T., &amp; De Cristofaro, E. (2020). The Pushshift Reddit dataset. arXiv. https://doi.org/10.48550/arXiv.2001.08435</li>
-<li>Pushshift. (n.d.). Pushshift Reddit dataset. In Papers with Code. Retrieved from https://paperswithcode.com/dataset/pushshift-reddit</li>
-</ol>
+<p>In addition, we combed the entire Reddit PushShift dataset provided based on the following criteria:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 88%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Variable</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FrustratingCancerSearch</td>
+<td>“Frustrating” or “frustrat” and “cancer” (HINTS A2b)</td>
+</tr>
+<tr class="even">
+<td>CancerDoctorsTrust</td>
+<td>“Cancer” and “doctors” or “trust” (does not need to contain “trust” since trust is included in NRC sentiment analysis) (HINTS A3a)</td>
+</tr>
+<tr class="odd">
+<td>CancerFamilyTrust</td>
+<td>“Cancer” and “family” or “friends” or various familial terms (e.g., “sister,” “brother,” “mother”) or “trust” (HINTS A3b)</td>
+</tr>
+<tr class="even">
+<td>CancerGovHealthcarePrograms</td>
+<td>“Cancer” and government_healthcare_programs, such as [“Medicare,” “Medicaid,” “ACA,” “NIH,” etc.] or “trust” (HINTS A3c)</td>
+</tr>
+<tr class="odd">
+<td>CancerCharitiesTrust</td>
+<td>“Cancer” and cancer_charities, such as [“American Cancer Society,” “LLS,” “BCRF,” “Livestrong,” etc.] or “trust” (HINTS A3d)</td>
+</tr>
+<tr class="even">
+<td>CancerReligiousOrgTrust</td>
+<td>“Cancer” and charitable_religious_organizations, such as [“Catholic Relief Services,” “World Vision,” “Salvation Army,” etc.] or “trust” (HINTS A3e)</td>
+</tr>
+<tr class="odd">
+<td>CancerScientistsTrust</td>
+<td>“Cancer” and top_cancer_institutes, such as [“MD Anderson,” “Mayo Clinic,” “UCSF,” “Roswell Park,” etc.] or “trust” (HINTS A3f)</td>
+</tr>
+<tr class="even">
+<td>InsuranceCancer</td>
+<td>“Insurance” and “cancer”</td>
+</tr>
+<tr class="odd">
+<td>MedicareCancer</td>
+<td>“Medicare” and “cancer”</td>
+</tr>
+<tr class="even">
+<td>MedicaidCancer</td>
+<td>“Medicaid” and “cancer”</td>
+</tr>
+</tbody>
+</table>
 
 
 </section>
