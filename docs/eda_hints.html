@@ -4768,7 +4768,7 @@ vertical-align: -.125em;
 <span class="menu-text">HINTS EDA</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./eda.html"> 
+    <a class="nav-link" href="./eda_reddit.html"> 
 <span class="menu-text">Reddit EDA</span></a>
   </li>  
   <li class="nav-item">
@@ -4799,8 +4799,7 @@ vertical-align: -.125em;
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#survey-responses" id="toc-survey-responses" class="nav-link" data-scroll-target="#survey-responses">Survey Responses</a></li>
+  <li><a href="#survey-responses" id="toc-survey-responses" class="nav-link active" data-scroll-target="#survey-responses">Survey Responses</a></li>
   <li><a href="#summary-statistics-of-the-responses" id="toc-summary-statistics-of-the-responses" class="nav-link" data-scroll-target="#summary-statistics-of-the-responses">Summary Statistics of the Responses</a></li>
   <li><a href="#relationship-between-different-survey-questions." id="toc-relationship-between-different-survey-questions." class="nav-link" data-scroll-target="#relationship-between-different-survey-questions.">Relationship between different survey questions.</a></li>
   <li><a href="#further-directions-and-conclusion" id="toc-further-directions-and-conclusion" class="nav-link" data-scroll-target="#further-directions-and-conclusion">Further Directions and Conclusion</a></li>
@@ -4836,10 +4835,7 @@ vertical-align: -.125em;
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
-<p>In the digital age, where information is readily available at our fingertips, understanding how people navigate and trust health information is critical. With countless sources such as healthcare professionals, government agencies, social media, and online forums, it is essential to explore what the United States population believes about the reliability and accessibility of health information. To better understand this phenomenon, data was gathered from an online forum called Reddit. The Reddit dataset comprises textual data that offers valuable insights into the information shared online about health, particularly topics related to cancer. Using NLP methods, we can explore the most common topics and also the sentiment toward these topics. In addition to the textual data, we will also use the Health Information National Trends Survey (HINTS), which is administered by National Cancer Institute. In this survey, people were asked directly about what they think about health information. Using both the Reddit data and HINTS, we seek to understand trust, frustrations, and overall sentiment about healthcare and more specifically, cancer information.</p>
-<p>The Health Information National Trends Survey (HINTS) is a national survey administered by the National Cancer Institute. The survey is completed by civilians in the United States. The information gathered from the survey seeks to gain an understanding of what people think about the accessibility of health information and the perceptions of what people think about the health information. The HINTS survey includes 527 questions. To focus on sentiment toward healthcare and cancer, we selected the questions in Table 1. In Table 1, participants were asked various questions about where they access health information, do they trust the provided health information, and if they feel frustrated about the information.</p>
+<p>The HINTS survey includes 527 questions. To focus on sentiment toward healthcare and cancer, we selected the questions in Table 1. In Table 1, participants were asked various questions about where they access health information, do they trust the provided health information, and if they feel frustrated about the information.</p>
 <p><strong>Table 1</strong></p>
 <table class="caption-top table">
 <colgroup>
@@ -4957,7 +4953,6 @@ vertical-align: -.125em;
 6      A little</code></pre>
 </div>
 </div>
-</section>
 <section id="survey-responses" class="level1">
 <h1>Survey Responses</h1>
 <p>In the bar graphs, a first look at the data provides an general overview of the responses to the questions. These plots show how much participants agree or disagree to each question. For example, many participants can trust doctors a lot and less than family members.</p>
@@ -5297,20 +5292,20 @@ vertical-align: -.125em;
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>table1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="esneisvbyh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#esneisvbyh table {
+<div id="bvudujkojl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bvudujkojl table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#esneisvbyh thead, #esneisvbyh tbody, #esneisvbyh tfoot, #esneisvbyh tr, #esneisvbyh td, #esneisvbyh th {
+#bvudujkojl thead, #bvudujkojl tbody, #bvudujkojl tfoot, #bvudujkojl tr, #bvudujkojl td, #bvudujkojl th {
 border-style: none;
 }
-#esneisvbyh p {
+#bvudujkojl p {
 margin: 0;
 padding: 0;
 }
-#esneisvbyh .gt_table {
+#bvudujkojl .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -5335,11 +5330,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#esneisvbyh .gt_caption {
+#bvudujkojl .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#esneisvbyh .gt_title {
+#bvudujkojl .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -5350,7 +5345,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#esneisvbyh .gt_subtitle {
+#bvudujkojl .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -5361,7 +5356,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#esneisvbyh .gt_heading {
+#bvudujkojl .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -5372,12 +5367,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#esneisvbyh .gt_bottom_border {
+#bvudujkojl .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#esneisvbyh .gt_col_headings {
+#bvudujkojl .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -5391,7 +5386,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#esneisvbyh .gt_col_heading {
+#bvudujkojl .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -5410,7 +5405,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#esneisvbyh .gt_column_spanner_outer {
+#bvudujkojl .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -5421,13 +5416,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#esneisvbyh .gt_column_spanner_outer:first-child {
+#bvudujkojl .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#esneisvbyh .gt_column_spanner_outer:last-child {
+#bvudujkojl .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#esneisvbyh .gt_column_spanner {
+#bvudujkojl .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -5438,10 +5433,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#esneisvbyh .gt_spanner_row {
+#bvudujkojl .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#esneisvbyh .gt_group_heading {
+#bvudujkojl .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5466,7 +5461,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#esneisvbyh .gt_empty_group_heading {
+#bvudujkojl .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -5480,13 +5475,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#esneisvbyh .gt_from_md > :first-child {
+#bvudujkojl .gt_from_md > :first-child {
 margin-top: 0;
 }
-#esneisvbyh .gt_from_md > :last-child {
+#bvudujkojl .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#esneisvbyh .gt_row {
+#bvudujkojl .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5504,7 +5499,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#esneisvbyh .gt_stub {
+#bvudujkojl .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -5516,7 +5511,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#esneisvbyh .gt_stub_row_group {
+#bvudujkojl .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -5529,13 +5524,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#esneisvbyh .gt_row_group_first td {
+#bvudujkojl .gt_row_group_first td {
 border-top-width: 2px;
 }
-#esneisvbyh .gt_row_group_first th {
+#bvudujkojl .gt_row_group_first th {
 border-top-width: 2px;
 }
-#esneisvbyh .gt_summary_row {
+#bvudujkojl .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -5544,14 +5539,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#esneisvbyh .gt_first_summary_row {
+#bvudujkojl .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#esneisvbyh .gt_first_summary_row.thick {
+#bvudujkojl .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#esneisvbyh .gt_last_summary_row {
+#bvudujkojl .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5560,7 +5555,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#esneisvbyh .gt_grand_summary_row {
+#bvudujkojl .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -5569,7 +5564,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#esneisvbyh .gt_first_grand_summary_row {
+#bvudujkojl .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5578,7 +5573,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#esneisvbyh .gt_last_grand_summary_row_top {
+#bvudujkojl .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -5587,10 +5582,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#esneisvbyh .gt_striped {
+#bvudujkojl .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#esneisvbyh .gt_table_body {
+#bvudujkojl .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -5598,7 +5593,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#esneisvbyh .gt_footnotes {
+#bvudujkojl .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -5611,7 +5606,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#esneisvbyh .gt_footnote {
+#bvudujkojl .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -5619,7 +5614,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#esneisvbyh .gt_sourcenotes {
+#bvudujkojl .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -5632,64 +5627,64 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#esneisvbyh .gt_sourcenote {
+#bvudujkojl .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#esneisvbyh .gt_left {
+#bvudujkojl .gt_left {
 text-align: left;
 }
-#esneisvbyh .gt_center {
+#bvudujkojl .gt_center {
 text-align: center;
 }
-#esneisvbyh .gt_right {
+#bvudujkojl .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#esneisvbyh .gt_font_normal {
+#bvudujkojl .gt_font_normal {
 font-weight: normal;
 }
-#esneisvbyh .gt_font_bold {
+#bvudujkojl .gt_font_bold {
 font-weight: bold;
 }
-#esneisvbyh .gt_font_italic {
+#bvudujkojl .gt_font_italic {
 font-style: italic;
 }
-#esneisvbyh .gt_super {
+#bvudujkojl .gt_super {
 font-size: 65%;
 }
-#esneisvbyh .gt_footnote_marks {
+#bvudujkojl .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#esneisvbyh .gt_asterisk {
+#bvudujkojl .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#esneisvbyh .gt_indent_1 {
+#bvudujkojl .gt_indent_1 {
 text-indent: 5px;
 }
-#esneisvbyh .gt_indent_2 {
+#bvudujkojl .gt_indent_2 {
 text-indent: 10px;
 }
-#esneisvbyh .gt_indent_3 {
+#bvudujkojl .gt_indent_3 {
 text-indent: 15px;
 }
-#esneisvbyh .gt_indent_4 {
+#bvudujkojl .gt_indent_4 {
 text-indent: 20px;
 }
-#esneisvbyh .gt_indent_5 {
+#bvudujkojl .gt_indent_5 {
 text-indent: 25px;
 }
-#esneisvbyh .katex-display {
+#bvudujkojl .katex-display {
 display: inline-flex !important;
 margin-bottom: 0.75em !important;
 }
-#esneisvbyh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#bvudujkojl div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
 height: 0px !important;
 }
 </style>

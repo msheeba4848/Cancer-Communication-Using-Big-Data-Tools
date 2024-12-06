@@ -14,12 +14,7 @@ library(gtsummary)
 
 ```
 
-
-# Introduction
-
-In the digital age, where information is readily available at our fingertips, understanding how people navigate and trust health information is critical. With countless sources such as healthcare professionals, government agencies, social media, and online forums, it is essential to explore what the United States population believes about the reliability and accessibility of health information. To better understand this phenomenon, data was gathered from an online forum called Reddit. The Reddit dataset comprises textual data that offers valuable insights into the information shared online about health, particularly topics related to cancer. Using NLP methods, we can explore the most common topics and also the sentiment toward these topics. In addition to the textual data, we will also use the Health Information National Trends Survey (HINTS), which is administered by National Cancer Institute. In this survey, people were asked directly about what they think about health information. Using both the Reddit data and HINTS, we seek to understand trust, frustrations, and overall sentiment about healthcare and more specifically, cancer information.  
-
-The Health Information National Trends Survey (HINTS) is a national survey administered by the National Cancer Institute. The survey is completed by civilians in the United States. The information gathered from the survey seeks to gain an understanding of what people think about the accessibility of health information and the perceptions of what people think about the health information. The HINTS survey includes 527 questions. To focus on sentiment toward healthcare and cancer, we selected the questions in Table 1. In Table 1, participants were asked various questions about where they access health information, do they trust the provided health information, and if they feel frustrated about the information. 
+The HINTS survey includes 527 questions. To focus on sentiment toward healthcare and cancer, we selected the questions in Table 1. In Table 1, participants were asked various questions about where they access health information, do they trust the provided health information, and if they feel frustrated about the information. 
 
 **Table 1**
 

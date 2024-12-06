@@ -1,0 +1,24 @@
+
+
+### Reddit Questions and Searches 
+
+* Entire comments and subcomments that contain the word “cancer” 
+    * (Parallel to A1, B3a, B13 in HINTS?)
+    * Calculate frequency per year
+* Reddits and subreddits that contain the word “cancer”
+
+In addition, we combed the entire Reddit PushShift dataset provided based on the following criteria: 
+
+| **Variable**                  | **Description**                                                                                                                                                                                                                                     |
+|-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| FrustratingCancerSearch       | “Frustrating” or “frustrat” and “cancer” (HINTS A2b)                                                                                                                                                                                               |
+| CancerDoctorsTrust            | “Cancer” and “doctors” or “trust” (does not need to contain "trust" since trust is included in NRC sentiment analysis) (HINTS A3a)                                                                                                                |
+| CancerFamilyTrust             | “Cancer” and “family” or “friends” or various familial terms (e.g., “sister,” “brother,” “mother”) or “trust” (HINTS A3b)                                                                                                                         |
+| CancerGovHealthcarePrograms   | “Cancer” and government_healthcare_programs, such as ["Medicare," "Medicaid," "ACA," "NIH," etc.] or “trust” (HINTS A3c)                                                                                                                           |
+| CancerCharitiesTrust          | “Cancer” and cancer_charities, such as ["American Cancer Society," "LLS," "BCRF," "Livestrong," etc.] or “trust” (HINTS A3d)                                                                                                                      |
+| CancerReligiousOrgTrust       | “Cancer” and charitable_religious_organizations, such as ["Catholic Relief Services," "World Vision," "Salvation Army," etc.] or “trust” (HINTS A3e)                                                                                               |
+| CancerScientistsTrust         | “Cancer” and top_cancer_institutes, such as ["MD Anderson," "Mayo Clinic," "UCSF," "Roswell Park," etc.] or “trust” (HINTS A3f)                                                                                                                   |
+| InsuranceCancer               | “Insurance” and “cancer”                                                                                                                                                                                                                           |
+| MedicareCancer                | “Medicare” and “cancer”                                                                                                                                                                                                                            |
+| MedicaidCancer                | “Medicaid” and “cancer”                                                                                                                                                                                                                            |
+

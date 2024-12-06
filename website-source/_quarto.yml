@@ -8,7 +8,7 @@ website:
     left:
       - href: eda_hints.qmd
         text: HINTS EDA
-      - href: eda.qmd
+      - href: eda_reddit.qmd
         text: Reddit EDA
       - href: nlp.qmd
         text: NLP
