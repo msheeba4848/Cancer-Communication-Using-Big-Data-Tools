@@ -1,0 +1,926 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Reading Back Our Subsetted Data\n",
+        "\n",
+        "The data was subsetted from the Azure Blob location with the project data: wasbs://reddit-project@dsan6000fall2024.blob.core.windows.net/<DIRECTORY>/."
+      ],
+      "metadata": {
+        "nteract": {
+          "transient": {
+            "deleting": false
+          }
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "spark"
+      ],
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "application/vnd.livy.statement-meta+json": {
+              "spark_pool": "ba5e360d-f184-47a0-9859-76b5031b79e3",
+              "statement_id": 6,
+              "statement_ids": [
+                6
+              ],
+              "state": "finished",
+              "livy_statement_state": "available",
+              "spark_jobs": {
+                "numbers": {
+                  "SUCCEEDED": 0,
+                  "UNKNOWN": 0,
+                  "FAILED": 0,
+                  "RUNNING": 0
+                },
+                "jobs": [],
+                "limit": 20,
+                "rule": "ALL_DESC"
+              },
+              "session_id": "17",
+              "normalized_state": "finished",
+              "queued_time": "2024-12-06T01:42:34.1695866Z",
+              "session_start_time": "2024-12-06T01:42:34.2796345Z",
+              "execution_start_time": "2024-12-06T01:44:04.3107175Z",
+              "execution_finish_time": "2024-12-06T01:44:04.6888948Z",
+              "parent_msg_id": "575418a0-027f-4fbd-8ba5-00c759286483"
+            },
+            "text/plain": "StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 17, 6, Finished, Available, Finished)"
+          },
+          "metadata": {}
+        },
+        {
+          "output_type": "execute_result",
+          "execution_count": 11,
+          "data": {
+            "text/plain": "<pyspark.sql.session.SparkSession at 0x7f1ba77e4f40>",
+            "text/html": "\n            <div>\n                <p><b>SparkSession - hive</b></p>\n                \n        <div>\n            <p><b>SparkContext</b></p>\n\n            <p><a href=\"http://vm-3c328747:45979\">Spark UI</a></p>\n\n            <dl>\n              <dt>Version</dt>\n                <dd><code>v3.3.1.5.2.20240522.3</code></dd>\n              <dt>Master</dt>\n                <dd><code>yarn</code></dd>\n              <dt>AppName</dt>\n                <dd><code>Azure ML Experiment</code></dd>\n            </dl>\n        </div>\n        \n            </div>\n        "
+          },
+          "metadata": {}
+        }
+      ],
+      "execution_count": 1,
+      "metadata": {
+        "gather": {
+          "logged": 1733449444794
+        }
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#### Set up Data Configuration"
+      ],
+      "metadata": {
+        "nteract": {
+          "transient": {
+            "deleting": false
+          }
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# testing to make sure i can read the parquet file from the blob again\n",
+        "\n",
+        "# the parquet path again\n",
+        "output_path = f\"wasbs://{workspace_default_container}@{workspace_default_storage_account}.blob.core.windows.net/subset.parquet\"\n",
+        "\n",
+        "# Read the Parquet file back into a dataframe\n",
+        "df_read_back = spark.read.parquet(output_path)\n",
+        "\n",
+        "# Show first 5 rows\n",
+        "df_read_back.show(5)"
+      ],
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "application/vnd.livy.statement-meta+json": {
+              "spark_pool": "ba5e360d-f184-47a0-9859-76b5031b79e3",
+              "statement_id": 7,
+              "statement_ids": [
+                7
+              ],
+              "state": "finished",
+              "livy_statement_state": "available",
+              "spark_jobs": {
+                "numbers": {
+                  "SUCCEEDED": 0,
+                  "UNKNOWN": 0,
+                  "FAILED": 0,
+                  "RUNNING": 0
+                },
+                "jobs": [],
+                "limit": 20,
+                "rule": "ALL_DESC"
+              },
+              "session_id": "17",
+              "normalized_state": "finished",
+              "queued_time": "2024-12-06T01:45:17.9483602Z",
+              "session_start_time": null,
+              "execution_start_time": "2024-12-06T01:45:18.1473829Z",
+              "execution_finish_time": "2024-12-06T01:45:19.9734032Z",
+              "parent_msg_id": "45f6d001-c151-4c46-8d64-7b9c3769146e"
+            },
+            "text/plain": "StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 17, 7, Finished, Available, Finished)"
+          },
+          "metadata": {}
+        },
+        {
+          "output_type": "error",
+          "ename": "NameError",
+          "evalue": "name 'workspace_default_container' is not defined",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mNameError\u001b[0m                                 Traceback (most recent call last)",
+            "Cell \u001b[0;32mIn [13], line 4\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[38;5;66;03m# testing to make sure i can read the parquet file from the blob again\u001b[39;00m\n\u001b[1;32m      2\u001b[0m \n\u001b[1;32m      3\u001b[0m \u001b[38;5;66;03m# the parquet path again\u001b[39;00m\n\u001b[0;32m----> 4\u001b[0m output_path \u001b[38;5;241m=\u001b[39m \u001b[38;5;124mf\u001b[39m\u001b[38;5;124m\"\u001b[39m\u001b[38;5;124mwasbs://\u001b[39m\u001b[38;5;132;01m{\u001b[39;00m\u001b[43mworkspace_default_container\u001b[49m\u001b[38;5;132;01m}\u001b[39;00m\u001b[38;5;124m@\u001b[39m\u001b[38;5;132;01m{\u001b[39;00mworkspace_default_storage_account\u001b[38;5;132;01m}\u001b[39;00m\u001b[38;5;124m.blob.core.windows.net/subset.parquet\u001b[39m\u001b[38;5;124m\"\u001b[39m\n\u001b[1;32m      6\u001b[0m \u001b[38;5;66;03m# Read the Parquet file back into a dataframe\u001b[39;00m\n\u001b[1;32m      7\u001b[0m df_read_back \u001b[38;5;241m=\u001b[39m spark\u001b[38;5;241m.\u001b[39mread\u001b[38;5;241m.\u001b[39mparquet(output_path)\n",
+            "\u001b[0;31mNameError\u001b[0m: name 'workspace_default_container' is not defined"
+          ]
+        }
+      ],
+      "execution_count": 2,
+      "metadata": {
+        "jupyter": {
+          "source_hidden": false,
+          "outputs_hidden": false
+        },
+        "nteract": {
+          "transient": {
+            "deleting": false
+          }
+        },
+        "gather": {
+          "logged": 1733449520091
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# testing to make sure i can read the parquet file from the blob again\n",
+        "workspace_default_storage_account = \"projectgstoragedfb938a3e\"\n",
+        "workspace_default_container = \"azureml-blobstore-becc8696-e562-432e-af12-8a5e3e1f9b0f\"\n",
+        "workspace_wasbs_base_url = f\"wasbs://{workspace_default_container}@{workspace_default_storage_account}.blob.core.windows.net/\"\n",
+        "\n",
+        "# the parquet path again\n",
+        "output_path = f\"wasbs://{workspace_default_container}@{workspace_default_storage_account}.blob.core.windows.net/subset_job_0_1.parquet\"\n",
+        "\n",
+        "# Read the Parquet file back into a dataframe\n",
+        "df_read_back = spark.read.parquet(output_path)\n",
+        "\n",
+        "# Show first 5 rows\n",
+        "df_read_back.show(5)"
+      ],
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "application/vnd.livy.statement-meta+json": {
+              "spark_pool": "ba5e360d-f184-47a0-9859-76b5031b79e3",
+              "statement_id": 8,
+              "statement_ids": [
+                8
+              ],
+              "state": "submitted",
+              "livy_statement_state": "running",
+              "spark_jobs": {
+                "numbers": {
+                  "SUCCEEDED": 0,
+                  "UNKNOWN": 0,
+                  "FAILED": 0,
+                  "RUNNING": 1
+                },
+                "jobs": [
+                  {
+                    "displayName": "parquet at NativeMethodAccessorImpl.java:0",
+                    "dataWritten": 0,
+                    "dataRead": 0,
+                    "rowCount": 0,
+                    "usageDescription": "",
+                    "jobId": 0,
+                    "name": "parquet at NativeMethodAccessorImpl.java:0",
+                    "description": "Job group for statement 8:\n# testing to make sure i can read the parquet file from the blob again\nworkspace_default_storage_account = \"projectgstoragedfb938a3e\"\nworkspace_default_container = \"azureml-blobstore-becc8696-e562-432e-af12-8a5e3e1f9b0f\"\nworkspace_wasbs_base_url = f\"wasbs://{workspace_default_container}@{workspace_default_storage_account}.blob.core.windows.net/\"\n\n# the parquet path again\noutput_path = f\"wasbs://{workspace_default_container}@{workspace_default_storage_account}.blob.core.windows.net/subset_job_0_1.parquet\"\n\n# Read the Parquet file back into a dataframe\ndf_read_back = spark.read.parquet(output_path)\n\n# Show first 5 rows\ndf_read_back.show(5)",
+                    "submissionTime": "2024-12-06T01:45:31.630GMT",
+                    "stageIds": [
+                      0
+                    ],
+                    "jobGroup": "8",
+                    "status": "RUNNING",
+                    "numTasks": 1,
+                    "numActiveTasks": 1,
+                    "numCompletedTasks": 0,
+                    "numSkippedTasks": 0,
+                    "numFailedTasks": 0,
+                    "numKilledTasks": 0,
+                    "numCompletedIndices": 0,
+                    "numActiveStages": 1,
+                    "numCompletedStages": 0,
+                    "numSkippedStages": 0,
+                    "numFailedStages": 0,
+                    "killedTasksSummary": {}
+                  }
+                ],
+                "limit": 20,
+                "rule": "ALL_DESC"
+              },
+              "session_id": "17",
+              "normalized_state": "running",
+              "queued_time": "2024-12-06T01:45:30.4158482Z",
+              "session_start_time": null,
+              "execution_start_time": "2024-12-06T01:45:30.5377736Z",
+              "execution_finish_time": null,
+              "parent_msg_id": "aa7066c3-7383-4ff3-9d16-037a9c029959"
+            },
+            "text/plain": "StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 17, 8, Submitted, Running, Running)"
+          },
+          "metadata": {}
+        }
+      ],
+      "execution_count": 3,
+      "metadata": {
+        "jupyter": {
+          "source_hidden": false,
+          "outputs_hidden": false
+        },
+        "nteract": {
+          "transient": {
+            "deleting": false
+          }
+        },
+        "gather": {
+          "logged": 1733031176121
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "comments_row_count = df_read_back.count()\n",
+        "comment_col_count = len(df_read_back.columns)\n",
+        "print(f\"shape of the comments dataframe is {comments_row_count:,}x{comment_col_count}\")"
+      ],
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "application/vnd.livy.statement-meta+json": {
+              "spark_pool": "ba5e360d-f184-47a0-9859-76b5031b79e3",
+              "statement_id": 15,
+              "statement_ids": [
+                15
+              ],
+              "state": "finished",
+              "livy_statement_state": "available",
+              "spark_jobs": {
+                "numbers": {
+                  "FAILED": 0,
+                  "SUCCEEDED": 2,
+                  "RUNNING": 0,
+                  "UNKNOWN": 0
+                },
+                "jobs": [
+                  {
+                    "displayName": "count at NativeMethodAccessorImpl.java:0",
+                    "dataWritten": 0,
+                    "dataRead": 6784,
+                    "rowCount": 115,
+                    "usageDescription": "",
+                    "jobId": 8,
+                    "name": "count at NativeMethodAccessorImpl.java:0",
+                    "description": "Job group for statement 15:\ncomments_row_count = df_read_back.count()\ncomment_col_count = len(df_read_back.columns)\nprint(f\"shape of the comments dataframe is {comments_row_count:,}x{comment_col_count}\")",
+                    "submissionTime": "2024-12-01T05:34:34.483GMT",
+                    "completionTime": "2024-12-01T05:34:34.745GMT",
+                    "stageIds": [
+                      9,
+                      10
+                    ],
+                    "jobGroup": "15",
+                    "status": "SUCCEEDED",
+                    "numTasks": 116,
+                    "numActiveTasks": 0,
+                    "numCompletedTasks": 1,
+                    "numSkippedTasks": 115,
+                    "numFailedTasks": 0,
+                    "numKilledTasks": 0,
+                    "numCompletedIndices": 1,
+                    "numActiveStages": 0,
+                    "numCompletedStages": 1,
+                    "numSkippedStages": 1,
+                    "numFailedStages": 0,
+                    "killedTasksSummary": {}
+                  },
+                  {
+                    "displayName": "count at NativeMethodAccessorImpl.java:0",
+                    "dataWritten": 6784,
+                    "dataRead": 36600832,
+                    "rowCount": 406288,
+                    "usageDescription": "",
+                    "jobId": 7,
+                    "name": "count at NativeMethodAccessorImpl.java:0",
+                    "description": "Job group for statement 15:\ncomments_row_count = df_read_back.count()\ncomment_col_count = len(df_read_back.columns)\nprint(f\"shape of the comments dataframe is {comments_row_count:,}x{comment_col_count}\")",
+                    "submissionTime": "2024-12-01T05:34:00.337GMT",
+                    "completionTime": "2024-12-01T05:34:34.431GMT",
+                    "stageIds": [
+                      8
+                    ],
+                    "jobGroup": "15",
+                    "status": "SUCCEEDED",
+                    "numTasks": 115,
+                    "numActiveTasks": 0,
+                    "numCompletedTasks": 115,
+                    "numSkippedTasks": 0,
+                    "numFailedTasks": 0,
+                    "numKilledTasks": 0,
+                    "numCompletedIndices": 115,
+                    "numActiveStages": 0,
+                    "numCompletedStages": 1,
+                    "numSkippedStages": 0,
+                    "numFailedStages": 0,
+                    "killedTasksSummary": {}
+                  }
+                ],
+                "limit": 20,
+                "rule": "ALL_DESC"
+              },
+              "session_id": "8",
+              "normalized_state": "finished",
+              "queued_time": "2024-12-01T05:33:59.8233025Z",
+              "session_start_time": null,
+              "execution_start_time": "2024-12-01T05:34:00.1135427Z",
+              "execution_finish_time": "2024-12-01T05:34:35.4041371Z",
+              "parent_msg_id": "30c3f579-ccd0-4157-83ec-a428cca1099a"
+            },
+            "text/plain": "StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 8, 15, Finished, Available, Finished)"
+          },
+          "metadata": {}
+        },
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": "shape of the comments dataframe is 406,173x19\n"
+        }
+      ],
+      "execution_count": 10,
+      "metadata": {
+        "jupyter": {
+          "source_hidden": false,
+          "outputs_hidden": false
+        },
+        "nteract": {
+          "transient": {
+            "deleting": false
+          }
+        },
+        "gather": {
+          "logged": 1733031275502
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# the parquet path again\n",
+        "output_path = f\"wasbs://{workspace_default_container}@{workspace_default_storage_account}.blob.core.windows.net/cancer/comments\"\n",
+        "\n",
+        "# Read the Parquet file back into a dataframe\n",
+        "df_read_back = spark.read.parquet(output_path)\n",
+        "\n",
+        "# Show first 5 rows\n",
+        "df_read_back.show(5)"
+      ],
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "application/vnd.livy.statement-meta+json": {
+              "spark_pool": "ba5e360d-f184-47a0-9859-76b5031b79e3",
+              "statement_id": 16,
+              "statement_ids": [
+                16
+              ],
+              "state": "finished",
+              "livy_statement_state": "available",
+              "spark_jobs": {
+                "numbers": {
+                  "FAILED": 0,
+                  "SUCCEEDED": 2,
+                  "RUNNING": 0,
+                  "UNKNOWN": 0
+                },
+                "jobs": [
+                  {
+                    "displayName": "showString at NativeMethodAccessorImpl.java:0",
+                    "dataWritten": 0,
+                    "dataRead": 224733,
+                    "rowCount": 1745,
+                    "usageDescription": "",
+                    "jobId": 10,
+                    "name": "showString at NativeMethodAccessorImpl.java:0",
+                    "description": "Job group for statement 16:\n# the parquet path again\noutput_path = f\"wasbs://{workspace_default_container}@{workspace_default_storage_account}.blob.core.windows.net/cancer/comments\"\n\n# Read the Parquet file back into a dataframe\ndf_read_back = spark.read.parquet(output_path)\n\n# Show first 5 rows\ndf_read_back.show(5)",
+                    "submissionTime": "2024-12-01T05:41:28.464GMT",
+                    "completionTime": "2024-12-01T05:41:28.715GMT",
+                    "stageIds": [
+                      12
+                    ],
+                    "jobGroup": "16",
+                    "status": "SUCCEEDED",
+                    "numTasks": 1,
+                    "numActiveTasks": 0,
+                    "numCompletedTasks": 1,
+                    "numSkippedTasks": 0,
+                    "numFailedTasks": 0,
+                    "numKilledTasks": 0,
+                    "numCompletedIndices": 1,
+                    "numActiveStages": 0,
+                    "numCompletedStages": 1,
+                    "numSkippedStages": 0,
+                    "numFailedStages": 0,
+                    "killedTasksSummary": {}
+                  },
+                  {
+                    "displayName": "parquet at NativeMethodAccessorImpl.java:0",
+                    "dataWritten": 0,
+                    "dataRead": 0,
+                    "rowCount": 0,
+                    "usageDescription": "",
+                    "jobId": 9,
+                    "name": "parquet at NativeMethodAccessorImpl.java:0",
+                    "description": "Job group for statement 16:\n# the parquet path again\noutput_path = f\"wasbs://{workspace_default_container}@{workspace_default_storage_account}.blob.core.windows.net/cancer/comments\"\n\n# Read the Parquet file back into a dataframe\ndf_read_back = spark.read.parquet(output_path)\n\n# Show first 5 rows\ndf_read_back.show(5)",
+                    "submissionTime": "2024-12-01T05:41:28.087GMT",
+                    "completionTime": "2024-12-01T05:41:28.235GMT",
+                    "stageIds": [
+                      11
+                    ],
+                    "jobGroup": "16",
+                    "status": "SUCCEEDED",
+                    "numTasks": 1,
+                    "numActiveTasks": 0,
+                    "numCompletedTasks": 1,
+                    "numSkippedTasks": 0,
+                    "numFailedTasks": 0,
+                    "numKilledTasks": 0,
+                    "numCompletedIndices": 1,
+                    "numActiveStages": 0,
+                    "numCompletedStages": 1,
+                    "numSkippedStages": 0,
+                    "numFailedStages": 0,
+                    "killedTasksSummary": {}
+                  }
+                ],
+                "limit": 20,
+                "rule": "ALL_DESC"
+              },
+              "session_id": "8",
+              "normalized_state": "finished",
+              "queued_time": "2024-12-01T05:41:26.856994Z",
+              "session_start_time": null,
+              "execution_start_time": "2024-12-01T05:41:27.0975897Z",
+              "execution_finish_time": "2024-12-01T05:41:29.6600898Z",
+              "parent_msg_id": "bee36836-5277-40c3-8c64-9eddd37aac90"
+            },
+            "text/plain": "StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 8, 16, Finished, Available, Finished)"
+          },
+          "metadata": {}
+        },
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": "+--------------------+----------------------+--------------------+--------------------+----------------+-----------+-------------+------+------+-------+----------+----------+------------+-----+--------+-----------------+------------+----+---+\n|              author|author_flair_css_class|   author_flair_text|                body|controversiality|created_utc|distinguished|edited|gilded|     id|   link_id| parent_id|retrieved_on|score|stickied|        subreddit|subreddit_id|yyyy| mm|\n+--------------------+----------------------+--------------------+--------------------+----------------+-----------+-------------+------+------+-------+----------+----------+------------+-----+--------+-----------------+------------+----+---+\n|        Own_Owl_6409|                  null|                null|It’s too late it’...|               0| 1714691160|         null|  null|     0|l2bh4qr|t3_1ciqqgk|t1_l2b0d5x|  1714691174|    8|   false|UlcerativeColitis|    t5_2tb9x|2024|  5|\n|          GoldAd9596|                  null|                null|I have a question...|               0| 1714691162|         null|  null|     0|l2bh4zz|t3_1cilpx7|t3_1cilpx7|  1714691177|    1|   false|        predental|    t5_2ucup|2024|  5|\n|              ivy007|                  null|BSN RN - Hematolo...|Not really. I’m j...|               0| 1714691164|         null|  null|     0|l2bh548|t3_1cfkkym|t1_l1sx6q1|  1714691181|    2|   false|          nursing|    t5_2ra72|2024|  5|\n|    Careless_Web2731|                  null|                null|Honestly. This is...|               0| 1714691184|         null|  null|     0|l2bh6vy|t3_1cilfk1|t1_l2a12qe|  1714691198|    3|   false|          nursing|    t5_2ra72|2024|  5|\n|RealisticShopping625|                  null|                null|I have being read...|               0| 1714691187|         null|  null|     0|l2bh73y| t3_j6ssbi| t3_j6ssbi|  1714691201|    1|   false|      coloncancer|    t5_3g1p0|2024|  5|\n+--------------------+----------------------+--------------------+--------------------+----------------+-----------+-------------+------+------+-------+----------+----------+------------+-----+--------+-----------------+------------+----+---+\nonly showing top 5 rows\n\n"
+        }
+      ],
+      "execution_count": 11,
+      "metadata": {
+        "jupyter": {
+          "source_hidden": false,
+          "outputs_hidden": false
+        },
+        "nteract": {
+          "transient": {
+            "deleting": false
+          }
+        },
+        "gather": {
+          "logged": 1733031689736
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "comments_row_count = df_read_back.count()\n",
+        "comment_col_count = len(df_read_back.columns)\n",
+        "print(f\"shape of the comments dataframe is {comments_row_count:,}x{comment_col_count}\")"
+      ],
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "application/vnd.livy.statement-meta+json": {
+              "spark_pool": "ba5e360d-f184-47a0-9859-76b5031b79e3",
+              "statement_id": 17,
+              "statement_ids": [
+                17
+              ],
+              "state": "finished",
+              "livy_statement_state": "available",
+              "spark_jobs": {
+                "numbers": {
+                  "FAILED": 0,
+                  "SUCCEEDED": 2,
+                  "RUNNING": 0,
+                  "UNKNOWN": 0
+                },
+                "jobs": [
+                  {
+                    "displayName": "count at NativeMethodAccessorImpl.java:0",
+                    "dataWritten": 0,
+                    "dataRead": 6961,
+                    "rowCount": 118,
+                    "usageDescription": "",
+                    "jobId": 12,
+                    "name": "count at NativeMethodAccessorImpl.java:0",
+                    "description": "Job group for statement 17:\ncomments_row_count = df_read_back.count()\ncomment_col_count = len(df_read_back.columns)\nprint(f\"shape of the comments dataframe is {comments_row_count:,}x{comment_col_count}\")",
+                    "submissionTime": "2024-12-01T05:42:22.123GMT",
+                    "completionTime": "2024-12-01T05:42:22.194GMT",
+                    "stageIds": [
+                      15,
+                      14
+                    ],
+                    "jobGroup": "17",
+                    "status": "SUCCEEDED",
+                    "numTasks": 119,
+                    "numActiveTasks": 0,
+                    "numCompletedTasks": 1,
+                    "numSkippedTasks": 118,
+                    "numFailedTasks": 0,
+                    "numKilledTasks": 0,
+                    "numCompletedIndices": 1,
+                    "numActiveStages": 0,
+                    "numCompletedStages": 1,
+                    "numSkippedStages": 1,
+                    "numFailedStages": 0,
+                    "killedTasksSummary": {}
+                  },
+                  {
+                    "displayName": "count at NativeMethodAccessorImpl.java:0",
+                    "dataWritten": 6961,
+                    "dataRead": 32049406,
+                    "rowCount": 4070692,
+                    "usageDescription": "",
+                    "jobId": 11,
+                    "name": "count at NativeMethodAccessorImpl.java:0",
+                    "description": "Job group for statement 17:\ncomments_row_count = df_read_back.count()\ncomment_col_count = len(df_read_back.columns)\nprint(f\"shape of the comments dataframe is {comments_row_count:,}x{comment_col_count}\")",
+                    "submissionTime": "2024-12-01T05:41:53.885GMT",
+                    "completionTime": "2024-12-01T05:42:22.085GMT",
+                    "stageIds": [
+                      13
+                    ],
+                    "jobGroup": "17",
+                    "status": "SUCCEEDED",
+                    "numTasks": 118,
+                    "numActiveTasks": 0,
+                    "numCompletedTasks": 118,
+                    "numSkippedTasks": 0,
+                    "numFailedTasks": 0,
+                    "numKilledTasks": 0,
+                    "numCompletedIndices": 118,
+                    "numActiveStages": 0,
+                    "numCompletedStages": 1,
+                    "numSkippedStages": 0,
+                    "numFailedStages": 0,
+                    "killedTasksSummary": {}
+                  }
+                ],
+                "limit": 20,
+                "rule": "ALL_DESC"
+              },
+              "session_id": "8",
+              "normalized_state": "finished",
+              "queued_time": "2024-12-01T05:41:53.5837338Z",
+              "session_start_time": null,
+              "execution_start_time": "2024-12-01T05:41:53.7025225Z",
+              "execution_finish_time": "2024-12-01T05:42:23.3799681Z",
+              "parent_msg_id": "003466c0-4293-4471-bf2f-89275a1c0625"
+            },
+            "text/plain": "StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 8, 17, Finished, Available, Finished)"
+          },
+          "metadata": {}
+        },
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": "shape of the comments dataframe is 4,070,574x19\n"
+        }
+      ],
+      "execution_count": 12,
+      "metadata": {
+        "jupyter": {
+          "source_hidden": false,
+          "outputs_hidden": false
+        },
+        "nteract": {
+          "transient": {
+            "deleting": false
+          }
+        },
+        "gather": {
+          "logged": 1733031743489
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# the parquet path again\n",
+        "output_path = f\"wasbs://{workspace_default_container}@{workspace_default_storage_account}.blob.core.windows.net/cancer/submissions\"\n",
+        "\n",
+        "# Read the Parquet file back into a dataframe\n",
+        "df_read_back = spark.read.parquet(output_path)\n",
+        "\n",
+        "# Show first 5 rows\n",
+        "df_read_back.show(5)"
+      ],
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "application/vnd.livy.statement-meta+json": {
+              "spark_pool": "ba5e360d-f184-47a0-9859-76b5031b79e3",
+              "statement_id": 19,
+              "statement_ids": [
+                19
+              ],
+              "state": "finished",
+              "livy_statement_state": "available",
+              "spark_jobs": {
+                "numbers": {
+                  "FAILED": 0,
+                  "SUCCEEDED": 2,
+                  "RUNNING": 0,
+                  "UNKNOWN": 0
+                },
+                "jobs": [
+                  {
+                    "displayName": "showString at NativeMethodAccessorImpl.java:0",
+                    "dataWritten": 0,
+                    "dataRead": 496129,
+                    "rowCount": 1543,
+                    "usageDescription": "",
+                    "jobId": 14,
+                    "name": "showString at NativeMethodAccessorImpl.java:0",
+                    "description": "Job group for statement 19:\n# the parquet path again\noutput_path = f\"wasbs://{workspace_default_container}@{workspace_default_storage_account}.blob.core.windows.net/cancer/submissions\"\n\n# Read the Parquet file back into a dataframe\ndf_read_back = spark.read.parquet(output_path)\n\n# Show first 5 rows\ndf_read_back.show(5)",
+                    "submissionTime": "2024-12-01T05:44:01.447GMT",
+                    "completionTime": "2024-12-01T05:44:01.756GMT",
+                    "stageIds": [
+                      17
+                    ],
+                    "jobGroup": "19",
+                    "status": "SUCCEEDED",
+                    "numTasks": 1,
+                    "numActiveTasks": 0,
+                    "numCompletedTasks": 1,
+                    "numSkippedTasks": 0,
+                    "numFailedTasks": 0,
+                    "numKilledTasks": 0,
+                    "numCompletedIndices": 1,
+                    "numActiveStages": 0,
+                    "numCompletedStages": 1,
+                    "numSkippedStages": 0,
+                    "numFailedStages": 0,
+                    "killedTasksSummary": {}
+                  },
+                  {
+                    "displayName": "parquet at NativeMethodAccessorImpl.java:0",
+                    "dataWritten": 0,
+                    "dataRead": 0,
+                    "rowCount": 0,
+                    "usageDescription": "",
+                    "jobId": 13,
+                    "name": "parquet at NativeMethodAccessorImpl.java:0",
+                    "description": "Job group for statement 19:\n# the parquet path again\noutput_path = f\"wasbs://{workspace_default_container}@{workspace_default_storage_account}.blob.core.windows.net/cancer/submissions\"\n\n# Read the Parquet file back into a dataframe\ndf_read_back = spark.read.parquet(output_path)\n\n# Show first 5 rows\ndf_read_back.show(5)",
+                    "submissionTime": "2024-12-01T05:44:00.996GMT",
+                    "completionTime": "2024-12-01T05:44:01.147GMT",
+                    "stageIds": [
+                      16
+                    ],
+                    "jobGroup": "19",
+                    "status": "SUCCEEDED",
+                    "numTasks": 1,
+                    "numActiveTasks": 0,
+                    "numCompletedTasks": 1,
+                    "numSkippedTasks": 0,
+                    "numFailedTasks": 0,
+                    "numKilledTasks": 0,
+                    "numCompletedIndices": 1,
+                    "numActiveStages": 0,
+                    "numCompletedStages": 1,
+                    "numSkippedStages": 0,
+                    "numFailedStages": 0,
+                    "killedTasksSummary": {}
+                  }
+                ],
+                "limit": 20,
+                "rule": "ALL_DESC"
+              },
+              "session_id": "8",
+              "normalized_state": "finished",
+              "queued_time": "2024-12-01T05:44:00.5094749Z",
+              "session_start_time": null,
+              "execution_start_time": "2024-12-01T05:44:00.653542Z",
+              "execution_finish_time": "2024-12-01T05:44:02.242377Z",
+              "parent_msg_id": "213a20f4-bdff-4bcb-8412-7d28947b8e2d"
+            },
+            "text/plain": "StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 8, 19, Finished, Available, Finished)"
+          },
+          "metadata": {}
+        },
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": "+--------------------+----------------------+--------------------+-----------+-------------+---------------+------+-------+-------+------+------------+-------+----------+------------+-----+--------------------+--------+---------+------------+--------------------+--------------------+----+---+\n|              author|author_flair_css_class|   author_flair_text|created_utc|distinguished|         domain|edited|     id|is_self|locked|num_comments|over_18|quarantine|retrieved_on|score|            selftext|stickied|subreddit|subreddit_id|               title|                 url|yyyy| mm|\n+--------------------+----------------------+--------------------+-----------+-------------+---------------+------+-------+-------+------+------------+-------+----------+------------+-----+--------------------+--------+---------+------------+--------------------+--------------------+----+---+\n|Kitchen-Security5235|               default|Layperson/not ver...| 1722354598|         null|   self.AskDocs|  null|1efwtcc|   true| false|           1|  false|     false|  1722354612|    1|Hi everyone. I ha...|   false|  AskDocs|    t5_2xtuc|         Concussion?|https://www.reddi...|2024|  7|\n|    One_Program_1613|                  null|                null| 1722354660|         null|digistore24.com|  null|1efwu99|  false| false|           0|  false|     false|  1722354676|    1|                    |   false|   Health|    t5_2qh9z|These \"unusual ne...|https://www.digis...|2024|  7|\n|      heyheyitsamber|               default|Layperson/not ver...| 1722354710|         null|   self.AskDocs|  null|1efwuz6|   true| false|           2|  false|     false|  1722354724|    0|25 year old femal...|   false|  AskDocs|    t5_2xtuc|Should I still ta...|https://www.reddi...|2024|  7|\n|       oldsoul070924|                  null|                null| 1722354827|         null|   self.AskDocs|  null|1efwwrg|   true| false|           1|  false|     false|  1722354843|    1|           [removed]|   false|  AskDocs|    t5_2xtuc|Mole on nose got ...|https://www.reddi...|2024|  7|\n|              jjjaax|               default|Layperson/not ver...| 1722354938|         null|   self.AskDocs|  null|1efwygz|   true| false|           3|  false|     false|  1722354953|    1|27 year old male,...|   false|  AskDocs|    t5_2xtuc|Is this Skin Canc...|https://www.reddi...|2024|  7|\n+--------------------+----------------------+--------------------+-----------+-------------+---------------+------+-------+-------+------+------------+-------+----------+------------+-----+--------------------+--------+---------+------------+--------------------+--------------------+----+---+\nonly showing top 5 rows\n\n"
+        }
+      ],
+      "execution_count": 14,
+      "metadata": {
+        "jupyter": {
+          "source_hidden": false,
+          "outputs_hidden": false
+        },
+        "nteract": {
+          "transient": {
+            "deleting": false
+          }
+        },
+        "gather": {
+          "logged": 1733031842317
+        }
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "comments_row_count = df_read_back.count()\n",
+        "comment_col_count = len(df_read_back.columns)\n",
+        "print(f\"shape of the comments dataframe is {comments_row_count:,}x{comment_col_count}\")"
+      ],
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "application/vnd.livy.statement-meta+json": {
+              "spark_pool": "ba5e360d-f184-47a0-9859-76b5031b79e3",
+              "statement_id": 20,
+              "statement_ids": [
+                20
+              ],
+              "state": "finished",
+              "livy_statement_state": "available",
+              "spark_jobs": {
+                "numbers": {
+                  "FAILED": 0,
+                  "SUCCEEDED": 2,
+                  "RUNNING": 0,
+                  "UNKNOWN": 0
+                },
+                "jobs": [
+                  {
+                    "displayName": "count at NativeMethodAccessorImpl.java:0",
+                    "dataWritten": 0,
+                    "dataRead": 1180,
+                    "rowCount": 20,
+                    "usageDescription": "",
+                    "jobId": 16,
+                    "name": "count at NativeMethodAccessorImpl.java:0",
+                    "description": "Job group for statement 20:\ncomments_row_count = df_read_back.count()\ncomment_col_count = len(df_read_back.columns)\nprint(f\"shape of the comments dataframe is {comments_row_count:,}x{comment_col_count}\")",
+                    "submissionTime": "2024-12-01T05:44:23.688GMT",
+                    "completionTime": "2024-12-01T05:44:23.736GMT",
+                    "stageIds": [
+                      19,
+                      20
+                    ],
+                    "jobGroup": "20",
+                    "status": "SUCCEEDED",
+                    "numTasks": 21,
+                    "numActiveTasks": 0,
+                    "numCompletedTasks": 1,
+                    "numSkippedTasks": 20,
+                    "numFailedTasks": 0,
+                    "numKilledTasks": 0,
+                    "numCompletedIndices": 1,
+                    "numActiveStages": 0,
+                    "numCompletedStages": 1,
+                    "numSkippedStages": 1,
+                    "numFailedStages": 0,
+                    "killedTasksSummary": {}
+                  },
+                  {
+                    "displayName": "count at NativeMethodAccessorImpl.java:0",
+                    "dataWritten": 1180,
+                    "dataRead": 6026250,
+                    "rowCount": 649025,
+                    "usageDescription": "",
+                    "jobId": 15,
+                    "name": "count at NativeMethodAccessorImpl.java:0",
+                    "description": "Job group for statement 20:\ncomments_row_count = df_read_back.count()\ncomment_col_count = len(df_read_back.columns)\nprint(f\"shape of the comments dataframe is {comments_row_count:,}x{comment_col_count}\")",
+                    "submissionTime": "2024-12-01T05:44:15.829GMT",
+                    "completionTime": "2024-12-01T05:44:23.650GMT",
+                    "stageIds": [
+                      18
+                    ],
+                    "jobGroup": "20",
+                    "status": "SUCCEEDED",
+                    "numTasks": 20,
+                    "numActiveTasks": 0,
+                    "numCompletedTasks": 20,
+                    "numSkippedTasks": 0,
+                    "numFailedTasks": 0,
+                    "numKilledTasks": 0,
+                    "numCompletedIndices": 20,
+                    "numActiveStages": 0,
+                    "numCompletedStages": 1,
+                    "numSkippedStages": 0,
+                    "numFailedStages": 0,
+                    "killedTasksSummary": {}
+                  }
+                ],
+                "limit": 20,
+                "rule": "ALL_DESC"
+              },
+              "session_id": "8",
+              "normalized_state": "finished",
+              "queued_time": "2024-12-01T05:44:15.5691202Z",
+              "session_start_time": null,
+              "execution_start_time": "2024-12-01T05:44:15.691285Z",
+              "execution_finish_time": "2024-12-01T05:44:25.7335259Z",
+              "parent_msg_id": "d9a16abf-3a24-4ed8-b5ac-61216221ff58"
+            },
+            "text/plain": "StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 8, 20, Finished, Available, Finished)"
+          },
+          "metadata": {}
+        },
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": "shape of the comments dataframe is 649,005x23\n"
+        }
+      ],
+      "execution_count": 15,
+      "metadata": {
+        "jupyter": {
+          "source_hidden": false,
+          "outputs_hidden": false
+        },
+        "nteract": {
+          "transient": {
+            "deleting": false
+          }
+        },
+        "gather": {
+          "logged": 1733031865807
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "synapse_pyspark",
+      "language": "Python",
+      "display_name": "Synapse PySpark"
+    },
+    "language_info": {
+      "name": "python",
+      "version": "3.8.0",
+      "mimetype": "text/x-python",
+      "file_extension": ".py",
+      "pygments_lexer": "ipython",
+      "codemirror_mode": "ipython",
+      "nbconvert_exporter": "python"
+    },
+    "microsoft": {
+      "ms_spell_check": {
+        "ms_spell_check_language": "en"
+      },
+      "host": {
+        "AzureML": {
+          "notebookHasBeenCompleted": true
+        }
+      }
+    },
+    "kernel_info": {
+      "name": "synapse_pyspark"
+    },
+    "nteract": {
+      "version": "nteract-front-end@1.0.0"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 2
+}
