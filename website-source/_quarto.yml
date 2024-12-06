@@ -3,12 +3,10 @@ project:
   output-dir: ../docs
 
 website:
-  title: Website {{< var topic.name >}}
+  title: Cancer & Reddit
   navbar:
     left:
-      - href: summary.qmd
-        text: Introduction
-      - href: ../code/utils/eda_hints.qmd
+      - href: eda_hints.qmd
         text: HINTS EDA
       - href: eda.qmd
         text: Reddit EDA
@@ -28,10 +26,8 @@ website:
       Made with {{< fa brands r-project >}} and [Quarto](https://quarto.org/)<br>
       [View the source at {{< fa brands github >}} GitHub]({{< var course.github >}})
 
-
 format:
   html:
     theme: cosmo
     css: styles.css
     toc: true
-
