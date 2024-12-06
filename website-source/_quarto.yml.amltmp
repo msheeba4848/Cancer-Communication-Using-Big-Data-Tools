@@ -6,7 +6,7 @@ website:
   title: Website {{< var topic.name >}}
   navbar:
     left:
-      - href: index.qmd
+      - href: summary.qmd
         text: Introduction
       - href: eda.qmd
         text: EDA
