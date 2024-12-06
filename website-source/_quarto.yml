@@ -8,8 +8,10 @@ website:
     left:
       - href: summary.qmd
         text: Introduction
+      - href: ../code/utils/eda_hints.qmd
+        text: HINTS EDA
       - href: eda.qmd
-        text: EDA
+        text: Reddit EDA
       - href: nlp.qmd
         text: NLP
       - href: ml.qmd
