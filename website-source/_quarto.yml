@@ -6,6 +6,8 @@ website:
   title: Cancer & Reddit
   navbar:
     left:
+      - href: data_cleaning.ipynb
+        text: Data Cleaning
       - href: eda_hints.qmd
         text: HINTS EDA
       - href: eda_reddit.qmd
