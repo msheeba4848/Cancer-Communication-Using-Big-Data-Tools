@@ -73,6 +73,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-6bd9cfa162949bde0a231f530c97869d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -100,12 +102,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
-<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -175,7 +178,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#random-forest-model-comparison" id="toc-random-forest-model-comparison" class="nav-link" data-scroll-target="#random-forest-model-comparison">Random Forest Model Comparison</a></li>
   <li><a href="#takeaways-from-random-forest-models" id="toc-takeaways-from-random-forest-models" class="nav-link" data-scroll-target="#takeaways-from-random-forest-models">Takeaways from Random Forest Models</a></li>
   </ul></li>
-  <li><a href="#hints-xgboost" id="toc-hints-xgboost" class="nav-link" data-scroll-target="#hints-xgboost">HINTS | XGBoost</a></li>
+  <li><a href="#hints-xgboost" id="toc-hints-xgboost" class="nav-link" data-scroll-target="#hints-xgboost">HINTS | XGBoost</a>
+  <ul class="collapse">
+  <li><a href="#big-chunk" id="toc-big-chunk" class="nav-link" data-scroll-target="#big-chunk">Big Chunk</a></li>
+  </ul></li>
   <li><a href="#hints-conclusion-comparing-random-forest-and-xgboost" id="toc-hints-conclusion-comparing-random-forest-and-xgboost" class="nav-link" data-scroll-target="#hints-conclusion-comparing-random-forest-and-xgboost">HINTS | Conclusion: Comparing Random Forest and XGBoost</a></li>
   </ul>
 </nav>
@@ -202,7 +208,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div id="cell-1" class="cell" data-execution_count="216">
+<div id="11190f43" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Libraries </span></span>
@@ -223,7 +229,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="hints-prepartion-of-data" class="level2">
 <h2 class="anchored" data-anchor-id="hints-prepartion-of-data">HINTS Prepartion of Data</h2>
-<div id="cell-3" class="cell" data-execution_count="223">
+<div id="f6965b51" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in data</span></span>
@@ -337,7 +343,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-4" class="cell" data-execution_count="224">
+<div id="d08c169a" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the number of NA or NaN values in each column</span></span>
@@ -364,13 +370,13 @@ dtype: int64
 (323, 12)</code></pre>
 </div>
 </div>
-<div id="cell-5" class="cell" data-execution_count="225">
+<div id="5840abbe" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>hints_cleaned_cleaned <span class="op">=</span> hints_cleaned.dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-6" class="cell" data-execution_count="226">
+<div id="2c0bb4a6" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the mappings</span></span>
@@ -555,7 +561,7 @@ dtype: object</code></pre>
 </section>
 <section id="hints-spearman-correlation" class="level1">
 <h1>HINTS | Spearman Correlation</h1>
-<div id="cell-8" class="cell" data-execution_count="227">
+<div id="1368a4fa" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -769,7 +775,7 @@ MisleadingHealthInfo       -0.061407
 Name: TrustHCSystem, dtype: float64</code></pre>
 </div>
 </div>
-<div id="cell-9" class="cell" data-execution_count="228">
+<div id="b6773170" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Heat Map of Spearman Correlation</span></span>
@@ -797,17 +803,17 @@ Name: TrustHCSystem, dtype: float64</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="hints_regression_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="hints_regression_files/figure-html/cell-8-output-1.png" width="867" height="757" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-10" class="cell" data-execution_count="229">
+<div id="4a3981dc" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>correlation_data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="229">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 
 
@@ -902,7 +908,7 @@ Name: TrustHCSystem, dtype: float64</code></pre>
 </section>
 <section id="hints-ordinal-regression" class="level1">
 <h1>HINTS | Ordinal Regression</h1>
-<div id="cell-12" class="cell" data-execution_count="230">
+<div id="efec48e0" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert all numeric columns to integers</span></span>
@@ -910,7 +916,7 @@ Name: TrustHCSystem, dtype: float64</code></pre>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>hints_cleaned[numeric_columns] <span class="op">=</span> hints_cleaned[numeric_columns].astype(<span class="bu">int</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-13" class="cell" data-execution_count="231">
+<div id="1806a1f4" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -963,8 +969,8 @@ Name: TrustHCSystem, dtype: float64</code></pre>
 Dep. Variable:                      y   Log-Likelihood:                -150.54
 Model:                   OrderedModel   AIC:                             321.1
 Method:            Maximum Likelihood   BIC:                             358.8
-Date:                Sat, 07 Dec 2024                                         
-Time:                        21:12:53                                         
+Date:                Sun, 08 Dec 2024                                         
+Time:                        17:34:21                                         
 No. Observations:                 320                                         
 Df Residuals:                     310                                         
 Df Model:                           9                                         
@@ -999,7 +1005,7 @@ First 5 predictions: [[0.87193064 0.12806936]
 </section>
 <section id="hints-random-forest-classifier" class="level1">
 <h1>HINTS | Random Forest Classifier</h1>
-<div id="cell-16" class="cell" data-execution_count="232">
+<div id="1d4265b8" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -1047,7 +1053,7 @@ weighted avg       0.69      0.75      0.70        64
 </code></pre>
 </div>
 </div>
-<div id="cell-17" class="cell" data-execution_count="233">
+<div id="0495a642" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Address Class Imbalance to improve model </span></span>
@@ -1087,7 +1093,7 @@ weighted avg       0.63      0.61      0.62        64
 </div>
 <section id="addressing-class-imbalance" class="level3">
 <h3 class="anchored" data-anchor-id="addressing-class-imbalance">Addressing Class Imbalance</h3>
-<div id="cell-19" class="cell" data-execution_count="234">
+<div id="b70023e8" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Shape of X_resampled:"</span>, X_resampled.shape)</span>
@@ -1133,7 +1139,7 @@ Name: TrustHCSystem, dtype: int64</code></pre>
 </section>
 <section id="hyperparameter-tuning" class="level3">
 <h3 class="anchored" data-anchor-id="hyperparameter-tuning">Hyperparameter tuning</h3>
-<div id="cell-21" class="cell" data-execution_count="235">
+<div id="b714b859" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Manual Hyperparameter tuning </span></span>
@@ -1383,7 +1389,7 @@ weighted avg       0.66      0.62      0.64        64
 </section>
 <section id="random-forest-model-comparison" class="level2">
 <h2 class="anchored" data-anchor-id="random-forest-model-comparison">Random Forest Model Comparison</h2>
-<div id="cell-23" class="cell" data-execution_count="236">
+<div id="90973d59" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -1458,7 +1464,7 @@ Model Comparison:
 </section>
 <section id="hints-xgboost" class="level1">
 <h1>HINTS | XGBoost</h1>
-<div id="cell-26" class="cell" data-execution_count="237">
+<div id="d652ee74" class="cell" data-execution_count="16">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -1578,8 +1584,30 @@ Model Comparison:
 <span id="cb29-115"><a href="#cb29-115" aria-hidden="true" tabindex="-1"></a>comparison_df <span class="op">=</span> pd.DataFrame(results)</span>
 <span id="cb29-116"><a href="#cb29-116" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-117"><a href="#cb29-117" aria-hidden="true" tabindex="-1"></a><span class="co"># Display comparison of models</span></span>
-<span id="cb29-118"><a href="#cb29-118" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Model Comparison:"</span>)</span>
-<span id="cb29-119"><a href="#cb29-119" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(comparison_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-118"><a href="#cb29-118" aria-hidden="true" tabindex="-1"></a><span class="co"># print("\nModel Comparison:")</span></span>
+<span id="cb29-119"><a href="#cb29-119" aria-hidden="true" tabindex="-1"></a><span class="co"># print(comparison_df)</span></span>
+<span id="cb29-120"><a href="#cb29-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-121"><a href="#cb29-121" aria-hidden="true" tabindex="-1"></a><span class="co"># Model comparison data</span></span>
+<span id="cb29-122"><a href="#cb29-122" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> {</span>
+<span id="cb29-123"><a href="#cb29-123" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Model"</span>: [<span class="st">"Standard XGBoost"</span>, <span class="st">"Class Imbalance XGBoost (SMOTE)"</span>, <span class="st">"Tuned XGBoost"</span>, <span class="st">"Random Forest"</span>],</span>
+<span id="cb29-124"><a href="#cb29-124" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Accuracy"</span>: [<span class="fl">0.703125</span>, <span class="fl">0.5625</span>, <span class="fl">0.75</span>, <span class="fl">0.70</span>],</span>
+<span id="cb29-125"><a href="#cb29-125" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Class 3 Precision"</span>: [<span class="fl">0.788462</span>, <span class="fl">0.733333</span>, <span class="fl">0.779661</span>, <span class="fl">0.75</span>],  <span class="co"># Class 3 Precision</span></span>
+<span id="cb29-126"><a href="#cb29-126" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Class 4 Precision"</span>: [<span class="fl">0.333333</span>, <span class="fl">0.157895</span>, <span class="fl">0.4</span>, <span class="fl">0.2</span>],  <span class="co"># Class 4 Precision</span></span>
+<span id="cb29-127"><a href="#cb29-127" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Class 3 Recall"</span>: [<span class="fl">0.836735</span>, <span class="fl">0.673469</span>, <span class="fl">0.938776</span>, <span class="fl">0.70</span>],  <span class="co"># Class 3 Recall</span></span>
+<span id="cb29-128"><a href="#cb29-128" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Class 4 Recall"</span>: [<span class="fl">0.266667</span>, <span class="fl">0.2</span>, <span class="fl">0.133333</span>, <span class="fl">0.3</span>],  <span class="co"># Class 4 Recall</span></span>
+<span id="cb29-129"><a href="#cb29-129" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-130"><a href="#cb29-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-131"><a href="#cb29-131" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert into DataFrame</span></span>
+<span id="cb29-132"><a href="#cb29-132" aria-hidden="true" tabindex="-1"></a>model_comparison_df <span class="op">=</span> pd.DataFrame(results)</span>
+<span id="cb29-133"><a href="#cb29-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-134"><a href="#cb29-134" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the DataFrame to JSON format (you can use 'records' to get a list of dicts)</span></span>
+<span id="cb29-135"><a href="#cb29-135" aria-hidden="true" tabindex="-1"></a>model_comparison_json <span class="op">=</span> model_comparison_df.to_json(orient<span class="op">=</span><span class="st">'records'</span>)</span>
+<span id="cb29-136"><a href="#cb29-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-137"><a href="#cb29-137" aria-hidden="true" tabindex="-1"></a><span class="co"># Use IPython display to inject the JSON into the JavaScript environment</span></span>
+<span id="cb29-138"><a href="#cb29-138" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, Javascript</span>
+<span id="cb29-139"><a href="#cb29-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-140"><a href="#cb29-140" aria-hidden="true" tabindex="-1"></a><span class="co"># Inject JSON into JavaScript (accessible as window.df_data in the browser)</span></span>
+<span id="cb29-141"><a href="#cb29-141" aria-hidden="true" tabindex="-1"></a>display(Javascript(<span class="ss">f'window.df_data = </span><span class="sc">{</span>model_comparison_json<span class="sc">}</span><span class="ss">;'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>XGBoost Standard Model Accuracy: 0.703125
@@ -1619,23 +1647,139 @@ Classification Report for Hyperparameter Tuned Model:
     accuracy                           0.75        64
    macro avg       0.59      0.54      0.53        64
 weighted avg       0.69      0.75      0.70        64
+</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/javascript">
+window.df_data = [{"Model":"Standard XGBoost","Accuracy":0.703125,"Class 3 Precision":0.788462,"Class 4 Precision":0.333333,"Class 3 Recall":0.836735,"Class 4 Recall":0.266667},{"Model":"Class Imbalance XGBoost (SMOTE)","Accuracy":0.5625,"Class 3 Precision":0.733333,"Class 4 Precision":0.157895,"Class 3 Recall":0.673469,"Class 4 Recall":0.2},{"Model":"Tuned XGBoost","Accuracy":0.75,"Class 3 Precision":0.779661,"Class 4 Precision":0.4,"Class 3 Recall":0.938776,"Class 4 Recall":0.133333},{"Model":"Random Forest","Accuracy":0.7,"Class 3 Precision":0.75,"Class 4 Precision":0.2,"Class 3 Recall":0.7,"Class 4 Recall":0.3}];
+</script>
+</div>
+</div>
+<section id="big-chunk" class="level2">
+<h2 class="anchored" data-anchor-id="big-chunk">Big Chunk</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31" data-startfrom="580" data-source-offset="-30"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 579;"><span id="cb31-580"><a href="#cb31-580" aria-hidden="true" tabindex="-1"></a>d3 <span class="op">=</span> <span class="pp">require</span>(<span class="st">"d3"</span>)<span class="op">;</span></span>
+<span id="cb31-581"><a href="#cb31-581" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-582"><a href="#cb31-582" aria-hidden="true" tabindex="-1"></a><span class="co">// Function to load and use the data directly passed from Python</span></span>
+<span id="cb31-583"><a href="#cb31-583" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">function</span> <span class="fu">loadData</span>() {</span>
+<span id="cb31-584"><a href="#cb31-584" aria-hidden="true" tabindex="-1"></a>  <span class="cf">try</span> {</span>
+<span id="cb31-585"><a href="#cb31-585" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Access the data injected by Python (via window.df_data)</span></span>
+<span id="cb31-586"><a href="#cb31-586" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> dat <span class="op">=</span> <span class="bu">window</span><span class="op">.</span><span class="at">df_data</span><span class="op">;</span></span>
+<span id="cb31-587"><a href="#cb31-587" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-588"><a href="#cb31-588" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Log the data to verify it's loaded correctly</span></span>
+<span id="cb31-589"><a href="#cb31-589" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(dat)<span class="op">;</span></span>
+<span id="cb31-590"><a href="#cb31-590" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-591"><a href="#cb31-591" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Call the function to create the parallel coordinates plot</span></span>
+<span id="cb31-592"><a href="#cb31-592" aria-hidden="true" tabindex="-1"></a>    <span class="fu">createParallelCoordinatesPlot</span>(dat<span class="op">,</span> [<span class="st">'Accuracy'</span><span class="op">,</span> <span class="st">'Class 3 Precision'</span><span class="op">,</span> <span class="st">'Class 4 Precision'</span><span class="op">,</span> <span class="st">'Class 3 Recall'</span><span class="op">,</span> <span class="st">'Class 4 Recall'</span>]<span class="op">,</span> <span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb31-593"><a href="#cb31-593" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">catch</span> (error) {</span>
+<span id="cb31-594"><a href="#cb31-594" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(<span class="st">"Error loading data:"</span><span class="op">,</span> error)<span class="op">;</span></span>
+<span id="cb31-595"><a href="#cb31-595" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb31-596"><a href="#cb31-596" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-597"><a href="#cb31-597" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-598"><a href="#cb31-598" aria-hidden="true" tabindex="-1"></a><span class="co">// Function to create the parallel coordinates plot</span></span>
+<span id="cb31-599"><a href="#cb31-599" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">createParallelCoordinatesPlot</span>(data<span class="op">,</span> attributes<span class="op">,</span> numTicks) {</span>
+<span id="cb31-600"><a href="#cb31-600" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> width <span class="op">=</span> <span class="dv">800</span><span class="op">,</span> height <span class="op">=</span> <span class="dv">350</span><span class="op">;</span></span>
+<span id="cb31-601"><a href="#cb31-601" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-602"><a href="#cb31-602" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Setup hover effect for points</span></span>
+<span id="cb31-603"><a href="#cb31-603" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> hover <span class="op">=</span> vl<span class="op">.</span><span class="fu">selectSingle</span>()<span class="op">.</span><span class="fu">on</span>(<span class="st">"mouseover"</span>)<span class="op">.</span><span class="fu">nearest</span>(<span class="kw">true</span>)<span class="op">.</span><span class="fu">empty</span>(<span class="st">"none"</span>)<span class="op">;</span></span>
+<span id="cb31-604"><a href="#cb31-604" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-605"><a href="#cb31-605" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Define the base layer with rules for the parallel coordinates plot</span></span>
+<span id="cb31-606"><a href="#cb31-606" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> base <span class="op">=</span> vl<span class="op">.</span><span class="fu">markRule</span>({ <span class="dt">color</span><span class="op">:</span> <span class="st">"#ccc"</span> })<span class="op">.</span><span class="fu">encode</span>(</span>
+<span id="cb31-607"><a href="#cb31-607" aria-hidden="true" tabindex="-1"></a>    vl<span class="op">.</span><span class="fu">x</span>()<span class="op">.</span><span class="fu">fieldN</span>(<span class="st">"key"</span>)<span class="op">.</span><span class="fu">sort</span>(attributes)<span class="op">,</span></span>
+<span id="cb31-608"><a href="#cb31-608" aria-hidden="true" tabindex="-1"></a>    vl<span class="op">.</span><span class="fu">detail</span>()<span class="op">.</span><span class="fu">count</span>()</span>
+<span id="cb31-609"><a href="#cb31-609" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb31-610"><a href="#cb31-610" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-611"><a href="#cb31-611" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Define the line layer with color encoding based on Model</span></span>
+<span id="cb31-612"><a href="#cb31-612" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> line <span class="op">=</span> base<span class="op">.</span><span class="fu">markLine</span>()<span class="op">.</span><span class="fu">encode</span>(</span>
+<span id="cb31-613"><a href="#cb31-613" aria-hidden="true" tabindex="-1"></a>    vl<span class="op">.</span><span class="fu">color</span>()<span class="op">.</span><span class="fu">fieldN</span>(<span class="st">"Model"</span>)<span class="op">.</span><span class="fu">scale</span>({</span>
+<span id="cb31-614"><a href="#cb31-614" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [<span class="st">'Standard XGBoost'</span><span class="op">,</span> <span class="st">'Class Imbalance XGBoost (SMOTE)'</span><span class="op">,</span> <span class="st">'Tuned XGBoost'</span><span class="op">,</span> <span class="st">'Random Forest'</span>]<span class="op">,</span></span>
+<span id="cb31-615"><a href="#cb31-615" aria-hidden="true" tabindex="-1"></a>      <span class="dt">range</span><span class="op">:</span> [<span class="st">'#ff4500'</span><span class="op">,</span> <span class="st">'#ffa205'</span><span class="op">,</span> <span class="st">'#d40637'</span><span class="op">,</span> <span class="st">'#5f0922'</span>]</span>
+<span id="cb31-616"><a href="#cb31-616" aria-hidden="true" tabindex="-1"></a>    })<span class="op">,</span></span>
+<span id="cb31-617"><a href="#cb31-617" aria-hidden="true" tabindex="-1"></a>    vl<span class="op">.</span><span class="fu">detail</span>()<span class="op">.</span><span class="fu">fieldN</span>(<span class="st">"index"</span>)<span class="op">,</span></span>
+<span id="cb31-618"><a href="#cb31-618" aria-hidden="true" tabindex="-1"></a>    vl<span class="op">.</span><span class="fu">opacity</span>()<span class="op">.</span><span class="fu">if</span>(hover<span class="op">,</span> vl<span class="op">.</span><span class="fu">value</span>(<span class="dv">1</span>))<span class="op">.</span><span class="fu">value</span>(<span class="fl">0.3</span>)<span class="op">,</span></span>
+<span id="cb31-619"><a href="#cb31-619" aria-hidden="true" tabindex="-1"></a>    vl<span class="op">.</span><span class="fu">y</span>()<span class="op">.</span><span class="fu">fieldQ</span>(<span class="st">"norm_val"</span>)<span class="op">.</span><span class="fu">axis</span>(<span class="kw">null</span>)<span class="op">,</span></span>
+<span id="cb31-620"><a href="#cb31-620" aria-hidden="true" tabindex="-1"></a>    vl<span class="op">.</span><span class="fu">tooltip</span>([<span class="st">'Model'</span><span class="op">,</span> <span class="op">...</span>attributes])</span>
+<span id="cb31-621"><a href="#cb31-621" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb31-622"><a href="#cb31-622" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-623"><a href="#cb31-623" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Define the points layer for the chart, with hover size changes</span></span>
+<span id="cb31-624"><a href="#cb31-624" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> points <span class="op">=</span> line<span class="op">.</span><span class="fu">markCircle</span>()<span class="op">.</span><span class="fu">select</span>(hover)<span class="op">.</span><span class="fu">encode</span>(vl<span class="op">.</span><span class="fu">size</span>()<span class="op">.</span><span class="fu">if</span>(hover<span class="op">,</span> vl<span class="op">.</span><span class="fu">value</span>(<span class="dv">50</span>))<span class="op">.</span><span class="fu">value</span>(<span class="dv">5</span>))<span class="op">;</span></span>
+<span id="cb31-625"><a href="#cb31-625" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-626"><a href="#cb31-626" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Define a function to create tick marks</span></span>
+<span id="cb31-627"><a href="#cb31-627" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tick <span class="op">=</span> y0 <span class="kw">=&gt;</span> vl<span class="op">.</span><span class="fu">layer</span>(</span>
+<span id="cb31-628"><a href="#cb31-628" aria-hidden="true" tabindex="-1"></a>    base<span class="op">.</span><span class="fu">markText</span>({ <span class="dt">style</span><span class="op">:</span> <span class="st">"label"</span> })<span class="op">.</span><span class="fu">encode</span>(vl<span class="op">.</span><span class="fu">text</span>()<span class="op">.</span><span class="fu">max</span>(<span class="st">"max"</span>))<span class="op">,</span></span>
+<span id="cb31-629"><a href="#cb31-629" aria-hidden="true" tabindex="-1"></a>    base<span class="op">.</span><span class="fu">markTick</span>({ <span class="dt">style</span><span class="op">:</span> <span class="st">"tick"</span><span class="op">,</span> <span class="dt">size</span><span class="op">:</span> <span class="dv">8</span><span class="op">,</span> <span class="dt">color</span><span class="op">:</span> <span class="st">"#ccc"</span> })</span>
+<span id="cb31-630"><a href="#cb31-630" aria-hidden="true" tabindex="-1"></a>  )<span class="op">.</span><span class="fu">encode</span>(vl<span class="op">.</span><span class="fu">y</span>()<span class="op">.</span><span class="fu">value</span>(y0))<span class="op">;</span></span>
+<span id="cb31-631"><a href="#cb31-631" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-632"><a href="#cb31-632" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Return the full visualization with the layers and transformations</span></span>
+<span id="cb31-633"><a href="#cb31-633" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> vl<span class="op">.</span><span class="fu">layer</span>(base<span class="op">,</span> line<span class="op">,</span> points<span class="op">,</span> <span class="op">...</span><span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({ <span class="dt">length</span><span class="op">:</span> numTicks })<span class="op">.</span><span class="fu">map</span>((_<span class="op">,</span> i) <span class="kw">=&gt;</span> <span class="fu">tick</span>((height <span class="op">/</span> (numTicks <span class="op">-</span> <span class="dv">1</span>)) <span class="op">*</span> i)))</span>
+<span id="cb31-634"><a href="#cb31-634" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">data</span>(data)</span>
+<span id="cb31-635"><a href="#cb31-635" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">transform</span>(</span>
+<span id="cb31-636"><a href="#cb31-636" aria-hidden="true" tabindex="-1"></a>      vl<span class="op">.</span><span class="fu">filter</span>(attributes<span class="op">.</span><span class="fu">map</span>(a <span class="kw">=&gt;</span> <span class="vs">`datum["</span><span class="sc">${</span>a<span class="sc">}</span><span class="vs">"] != null`</span>)<span class="op">.</span><span class="fu">join</span>(<span class="st">" &amp;&amp; "</span>))<span class="op">,</span></span>
+<span id="cb31-637"><a href="#cb31-637" aria-hidden="true" tabindex="-1"></a>      vl<span class="op">.</span><span class="fu">window</span>(vl<span class="op">.</span><span class="fu">count</span>()<span class="op">.</span><span class="fu">as</span>(<span class="st">"index"</span>))<span class="op">,</span></span>
+<span id="cb31-638"><a href="#cb31-638" aria-hidden="true" tabindex="-1"></a>      vl<span class="op">.</span><span class="fu">fold</span>(attributes)<span class="op">,</span></span>
+<span id="cb31-639"><a href="#cb31-639" aria-hidden="true" tabindex="-1"></a>      vl<span class="op">.</span><span class="fu">groupby</span>(<span class="st">"key"</span>)<span class="op">.</span><span class="fu">joinaggregate</span>(vl<span class="op">.</span><span class="fu">min</span>(<span class="st">"value"</span>)<span class="op">.</span><span class="fu">as</span>(<span class="st">"min"</span>)<span class="op">,</span> vl<span class="op">.</span><span class="fu">max</span>(<span class="st">"value"</span>)<span class="op">.</span><span class="fu">as</span>(<span class="st">"max"</span>))<span class="op">,</span></span>
+<span id="cb31-640"><a href="#cb31-640" aria-hidden="true" tabindex="-1"></a>      vl<span class="op">.</span><span class="fu">calculate</span>(<span class="st">"(datum.value - datum.min) / (datum.max - datum.min)"</span>)<span class="op">.</span><span class="fu">as</span>(<span class="st">"norm_val"</span>)<span class="op">,</span></span>
+<span id="cb31-641"><a href="#cb31-641" aria-hidden="true" tabindex="-1"></a>      vl<span class="op">.</span><span class="fu">calculate</span>(<span class="st">"(datum.min + datum.max) / 2"</span>)<span class="op">.</span><span class="fu">as</span>(<span class="st">"mid"</span>)</span>
+<span id="cb31-642"><a href="#cb31-642" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb31-643"><a href="#cb31-643" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">config</span>({</span>
+<span id="cb31-644"><a href="#cb31-644" aria-hidden="true" tabindex="-1"></a>      <span class="dt">axisX</span><span class="op">:</span> { <span class="dt">domain</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span> <span class="dt">labelAngle</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">tickColor</span><span class="op">:</span> <span class="st">"#ccc"</span><span class="op">,</span> <span class="dt">title</span><span class="op">:</span> <span class="kw">null</span> }<span class="op">,</span></span>
+<span id="cb31-645"><a href="#cb31-645" aria-hidden="true" tabindex="-1"></a>      <span class="dt">view</span><span class="op">:</span> { <span class="dt">stroke</span><span class="op">:</span> <span class="kw">null</span> }<span class="op">,</span></span>
+<span id="cb31-646"><a href="#cb31-646" aria-hidden="true" tabindex="-1"></a>      <span class="dt">style</span><span class="op">:</span> {</span>
+<span id="cb31-647"><a href="#cb31-647" aria-hidden="true" tabindex="-1"></a>        <span class="dt">label</span><span class="op">:</span> { <span class="dt">baseline</span><span class="op">:</span> <span class="st">"middle"</span><span class="op">,</span> <span class="dt">align</span><span class="op">:</span> <span class="st">"right"</span><span class="op">,</span> <span class="dt">dx</span><span class="op">:</span> <span class="op">-</span><span class="dv">5</span> }<span class="op">,</span></span>
+<span id="cb31-648"><a href="#cb31-648" aria-hidden="true" tabindex="-1"></a>        <span class="dt">tick</span><span class="op">:</span> { <span class="dt">orient</span><span class="op">:</span> <span class="st">"horizontal"</span> }</span>
+<span id="cb31-649"><a href="#cb31-649" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb31-650"><a href="#cb31-650" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb31-651"><a href="#cb31-651" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">width</span>(width <span class="op">-</span> <span class="dv">100</span>)</span>
+<span id="cb31-652"><a href="#cb31-652" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">height</span>(height)</span>
+<span id="cb31-653"><a href="#cb31-653" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">title</span>({</span>
+<span id="cb31-654"><a href="#cb31-654" aria-hidden="true" tabindex="-1"></a>      <span class="dt">text</span><span class="op">:</span> <span class="st">'Model Performance Comparison'</span><span class="op">,</span></span>
+<span id="cb31-655"><a href="#cb31-655" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontSize</span><span class="op">:</span> <span class="dv">12</span><span class="op">,</span></span>
+<span id="cb31-656"><a href="#cb31-656" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontWeight</span><span class="op">:</span> <span class="st">'bold'</span><span class="op">,</span></span>
+<span id="cb31-657"><a href="#cb31-657" aria-hidden="true" tabindex="-1"></a>      <span class="dt">anchor</span><span class="op">:</span> <span class="st">'middle'</span><span class="op">,</span></span>
+<span id="cb31-658"><a href="#cb31-658" aria-hidden="true" tabindex="-1"></a>      <span class="dt">color</span><span class="op">:</span> <span class="st">'black'</span><span class="op">,</span></span>
+<span id="cb31-659"><a href="#cb31-659" aria-hidden="true" tabindex="-1"></a>      <span class="dt">font</span><span class="op">:</span> <span class="st">'sans-serif'</span><span class="op">,</span></span>
+<span id="cb31-660"><a href="#cb31-660" aria-hidden="true" tabindex="-1"></a>      <span class="dt">offset</span><span class="op">:</span> <span class="dv">40</span></span>
+<span id="cb31-661"><a href="#cb31-661" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb31-662"><a href="#cb31-662" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-663"><a href="#cb31-663" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-664"><a href="#cb31-664" aria-hidden="true" tabindex="-1"></a><span class="co">// Initiate the process to load data and create the chart</span></span>
+<span id="cb31-665"><a href="#cb31-665" aria-hidden="true" tabindex="-1"></a><span class="fu">loadData</span>()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
 
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="declaration">
 
-Model Comparison:
-                             Model  Accuracy  Class 3 Precision  \
-0                 Standard XGBoost  0.703125           0.788462   
-1  Class Imbalance XGBoost (SMOTE)  0.562500           0.733333   
-2                    Tuned XGBoost  0.750000           0.779661   
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-3" data-nodetype="declaration">
 
-   Class 4 Precision  Class 3 Recall  Class 4 Recall  
-0           0.333333        0.836735        0.266667  
-1           0.157895        0.673469        0.200000  
-2           0.400000        0.938776        0.133333  </code></pre>
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-4" data-nodetype="expression">
+
+</div>
+</div>
 </div>
 </div>
 <p>The Standard XGBoost model performs well for Class 0 (Trust in Healthcare System - High) with high precision and recall, indicating a good balance in identifying instances of this class. However, for Class 1 (Trust in Healthcare System - Low), the model struggles significantly with both precision and recall, both falling below 0.3. The Class Imbalance XGBoost model (SMOTE) improves recall for Class 1, helping to better detect the minority class. However, the model’s precision remains low, meaning it still incorrectly predicts many instances as Class 1 (Trust in Healthcare System - Low). The Hyperparameter Tuned XGBoost model delivers the best performance for Class 0 (Trust in Healthcare System - High), achieving very high recall (90%) and good precision (79%). Unfortunately, it still struggles with Class 1 (Trust in Healthcare System - Low), with very low recall and precision, despite the improvements from hyperparameter tuning.</p>
 <p>In terms of overall performance, the Hyperparameter Tuned XGBoost model achieves the highest accuracy (74%), showing the best balance for Class 0 (Trust in Healthcare System - High), but it fails to capture Class 1 (Trust in Healthcare System - Low) effectively. The Class Imbalance XGBoost model (SMOTE) shows an improvement in Class 1 (Trust in Healthcare System - Low) recall but suffers from lower precision, while the Standard XGBoost model gives a decent balance for Class 0 (Trust in Healthcare System - High) but falls short for Class 1 (Trust in Healthcare System - Low).</p>
 <p><strong>Conclusions</strong> The Hyperparameter Tuned XGBoost model is the best overall in terms of accuracy and performance for Class 0 (Trust in Healthcare System - High), but further work is needed to improve recall and precision for Class 1 (Trust in Healthcare System - Low). Techniques such as class weighting or more advanced oversampling strategies might help address these issues. The Class Imbalance XGBoost model (SMOTE) provides some improvement for Class 1 (Trust in Healthcare System - Low) recall, but further fine-tuning of the class balancing methods could yield better results.</p>
+</section>
 </section>
 <section id="hints-conclusion-comparing-random-forest-and-xgboost" class="level1">
 <h1>HINTS | Conclusion: Comparing Random Forest and XGBoost</h1>
@@ -1728,6 +1872,17 @@ Model Comparison:
 </section>
 
 </main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIEltcG9ydCBuZWNlc3NhcnkgbGlicmFyaWVzXG5kMyA9IHJlcXVpcmUoXCJkM1wiKTtcblxuLy8gRnVuY3Rpb24gdG8gbG9hZCBhbmQgdXNlIHRoZSBkYXRhIGRpcmVjdGx5IHBhc3NlZCBmcm9tIFB5dGhvblxuYXN5bmMgZnVuY3Rpb24gbG9hZERhdGEoKSB7XG4gIHRyeSB7XG4gICAgLy8gQWNjZXNzIHRoZSBkYXRhIGluamVjdGVkIGJ5IFB5dGhvbiAodmlhIHdpbmRvdy5kZl9kYXRhKVxuICAgIGNvbnN0IGRhdCA9IHdpbmRvdy5kZl9kYXRhO1xuXG4gICAgLy8gTG9nIHRoZSBkYXRhIHRvIHZlcmlmeSBpdCdzIGxvYWRlZCBjb3JyZWN0bHlcbiAgICBjb25zb2xlLmxvZyhkYXQpO1xuXG4gICAgLy8gQ2FsbCB0aGUgZnVuY3Rpb24gdG8gY3JlYXRlIHRoZSBwYXJhbGxlbCBjb29yZGluYXRlcyBwbG90XG4gICAgY3JlYXRlUGFyYWxsZWxDb29yZGluYXRlc1Bsb3QoZGF0LCBbJ0FjY3VyYWN5JywgJ0NsYXNzIDMgUHJlY2lzaW9uJywgJ0NsYXNzIDQgUHJlY2lzaW9uJywgJ0NsYXNzIDMgUmVjYWxsJywgJ0NsYXNzIDQgUmVjYWxsJ10sIDIpO1xuICB9IGNhdGNoIChlcnJvcikge1xuICAgIGNvbnNvbGUuZXJyb3IoXCJFcnJvciBsb2FkaW5nIGRhdGE6XCIsIGVycm9yKTtcbiAgfVxufVxuXG4vLyBGdW5jdGlvbiB0byBjcmVhdGUgdGhlIHBhcmFsbGVsIGNvb3JkaW5hdGVzIHBsb3RcbmZ1bmN0aW9uIGNyZWF0ZVBhcmFsbGVsQ29vcmRpbmF0ZXNQbG90KGRhdGEsIGF0dHJpYnV0ZXMsIG51bVRpY2tzKSB7XG4gIGNvbnN0IHdpZHRoID0gODAwLCBoZWlnaHQgPSAzNTA7XG5cbiAgLy8gU2V0dXAgaG92ZXIgZWZmZWN0IGZvciBwb2ludHNcbiAgY29uc3QgaG92ZXIgPSB2bC5zZWxlY3RTaW5nbGUoKS5vbihcIm1vdXNlb3ZlclwiKS5uZWFyZXN0KHRydWUpLmVtcHR5KFwibm9uZVwiKTtcblxuICAvLyBEZWZpbmUgdGhlIGJhc2UgbGF5ZXIgd2l0aCBydWxlcyBmb3IgdGhlIHBhcmFsbGVsIGNvb3JkaW5hdGVzIHBsb3RcbiAgY29uc3QgYmFzZSA9IHZsLm1hcmtSdWxlKHsgY29sb3I6IFwiI2NjY1wiIH0pLmVuY29kZShcbiAgICB2bC54KCkuZmllbGROKFwia2V5XCIpLnNvcnQoYXR0cmlidXRlcyksXG4gICAgdmwuZGV0YWlsKCkuY291bnQoKVxuICApO1xuXG4gIC8vIERlZmluZSB0aGUgbGluZSBsYXllciB3aXRoIGNvbG9yIGVuY29kaW5nIGJhc2VkIG9uIE1vZGVsXG4gIGNvbnN0IGxpbmUgPSBiYXNlLm1hcmtMaW5lKCkuZW5jb2RlKFxuICAgIHZsLmNvbG9yKCkuZmllbGROKFwiTW9kZWxcIikuc2NhbGUoe1xuICAgICAgZG9tYWluOiBbJ1N0YW5kYXJkIFhHQm9vc3QnLCAnQ2xhc3MgSW1iYWxhbmNlIFhHQm9vc3QgKFNNT1RFKScsICdUdW5lZCBYR0Jvb3N0JywgJ1JhbmRvbSBGb3Jlc3QnXSxcbiAgICAgIHJhbmdlOiBbJyNmZjQ1MDAnLCAnI2ZmYTIwNScsICcjZDQwNjM3JywgJyM1ZjA5MjInXVxuICAgIH0pLFxuICAgIHZsLmRldGFpbCgpLmZpZWxkTihcImluZGV4XCIpLFxuICAgIHZsLm9wYWNpdHkoKS5pZihob3ZlciwgdmwudmFsdWUoMSkpLnZhbHVlKDAuMyksXG4gICAgdmwueSgpLmZpZWxkUShcIm5vcm1fdmFsXCIpLmF4aXMobnVsbCksXG4gICAgdmwudG9vbHRpcChbJ01vZGVsJywgLi4uYXR0cmlidXRlc10pXG4gICk7XG5cbiAgLy8gRGVmaW5lIHRoZSBwb2ludHMgbGF5ZXIgZm9yIHRoZSBjaGFydCwgd2l0aCBob3ZlciBzaXplIGNoYW5nZXNcbiAgY29uc3QgcG9pbnRzID0gbGluZS5tYXJrQ2lyY2xlKCkuc2VsZWN0KGhvdmVyKS5lbmNvZGUodmwuc2l6ZSgpLmlmKGhvdmVyLCB2bC52YWx1ZSg1MCkpLnZhbHVlKDUpKTtcblxuICAvLyBEZWZpbmUgYSBmdW5jdGlvbiB0byBjcmVhdGUgdGljayBtYXJrc1xuICBjb25zdCB0aWNrID0geTAgPT4gdmwubGF5ZXIoXG4gICAgYmFzZS5tYXJrVGV4dCh7IHN0eWxlOiBcImxhYmVsXCIgfSkuZW5jb2RlKHZsLnRleHQoKS5tYXgoXCJtYXhcIikpLFxuICAgIGJhc2UubWFya1RpY2soeyBzdHlsZTogXCJ0aWNrXCIsIHNpemU6IDgsIGNvbG9yOiBcIiNjY2NcIiB9KVxuICApLmVuY29kZSh2bC55KCkudmFsdWUoeTApKTtcblxuICAvLyBSZXR1cm4gdGhlIGZ1bGwgdmlzdWFsaXphdGlvbiB3aXRoIHRoZSBsYXllcnMgYW5kIHRyYW5zZm9ybWF0aW9uc1xuICByZXR1cm4gdmwubGF5ZXIoYmFzZSwgbGluZSwgcG9pbnRzLCAuLi5BcnJheS5mcm9tKHsgbGVuZ3RoOiBudW1UaWNrcyB9KS5tYXAoKF8sIGkpID0+IHRpY2soKGhlaWdodCAvIChudW1UaWNrcyAtIDEpKSAqIGkpKSlcbiAgICAuZGF0YShkYXRhKVxuICAgIC50cmFuc2Zvcm0oXG4gICAgICB2bC5maWx0ZXIoYXR0cmlidXRlcy5tYXAoYSA9PiBgZGF0dW1bXCIke2F9XCJdICE9IG51bGxgKS5qb2luKFwiICYmIFwiKSksXG4gICAgICB2bC53aW5kb3codmwuY291bnQoKS5hcyhcImluZGV4XCIpKSxcbiAgICAgIHZsLmZvbGQoYXR0cmlidXRlcyksXG4gICAgICB2bC5ncm91cGJ5KFwia2V5XCIpLmpvaW5hZ2dyZWdhdGUodmwubWluKFwidmFsdWVcIikuYXMoXCJtaW5cIiksIHZsLm1heChcInZhbHVlXCIpLmFzKFwibWF4XCIpKSxcbiAgICAgIHZsLmNhbGN1bGF0ZShcIihkYXR1bS52YWx1ZSAtIGRhdHVtLm1pbikgLyAoZGF0dW0ubWF4IC0gZGF0dW0ubWluKVwiKS5hcyhcIm5vcm1fdmFsXCIpLFxuICAgICAgdmwuY2FsY3VsYXRlKFwiKGRhdHVtLm1pbiArIGRhdHVtLm1heCkgLyAyXCIpLmFzKFwibWlkXCIpXG4gICAgKVxuICAgIC5jb25maWcoe1xuICAgICAgYXhpc1g6IHsgZG9tYWluOiBmYWxzZSwgbGFiZWxBbmdsZTogMCwgdGlja0NvbG9yOiBcIiNjY2NcIiwgdGl0bGU6IG51bGwgfSxcbiAgICAgIHZpZXc6IHsgc3Ryb2tlOiBudWxsIH0sXG4gICAgICBzdHlsZToge1xuICAgICAgICBsYWJlbDogeyBiYXNlbGluZTogXCJtaWRkbGVcIiwgYWxpZ246IFwicmlnaHRcIiwgZHg6IC01IH0sXG4gICAgICAgIHRpY2s6IHsgb3JpZW50OiBcImhvcml6b250YWxcIiB9XG4gICAgICB9XG4gICAgfSlcbiAgICAud2lkdGgod2lkdGggLSAxMDApXG4gICAgLmhlaWdodChoZWlnaHQpXG4gICAgLnRpdGxlKHtcbiAgICAgIHRleHQ6ICdNb2RlbCBQZXJmb3JtYW5jZSBDb21wYXJpc29uJyxcbiAgICAgIGZvbnRTaXplOiAxMixcbiAgICAgIGZvbnRXZWlnaHQ6ICdib2xkJyxcbiAgICAgIGFuY2hvcjogJ21pZGRsZScsXG4gICAgICBjb2xvcjogJ2JsYWNrJyxcbiAgICAgIGZvbnQ6ICdzYW5zLXNlcmlmJyxcbiAgICAgIG9mZnNldDogNDBcbiAgICB9KTtcbn1cblxuLy8gSW5pdGlhdGUgdGhlIHByb2Nlc3MgdG8gbG9hZCBkYXRhIGFuZCBjcmVhdGUgdGhlIGNoYXJ0XG5sb2FkRGF0YSgpO1xuXG5cbiJ9XX0=
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../..";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -2149,13 +2304,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Content {{&lt; fa brands creative-commons &gt;}} 2023 by [Project Team 1] <br> All content licensed under a {{&lt; fa brands creative-commons &gt;}} {{&lt; fa brands creative-commons-by &gt;}} {{&lt; fa brands creative-commons-nc &gt;}} <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0)</a></p>
+<p>Content <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> 2023 by [Project Team 1] <br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc" aria-label="creative-commons-nc"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0)</a></p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>
     <div class="nav-footer-right">
-<p>Made with {{&lt; fa brands r-project &gt;}} and <a href="https://quarto.org/">Quarto</a><br> <a href="https://github.com/anly503/lab-2.1">View the source at {{&lt; fa brands github &gt;}} GitHub</a></p>
+<p>Made with <i class="fa-brands fa-r-project" aria-label="r-project"></i> and <a href="https://quarto.org/">Quarto</a><br> <a href="https://github.com/anly503/lab-2.1">View the source at <i class="fa-brands fa-github" aria-label="github"></i> GitHub</a></p>
 </div>
   </div>
 </footer>
