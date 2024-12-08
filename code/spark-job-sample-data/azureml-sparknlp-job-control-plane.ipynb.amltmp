@@ -50,10 +50,10 @@
         "from azure.ai.ml.entities import UserIdentityConfiguration"
       ],
       "outputs": [],
-      "execution_count": 2,
+      "execution_count": 1,
       "metadata": {
         "gather": {
-          "logged": 1733633081128
+          "logged": 1733635170693
         }
       }
     },
@@ -78,10 +78,10 @@
           "text": "Found the config file in: /config.json\n"
         }
       ],
-      "execution_count": 3,
+      "execution_count": 2,
       "metadata": {
         "gather": {
-          "logged": 1733633083582
+          "logged": 1733635172451
         }
       }
     },
@@ -103,10 +103,10 @@
         ")"
       ],
       "outputs": [],
-      "execution_count": 4,
+      "execution_count": 3,
       "metadata": {
         "gather": {
-          "logged": 1733633085891
+          "logged": 1733635174284
         }
       }
     },
@@ -129,10 +129,10 @@
         "    f.write(response.content)"
       ],
       "outputs": [],
-      "execution_count": 5,
+      "execution_count": 4,
       "metadata": {
         "gather": {
-          "logged": 1733633090420
+          "logged": 1733635177144
         }
       }
     },
@@ -169,10 +169,10 @@
         ")"
       ],
       "outputs": [],
-      "execution_count": 13,
+      "execution_count": 6,
       "metadata": {
         "gather": {
-          "logged": 1733633195701
+          "logged": 1733635181541
         }
       }
     },
@@ -198,7 +198,7 @@
         ")"
       ],
       "outputs": [],
-      "execution_count": 14,
+      "execution_count": 7,
       "metadata": {
         "jupyter": {
           "source_hidden": false,
@@ -210,7 +210,7 @@
           }
         },
         "gather": {
-          "logged": 1733633199342
+          "logged": 1733635183877
         }
       }
     },
@@ -236,7 +236,7 @@
           "text": "File exists: True\n"
         }
       ],
-      "execution_count": 15,
+      "execution_count": 8,
       "metadata": {
         "jupyter": {
           "source_hidden": false,
@@ -248,7 +248,7 @@
           }
         },
         "gather": {
-          "logged": 1733633202401
+          "logged": 1733635186921
         }
       }
     },
@@ -261,13 +261,13 @@
         {
           "output_type": "stream",
           "name": "stderr",
-          "text": "\u001b[32mUploading spark-job-sample-data (45.76 MBs): 100%|██████████| 45756880/45756880 [00:01<00:00, 42484456.64it/s]\n\u001b[39m\n\n"
+          "text": "Class AutoDeleteSettingSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass AutoDeleteConditionSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass BaseAutoDeleteSettingSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass IntellectualPropertySchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass ProtectionLevelSchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\nClass BaseIntellectualPropertySchema: This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information.\n\u001b[32mUploading spark-job-sample-data (45.76 MBs): 100%|██████████| 45757042/45757042 [00:01<00:00, 36561080.08it/s]\n\u001b[39m\n\n"
         }
       ],
-      "execution_count": 16,
+      "execution_count": 9,
       "metadata": {
         "gather": {
-          "logged": 1733633209041
+          "logged": 1733635197006
         }
       }
     },
@@ -277,7 +277,7 @@
         "sparknlp_job_2 = ml_client.jobs.create_or_update(sparknlp_job_def_2)"
       ],
       "outputs": [],
-      "execution_count": 17,
+      "execution_count": 10,
       "metadata": {
         "jupyter": {
           "source_hidden": false,
@@ -289,7 +289,7 @@
           }
         },
         "gather": {
-          "logged": 1733633213373
+          "logged": 1733635199342
         }
       }
     },
@@ -318,13 +318,13 @@
         {
           "output_type": "stream",
           "name": "stdout",
-          "text": "https://ml.azure.com/runs/bubbly_wall_4hw0487rcw?wsid=/subscriptions/21ff0fc0-dd2c-450d-93b7-96eeb3699b22/resourcegroups/project-group-35/workspaces/project-group-35&tid=fd571193-38cb-437b-bb55-60f28d67b643\n"
+          "text": "https://ml.azure.com/runs/mighty_tray_s5ddf9jggv?wsid=/subscriptions/21ff0fc0-dd2c-450d-93b7-96eeb3699b22/resourcegroups/project-group-35/workspaces/project-group-35&tid=fd571193-38cb-437b-bb55-60f28d67b643\n"
         }
       ],
-      "execution_count": 18,
+      "execution_count": 11,
       "metadata": {
         "gather": {
-          "logged": 1733633219323
+          "logged": 1733635202070
         }
       }
     },
@@ -348,7 +348,7 @@
           "text": "Implementation-Version: 5.0.2\n"
         }
       ],
-      "execution_count": 19,
+      "execution_count": 12,
       "metadata": {
         "jupyter": {
           "source_hidden": false,
@@ -360,7 +360,7 @@
           }
         },
         "gather": {
-          "logged": 1733633221704
+          "logged": 1733635204064
         }
       }
     }

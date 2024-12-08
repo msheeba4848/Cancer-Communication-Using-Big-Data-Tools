@@ -71,25 +71,25 @@ from pyspark.sql.functions import col, lower
 #)
 
 # remove null subreddits
-filtered_comments_subset_df = comments_subset_df.filter(col("subreddit").isNotNull())
+filtered_comments_subset_df = comments_subset_df.filter(col("body").isNotNull())
 
 from pyspark.sql import functions as F
 from pyspark.sql.functions import col, regexp_replace
 
 # Sample DataFrame with text data in a 'text' column
-filtered_comments_subset_df = filtered_comments_subset_df.withColumn('cleaned_subreddit', col('subreddit'))
+filtered_comments_subset_df = filtered_comments_subset_df.withColumn('cleaned_body', col('body'))
 
 # Remove leading and trailing whitespaces
-filtered_comments_subset_df = filtered_comments_subset_df.withColumn('cleaned_subreddit', F.trim(col('cleaned_subreddit')))
+filtered_comments_subset_df = filtered_comments_subset_df.withColumn('cleaned_body', F.trim(col('cleaned_body')))
 
 # Remove punctuation (using regex)
-filtered_comments_subset_df = filtered_comments_subset_df.withColumn('cleaned_subreddit', regexp_replace(col('cleaned_subreddit'), r'[^\w\s]', ''))
+filtered_comments_subset_df = filtered_comments_subset_df.withColumn('cleaned_body', regexp_replace(col('cleaned_body'), r'[^\w\s]', ''))
 
 # Remove underscores
-filtered_comments_subset_df = filtered_comments_subset_df.withColumn('cleaned_subreddit', regexp_replace(col('cleaned_subreddit'), '_', ''))
+filtered_comments_subset_df = filtered_comments_subset_df.withColumn('cleaned_body', regexp_replace(col('cleaned_body'), '_', ''))
 
 # Convert to lowercase
-filtered_comments_subset_df = filtered_comments_subset_df.withColumn('cleaned_subreddit', F.lower(col('cleaned_subreddit')))
+filtered_comments_subset_df = filtered_comments_subset_df.withColumn('cleaned_body', F.lower(col('cleaned_body')))
 filtered_comments_subset_df = filtered_comments_subset_df.limit(10000)
 
 # Preview the filtered DataFrame
