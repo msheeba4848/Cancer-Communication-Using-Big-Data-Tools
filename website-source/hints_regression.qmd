@@ -5,10 +5,14 @@ code-fold: true
 jupyter: python3
 ---
 
-```{r}
-#  include-in-header:
-#    - text: |
-#         <script src="https://d3js.org/d3.v7.min.js"></script>
+```{python}
+from IPython.display import HTML
+
+d3_script = HTML("""
+<script src="https://d3js.org/d3.v7.min.js"></script>
+""")
+
+display(d3_script)
 ```
 
 ```{python}
@@ -736,4 +740,3 @@ The Hyperparameter Tuned XGBoost model is the best overall in terms of accuracy 
 | **Weighted avg F1**     | 0.66              | 0.66                   | 0.65                | 0.70                |
 
 The XGBoost (Tuned) model is the best choice based on its highest accuracy (74%) and superior performance for Class 0 (High Trust in Healthcare), with a strong recall of 90%. While it still struggles with Class 1 (Low Trust in Healthcare), the improved overall performance makes it the most reliable model for the task at hand.
-
