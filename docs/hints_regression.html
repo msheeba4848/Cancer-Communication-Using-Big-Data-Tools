@@ -205,10 +205,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<pre class="{r}"><code>#  include-in-header:
-#    - text: |
-#         &lt;script src="https://d3js.org/d3.v7.min.js"&gt;&lt;/script&gt;</code></pre>
-<div id="fc8ff1da" class="cell" data-execution_count="1">
+<div id="60e698a3" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> HTML</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>d3_script <span class="op">=</span> HTML(<span class="st">"""</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;script src="https://d3js.org/d3.v7.min.js"&gt;&lt;/script&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>display(d3_script)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+</div>
+</div>
+<div id="fd385dc7" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Libraries </span></span>
@@ -229,7 +242,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="hints-prepartion-of-data" class="level2">
 <h2 class="anchored" data-anchor-id="hints-prepartion-of-data">HINTS Prepartion of Data</h2>
-<div id="3f022751" class="cell" data-execution_count="2">
+<div id="842c846c" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in data</span></span>
@@ -343,7 +356,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cf74eab5" class="cell" data-execution_count="3">
+<div id="37edd7e6" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the number of NA or NaN values in each column</span></span>
@@ -370,13 +383,13 @@ dtype: int64
 (323, 12)</code></pre>
 </div>
 </div>
-<div id="bc4ba835" class="cell" data-execution_count="4">
+<div id="87a9d789" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>hints_cleaned_cleaned <span class="op">=</span> hints_cleaned.dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="89bda173" class="cell" data-execution_count="5">
+<div id="d83e27b9" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the mappings</span></span>
@@ -561,7 +574,7 @@ dtype: object</code></pre>
 </section>
 <section id="hints-spearman-correlation" class="level1">
 <h1>HINTS | Spearman Correlation</h1>
-<div id="b5bf81b4" class="cell" data-execution_count="6">
+<div id="b20e3370" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -775,7 +788,7 @@ MisleadingHealthInfo       -0.061407
 Name: TrustHCSystem, dtype: float64</code></pre>
 </div>
 </div>
-<div id="2b2f4bcd" class="cell" data-execution_count="7">
+<div id="f92cf3dc" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Heat Map of Spearman Correlation</span></span>
@@ -803,17 +816,17 @@ Name: TrustHCSystem, dtype: float64</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="hints_regression_files/figure-html/cell-8-output-1.png" width="867" height="757" class="figure-img"></p>
+<p><img src="hints_regression_files/figure-html/cell-9-output-1.png" width="867" height="757" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="0a345795" class="cell" data-execution_count="8">
+<div id="d8eff30f" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>correlation_data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="24">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <div>
 
 
@@ -908,7 +921,7 @@ Name: TrustHCSystem, dtype: float64</code></pre>
 </section>
 <section id="hints-ordinal-regression" class="level1">
 <h1>HINTS | Ordinal Regression</h1>
-<div id="96a80ecf" class="cell" data-execution_count="9">
+<div id="3592efc5" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert all numeric columns to integers</span></span>
@@ -916,7 +929,7 @@ Name: TrustHCSystem, dtype: float64</code></pre>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>hints_cleaned[numeric_columns] <span class="op">=</span> hints_cleaned[numeric_columns].astype(<span class="bu">int</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="e2d8f102" class="cell" data-execution_count="10">
+<div id="a29ffd41" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -970,7 +983,7 @@ Dep. Variable:                      y   Log-Likelihood:                -150.54
 Model:                   OrderedModel   AIC:                             321.1
 Method:            Maximum Likelihood   BIC:                             358.8
 Date:                Sun, 08 Dec 2024                                         
-Time:                        18:11:15                                         
+Time:                        18:47:47                                         
 No. Observations:                 320                                         
 Df Residuals:                     310                                         
 Df Model:                           9                                         
@@ -1005,7 +1018,7 @@ First 5 predictions: [[0.87193064 0.12806936]
 </section>
 <section id="hints-random-forest-classifier" class="level1">
 <h1>HINTS | Random Forest Classifier</h1>
-<div id="317dd4c6" class="cell" data-execution_count="11">
+<div id="773c387a" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -1053,7 +1066,7 @@ weighted avg       0.69      0.75      0.70        64
 </code></pre>
 </div>
 </div>
-<div id="b8ac214a" class="cell" data-execution_count="12">
+<div id="4916e6a7" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Address Class Imbalance to improve model </span></span>
@@ -1093,7 +1106,7 @@ weighted avg       0.63      0.61      0.62        64
 </div>
 <section id="addressing-class-imbalance" class="level3">
 <h3 class="anchored" data-anchor-id="addressing-class-imbalance">Addressing Class Imbalance</h3>
-<div id="2a6566e9" class="cell" data-execution_count="13">
+<div id="daab2c3d" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Shape of X_resampled:"</span>, X_resampled.shape)</span>
@@ -1139,7 +1152,7 @@ Name: TrustHCSystem, dtype: int64</code></pre>
 </section>
 <section id="hyperparameter-tuning" class="level3">
 <h3 class="anchored" data-anchor-id="hyperparameter-tuning">Hyperparameter tuning</h3>
-<div id="b16b0654" class="cell" data-execution_count="14">
+<div id="38fa4d6f" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Manual Hyperparameter tuning </span></span>
@@ -1389,7 +1402,7 @@ weighted avg       0.66      0.62      0.64        64
 </section>
 <section id="random-forest-model-comparison" class="level2">
 <h2 class="anchored" data-anchor-id="random-forest-model-comparison">Random Forest Model Comparison</h2>
-<div id="7efb6650" class="cell" data-execution_count="15">
+<div id="73da60f5" class="cell" data-execution_count="16">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -1464,7 +1477,7 @@ Model Comparison:
 </section>
 <section id="hints-xgboost" class="level1">
 <h1>HINTS | XGBoost</h1>
-<div id="d633f4d1" class="cell" data-execution_count="16">
+<div id="2e35e52e" class="cell" data-execution_count="17">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -1658,21 +1671,21 @@ window.df_data = [{"Model":"Standard XGBoost","Accuracy":0.703125,"Class 3 Preci
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb32" data-startfrom="584" data-source-offset="-34"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 583;"><span id="cb32-584"><a href="#cb32-584" aria-hidden="true" tabindex="-1"></a>d3 <span class="op">=</span> <span class="pp">require</span>(<span class="st">"d3"</span><span class="op">,</span> <span class="st">"d3-svg-legend"</span>)</span>
-<span id="cb32-585"><a href="#cb32-585" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-586"><a href="#cb32-586" aria-hidden="true" tabindex="-1"></a><span class="co">// Define and load your datasets</span></span>
-<span id="cb32-587"><a href="#cb32-587" aria-hidden="true" tabindex="-1"></a>dat <span class="op">=</span> d3<span class="op">.</span><span class="fu">csv</span>(<span class="st">'df.csv'</span><span class="op">,</span> <span class="kw">function</span>(d){</span>
-<span id="cb32-588"><a href="#cb32-588" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> {</span>
-<span id="cb32-589"><a href="#cb32-589" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Model'</span><span class="op">:</span> d[<span class="st">'Model'</span>]<span class="op">,</span> </span>
-<span id="cb32-590"><a href="#cb32-590" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Accuracy'</span><span class="op">:</span> d[<span class="st">'Accuracy'</span>]<span class="op">,</span> </span>
-<span id="cb32-591"><a href="#cb32-591" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Class 3 Precision'</span><span class="op">:</span> <span class="op">+</span>d[<span class="st">'Class 3 Precision'</span>]<span class="op">,</span></span>
-<span id="cb32-592"><a href="#cb32-592" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Class 4 Precision'</span><span class="op">:</span> <span class="op">+</span>d[<span class="st">'Class 4 Precision'</span>]<span class="op">,</span></span>
-<span id="cb32-593"><a href="#cb32-593" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Class 3 Recall'</span><span class="op">:</span> <span class="op">+</span>d[<span class="st">'Class 3 Recall'</span>]<span class="op">,</span></span>
-<span id="cb32-594"><a href="#cb32-594" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Class 4 Recall'</span><span class="op">:</span> <span class="op">+</span>d[<span class="st">'Class 4 Recall'</span>]</span>
-<span id="cb32-595"><a href="#cb32-595" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
-<span id="cb32-596"><a href="#cb32-596" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
-<span id="cb32-597"><a href="#cb32-597" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-598"><a href="#cb32-598" aria-hidden="true" tabindex="-1"></a>dat<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32" data-startfrom="588" data-source-offset="-34"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 587;"><span id="cb32-588"><a href="#cb32-588" aria-hidden="true" tabindex="-1"></a>d3 <span class="op">=</span> <span class="pp">require</span>(<span class="st">"d3"</span><span class="op">,</span> <span class="st">"d3-svg-legend"</span>)</span>
+<span id="cb32-589"><a href="#cb32-589" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-590"><a href="#cb32-590" aria-hidden="true" tabindex="-1"></a><span class="co">// Define and load your datasets</span></span>
+<span id="cb32-591"><a href="#cb32-591" aria-hidden="true" tabindex="-1"></a>dat <span class="op">=</span> d3<span class="op">.</span><span class="fu">csv</span>(<span class="st">'df.csv'</span><span class="op">,</span> <span class="kw">function</span>(d){</span>
+<span id="cb32-592"><a href="#cb32-592" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> {</span>
+<span id="cb32-593"><a href="#cb32-593" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Model'</span><span class="op">:</span> d[<span class="st">'Model'</span>]<span class="op">,</span> </span>
+<span id="cb32-594"><a href="#cb32-594" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Accuracy'</span><span class="op">:</span> d[<span class="st">'Accuracy'</span>]<span class="op">,</span> </span>
+<span id="cb32-595"><a href="#cb32-595" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Class 3 Precision'</span><span class="op">:</span> <span class="op">+</span>d[<span class="st">'Class 3 Precision'</span>]<span class="op">,</span></span>
+<span id="cb32-596"><a href="#cb32-596" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Class 4 Precision'</span><span class="op">:</span> <span class="op">+</span>d[<span class="st">'Class 4 Precision'</span>]<span class="op">,</span></span>
+<span id="cb32-597"><a href="#cb32-597" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Class 3 Recall'</span><span class="op">:</span> <span class="op">+</span>d[<span class="st">'Class 3 Recall'</span>]<span class="op">,</span></span>
+<span id="cb32-598"><a href="#cb32-598" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Class 4 Recall'</span><span class="op">:</span> <span class="op">+</span>d[<span class="st">'Class 4 Recall'</span>]</span>
+<span id="cb32-599"><a href="#cb32-599" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb32-600"><a href="#cb32-600" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb32-601"><a href="#cb32-601" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-602"><a href="#cb32-602" aria-hidden="true" tabindex="-1"></a>dat<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -1699,8 +1712,8 @@ window.df_data = [{"Model":"Standard XGBoost","Accuracy":0.703125,"Class 3 Preci
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb33" data-startfrom="603" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 602;"><span id="cb33-603"><a href="#cb33-603" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { slider } <span class="im">from</span> <span class="st">"@jashkenas/inputs"</span></span>
-<span id="cb33-604"><a href="#cb33-604" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { vl } <span class="im">from</span> <span class="st">"@vega/vega-lite-api"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33" data-startfrom="607" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 606;"><span id="cb33-607"><a href="#cb33-607" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { slider } <span class="im">from</span> <span class="st">"@jashkenas/inputs"</span></span>
+<span id="cb33-608"><a href="#cb33-608" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { vl } <span class="im">from</span> <span class="st">"@vega/vega-lite-api"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
@@ -1720,13 +1733,13 @@ window.df_data = [{"Model":"Standard XGBoost","Accuracy":0.703125,"Class 3 Preci
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb34" data-startfrom="607" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 606;"><span id="cb34-607"><a href="#cb34-607" aria-hidden="true" tabindex="-1"></a>viewof numTicks <span class="op">=</span> <span class="fu">slider</span>({</span>
-<span id="cb34-608"><a href="#cb34-608" aria-hidden="true" tabindex="-1"></a>  <span class="dt">min</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
-<span id="cb34-609"><a href="#cb34-609" aria-hidden="true" tabindex="-1"></a>  <span class="dt">max</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb34-610"><a href="#cb34-610" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
-<span id="cb34-611"><a href="#cb34-611" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb34-612"><a href="#cb34-612" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span><span class="op">:</span> <span class="st">"Model Performance"</span></span>
-<span id="cb34-613"><a href="#cb34-613" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34" data-startfrom="611" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 610;"><span id="cb34-611"><a href="#cb34-611" aria-hidden="true" tabindex="-1"></a>viewof numTicks <span class="op">=</span> <span class="fu">slider</span>({</span>
+<span id="cb34-612"><a href="#cb34-612" aria-hidden="true" tabindex="-1"></a>  <span class="dt">min</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb34-613"><a href="#cb34-613" aria-hidden="true" tabindex="-1"></a>  <span class="dt">max</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb34-614"><a href="#cb34-614" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb34-615"><a href="#cb34-615" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb34-616"><a href="#cb34-616" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span><span class="op">:</span> <span class="st">"Model Performance"</span></span>
+<span id="cb34-617"><a href="#cb34-617" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-3" data-nodetype="declaration">
@@ -1737,93 +1750,93 @@ window.df_data = [{"Model":"Standard XGBoost","Accuracy":0.703125,"Class 3 Preci
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb35" data-startfrom="619" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 618;"><span id="cb35-619"><a href="#cb35-619" aria-hidden="true" tabindex="-1"></a>chart <span class="op">=</span> {</span>
-<span id="cb35-620"><a href="#cb35-620" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> height <span class="op">=</span> <span class="dv">350</span><span class="op">;</span></span>
-<span id="cb35-621"><a href="#cb35-621" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> labelMap <span class="op">=</span> {</span>
-<span id="cb35-622"><a href="#cb35-622" aria-hidden="true" tabindex="-1"></a>    <span class="dt">class_3</span><span class="op">:</span> <span class="st">"Class 3 Precision"</span><span class="op">,</span></span>
-<span id="cb35-623"><a href="#cb35-623" aria-hidden="true" tabindex="-1"></a>    <span class="dt">class_4</span><span class="op">:</span> <span class="st">"Class 4 Precision"</span><span class="op">,</span></span>
-<span id="cb35-624"><a href="#cb35-624" aria-hidden="true" tabindex="-1"></a>    <span class="dt">class_3_r</span><span class="op">:</span> <span class="st">"Class 3 Recall"</span><span class="op">,</span></span>
-<span id="cb35-625"><a href="#cb35-625" aria-hidden="true" tabindex="-1"></a>    <span class="dt">class_4_r</span><span class="op">:</span> <span class="st">"Class 4 Recall"</span><span class="op">,</span></span>
-<span id="cb35-626"><a href="#cb35-626" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
-<span id="cb35-627"><a href="#cb35-627" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb35-628"><a href="#cb35-628" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> hover <span class="op">=</span> vl</span>
-<span id="cb35-629"><a href="#cb35-629" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">selectSingle</span>()</span>
-<span id="cb35-630"><a href="#cb35-630" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">on</span>(<span class="st">"mouseover"</span>)</span>
-<span id="cb35-631"><a href="#cb35-631" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">nearest</span>(<span class="kw">true</span>)</span>
-<span id="cb35-632"><a href="#cb35-632" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">empty</span>(<span class="st">"none"</span>)<span class="op">;</span></span>
-<span id="cb35-633"><a href="#cb35-633" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-634"><a href="#cb35-634" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> base <span class="op">=</span> vl<span class="op">.</span><span class="fu">markRule</span>({ <span class="dt">color</span><span class="op">:</span> <span class="st">"#ccc"</span> })<span class="op">.</span><span class="fu">encode</span>(</span>
-<span id="cb35-635"><a href="#cb35-635" aria-hidden="true" tabindex="-1"></a>  vl<span class="op">.</span><span class="fu">x</span>()<span class="op">.</span><span class="fu">fieldN</span>(<span class="st">"key"</span>)<span class="op">.</span><span class="fu">sort</span>([<span class="st">'GDP per capita (USD)'</span><span class="op">,</span> <span class="st">'Female enrolment ratio'</span><span class="op">,</span> <span class="st">'GNI per capita (USD)'</span>])<span class="op">.</span><span class="fu">title</span>(d <span class="kw">=&gt;</span> labelMap[d] <span class="op">||</span> d)<span class="op">,</span>  <span class="co">// Explicitly sort by desired order</span></span>
-<span id="cb35-636"><a href="#cb35-636" aria-hidden="true" tabindex="-1"></a>  vl<span class="op">.</span><span class="fu">detail</span>()<span class="op">.</span><span class="fu">count</span>()</span>
-<span id="cb35-637"><a href="#cb35-637" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
-<span id="cb35-638"><a href="#cb35-638" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-639"><a href="#cb35-639" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> line <span class="op">=</span> base<span class="op">.</span><span class="fu">markLine</span>()<span class="op">.</span><span class="fu">encode</span>(</span>
-<span id="cb35-640"><a href="#cb35-640" aria-hidden="true" tabindex="-1"></a>  vl<span class="op">.</span><span class="fu">color</span>()<span class="op">.</span><span class="fu">fieldN</span>(<span class="st">"Model"</span>)<span class="op">.</span><span class="fu">scale</span>({</span>
-<span id="cb35-641"><a href="#cb35-641" aria-hidden="true" tabindex="-1"></a>    <span class="dt">domain</span><span class="op">:</span> [<span class="st">'Standard XGBoost'</span><span class="op">,</span> <span class="st">'Class Imbalance XGBoost (SMOTE)'</span><span class="op">,</span> <span class="st">'Tuned XGBoost'</span><span class="op">,</span> <span class="st">'Random Forest'</span>]<span class="op">,</span>  <span class="co">// Adjust these categories based on your actual data</span></span>
-<span id="cb35-642"><a href="#cb35-642" aria-hidden="true" tabindex="-1"></a>    <span class="dt">range</span><span class="op">:</span> [<span class="st">'#1E90FF'</span><span class="op">,</span> <span class="st">'#FFD700'</span><span class="op">,</span> <span class="st">'#32CD32'</span><span class="op">,</span> <span class="st">'#FF4500'</span>]</span>
-<span id="cb35-643"><a href="#cb35-643" aria-hidden="true" tabindex="-1"></a>  })<span class="op">,</span></span>
-<span id="cb35-644"><a href="#cb35-644" aria-hidden="true" tabindex="-1"></a>  vl<span class="op">.</span><span class="fu">detail</span>()<span class="op">.</span><span class="fu">fieldN</span>(<span class="st">"index"</span>)<span class="op">,</span></span>
-<span id="cb35-645"><a href="#cb35-645" aria-hidden="true" tabindex="-1"></a>  vl<span class="op">.</span><span class="fu">opacity</span>()<span class="op">.</span><span class="fu">if</span>(hover<span class="op">,</span> vl<span class="op">.</span><span class="fu">value</span>(<span class="dv">1</span>))<span class="op">.</span><span class="fu">value</span>(<span class="fl">0.3</span>)<span class="op">,</span></span>
-<span id="cb35-646"><a href="#cb35-646" aria-hidden="true" tabindex="-1"></a>  vl<span class="op">.</span><span class="fu">y</span>()<span class="op">.</span><span class="fu">fieldQ</span>(<span class="st">"norm_val"</span>)<span class="op">.</span><span class="fu">axis</span>(<span class="kw">null</span>)<span class="op">,</span></span>
-<span id="cb35-647"><a href="#cb35-647" aria-hidden="true" tabindex="-1"></a>  vl<span class="op">.</span><span class="fu">tooltip</span>([</span>
-<span id="cb35-648"><a href="#cb35-648" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Model'</span><span class="op">,</span></span>
-<span id="cb35-649"><a href="#cb35-649" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Accuracy'</span><span class="op">,</span></span>
-<span id="cb35-650"><a href="#cb35-650" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Class 3 Precision'</span><span class="op">,</span> </span>
-<span id="cb35-651"><a href="#cb35-651" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Class 4 Precision'</span><span class="op">,</span> </span>
-<span id="cb35-652"><a href="#cb35-652" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Class 3 Recall'</span><span class="op">,</span> </span>
-<span id="cb35-653"><a href="#cb35-653" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Class 4 Recall'</span></span>
-<span id="cb35-654"><a href="#cb35-654" aria-hidden="true" tabindex="-1"></a>  ])</span>
-<span id="cb35-655"><a href="#cb35-655" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
-<span id="cb35-656"><a href="#cb35-656" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> points <span class="op">=</span> line<span class="op">.</span><span class="fu">markCircle</span>()</span>
-<span id="cb35-657"><a href="#cb35-657" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">select</span>(hover)</span>
-<span id="cb35-658"><a href="#cb35-658" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">encode</span>(vl<span class="op">.</span><span class="fu">size</span>()<span class="op">.</span><span class="fu">if</span>(hover<span class="op">,</span> vl<span class="op">.</span><span class="fu">value</span>(<span class="dv">50</span>))<span class="op">.</span><span class="fu">value</span>(<span class="dv">5</span>))<span class="op">;</span></span>
-<span id="cb35-659"><a href="#cb35-659" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-660"><a href="#cb35-660" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Generates a spec to show tick values at an specific value of y0</span></span>
-<span id="cb35-661"><a href="#cb35-661" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tick <span class="op">=</span> y0 <span class="kw">=&gt;</span></span>
-<span id="cb35-662"><a href="#cb35-662" aria-hidden="true" tabindex="-1"></a>    vl<span class="op">.</span><span class="fu">layer</span>(</span>
-<span id="cb35-663"><a href="#cb35-663" aria-hidden="true" tabindex="-1"></a>        base<span class="op">.</span><span class="fu">markText</span>({ <span class="dt">style</span><span class="op">:</span> <span class="st">"label"</span> })<span class="op">.</span><span class="fu">encode</span>(vl<span class="op">.</span><span class="fu">text</span>()<span class="op">.</span><span class="fu">max</span>(<span class="st">"max"</span>))<span class="op">,</span></span>
-<span id="cb35-664"><a href="#cb35-664" aria-hidden="true" tabindex="-1"></a>        base<span class="op">.</span><span class="fu">markTick</span>({ <span class="dt">style</span><span class="op">:</span> <span class="st">"tick"</span><span class="op">,</span> <span class="dt">size</span><span class="op">:</span> <span class="dv">8</span><span class="op">,</span> <span class="dt">color</span><span class="op">:</span> <span class="st">"#ccc"</span> })</span>
-<span id="cb35-665"><a href="#cb35-665" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb35-666"><a href="#cb35-666" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span><span class="fu">encode</span>(vl<span class="op">.</span><span class="fu">y</span>()<span class="op">.</span><span class="fu">value</span>(y0))<span class="op">;</span></span>
-<span id="cb35-667"><a href="#cb35-667" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-668"><a href="#cb35-668" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Create an array with *numTicks* ticks</span></span>
-<span id="cb35-669"><a href="#cb35-669" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> ticks <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({ <span class="dt">length</span><span class="op">:</span> numTicks })</span>
-<span id="cb35-670"><a href="#cb35-670" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">map</span>((_<span class="op">,</span> i) <span class="kw">=&gt;</span> <span class="fu">tick</span>((height <span class="op">/</span> (numTicks <span class="op">-</span> <span class="dv">1</span>)) <span class="op">*</span> i))<span class="op">;</span></span>
+<div class="sourceCode cell-code" id="cb35" data-startfrom="623" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 622;"><span id="cb35-623"><a href="#cb35-623" aria-hidden="true" tabindex="-1"></a>chart <span class="op">=</span> {</span>
+<span id="cb35-624"><a href="#cb35-624" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> height <span class="op">=</span> <span class="dv">350</span><span class="op">;</span></span>
+<span id="cb35-625"><a href="#cb35-625" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> labelMap <span class="op">=</span> {</span>
+<span id="cb35-626"><a href="#cb35-626" aria-hidden="true" tabindex="-1"></a>    <span class="dt">class_3</span><span class="op">:</span> <span class="st">"Class 3 Precision"</span><span class="op">,</span></span>
+<span id="cb35-627"><a href="#cb35-627" aria-hidden="true" tabindex="-1"></a>    <span class="dt">class_4</span><span class="op">:</span> <span class="st">"Class 4 Precision"</span><span class="op">,</span></span>
+<span id="cb35-628"><a href="#cb35-628" aria-hidden="true" tabindex="-1"></a>    <span class="dt">class_3_r</span><span class="op">:</span> <span class="st">"Class 3 Recall"</span><span class="op">,</span></span>
+<span id="cb35-629"><a href="#cb35-629" aria-hidden="true" tabindex="-1"></a>    <span class="dt">class_4_r</span><span class="op">:</span> <span class="st">"Class 4 Recall"</span><span class="op">,</span></span>
+<span id="cb35-630"><a href="#cb35-630" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb35-631"><a href="#cb35-631" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb35-632"><a href="#cb35-632" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> hover <span class="op">=</span> vl</span>
+<span id="cb35-633"><a href="#cb35-633" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">selectSingle</span>()</span>
+<span id="cb35-634"><a href="#cb35-634" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">on</span>(<span class="st">"mouseover"</span>)</span>
+<span id="cb35-635"><a href="#cb35-635" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">nearest</span>(<span class="kw">true</span>)</span>
+<span id="cb35-636"><a href="#cb35-636" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">empty</span>(<span class="st">"none"</span>)<span class="op">;</span></span>
+<span id="cb35-637"><a href="#cb35-637" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-638"><a href="#cb35-638" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> base <span class="op">=</span> vl<span class="op">.</span><span class="fu">markRule</span>({ <span class="dt">color</span><span class="op">:</span> <span class="st">"#ccc"</span> })<span class="op">.</span><span class="fu">encode</span>(</span>
+<span id="cb35-639"><a href="#cb35-639" aria-hidden="true" tabindex="-1"></a>  vl<span class="op">.</span><span class="fu">x</span>()<span class="op">.</span><span class="fu">fieldN</span>(<span class="st">"key"</span>)<span class="op">.</span><span class="fu">sort</span>([<span class="st">'GDP per capita (USD)'</span><span class="op">,</span> <span class="st">'Female enrolment ratio'</span><span class="op">,</span> <span class="st">'GNI per capita (USD)'</span>])<span class="op">.</span><span class="fu">title</span>(d <span class="kw">=&gt;</span> labelMap[d] <span class="op">||</span> d)<span class="op">,</span>  <span class="co">// Explicitly sort by desired order</span></span>
+<span id="cb35-640"><a href="#cb35-640" aria-hidden="true" tabindex="-1"></a>  vl<span class="op">.</span><span class="fu">detail</span>()<span class="op">.</span><span class="fu">count</span>()</span>
+<span id="cb35-641"><a href="#cb35-641" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
+<span id="cb35-642"><a href="#cb35-642" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-643"><a href="#cb35-643" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> line <span class="op">=</span> base<span class="op">.</span><span class="fu">markLine</span>()<span class="op">.</span><span class="fu">encode</span>(</span>
+<span id="cb35-644"><a href="#cb35-644" aria-hidden="true" tabindex="-1"></a>  vl<span class="op">.</span><span class="fu">color</span>()<span class="op">.</span><span class="fu">fieldN</span>(<span class="st">"Model"</span>)<span class="op">.</span><span class="fu">scale</span>({</span>
+<span id="cb35-645"><a href="#cb35-645" aria-hidden="true" tabindex="-1"></a>    <span class="dt">domain</span><span class="op">:</span> [<span class="st">'Standard XGBoost'</span><span class="op">,</span> <span class="st">'Class Imbalance XGBoost (SMOTE)'</span><span class="op">,</span> <span class="st">'Tuned XGBoost'</span><span class="op">,</span> <span class="st">'Random Forest'</span>]<span class="op">,</span>  <span class="co">// Adjust these categories based on your actual data</span></span>
+<span id="cb35-646"><a href="#cb35-646" aria-hidden="true" tabindex="-1"></a>    <span class="dt">range</span><span class="op">:</span> [<span class="st">'#1E90FF'</span><span class="op">,</span> <span class="st">'#FFD700'</span><span class="op">,</span> <span class="st">'#32CD32'</span><span class="op">,</span> <span class="st">'#FF4500'</span>]</span>
+<span id="cb35-647"><a href="#cb35-647" aria-hidden="true" tabindex="-1"></a>  })<span class="op">,</span></span>
+<span id="cb35-648"><a href="#cb35-648" aria-hidden="true" tabindex="-1"></a>  vl<span class="op">.</span><span class="fu">detail</span>()<span class="op">.</span><span class="fu">fieldN</span>(<span class="st">"index"</span>)<span class="op">,</span></span>
+<span id="cb35-649"><a href="#cb35-649" aria-hidden="true" tabindex="-1"></a>  vl<span class="op">.</span><span class="fu">opacity</span>()<span class="op">.</span><span class="fu">if</span>(hover<span class="op">,</span> vl<span class="op">.</span><span class="fu">value</span>(<span class="dv">1</span>))<span class="op">.</span><span class="fu">value</span>(<span class="fl">0.3</span>)<span class="op">,</span></span>
+<span id="cb35-650"><a href="#cb35-650" aria-hidden="true" tabindex="-1"></a>  vl<span class="op">.</span><span class="fu">y</span>()<span class="op">.</span><span class="fu">fieldQ</span>(<span class="st">"norm_val"</span>)<span class="op">.</span><span class="fu">axis</span>(<span class="kw">null</span>)<span class="op">,</span></span>
+<span id="cb35-651"><a href="#cb35-651" aria-hidden="true" tabindex="-1"></a>  vl<span class="op">.</span><span class="fu">tooltip</span>([</span>
+<span id="cb35-652"><a href="#cb35-652" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Model'</span><span class="op">,</span></span>
+<span id="cb35-653"><a href="#cb35-653" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Accuracy'</span><span class="op">,</span></span>
+<span id="cb35-654"><a href="#cb35-654" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Class 3 Precision'</span><span class="op">,</span> </span>
+<span id="cb35-655"><a href="#cb35-655" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Class 4 Precision'</span><span class="op">,</span> </span>
+<span id="cb35-656"><a href="#cb35-656" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Class 3 Recall'</span><span class="op">,</span> </span>
+<span id="cb35-657"><a href="#cb35-657" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Class 4 Recall'</span></span>
+<span id="cb35-658"><a href="#cb35-658" aria-hidden="true" tabindex="-1"></a>  ])</span>
+<span id="cb35-659"><a href="#cb35-659" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
+<span id="cb35-660"><a href="#cb35-660" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> points <span class="op">=</span> line<span class="op">.</span><span class="fu">markCircle</span>()</span>
+<span id="cb35-661"><a href="#cb35-661" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">select</span>(hover)</span>
+<span id="cb35-662"><a href="#cb35-662" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">encode</span>(vl<span class="op">.</span><span class="fu">size</span>()<span class="op">.</span><span class="fu">if</span>(hover<span class="op">,</span> vl<span class="op">.</span><span class="fu">value</span>(<span class="dv">50</span>))<span class="op">.</span><span class="fu">value</span>(<span class="dv">5</span>))<span class="op">;</span></span>
+<span id="cb35-663"><a href="#cb35-663" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-664"><a href="#cb35-664" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Generates a spec to show tick values at an specific value of y0</span></span>
+<span id="cb35-665"><a href="#cb35-665" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tick <span class="op">=</span> y0 <span class="kw">=&gt;</span></span>
+<span id="cb35-666"><a href="#cb35-666" aria-hidden="true" tabindex="-1"></a>    vl<span class="op">.</span><span class="fu">layer</span>(</span>
+<span id="cb35-667"><a href="#cb35-667" aria-hidden="true" tabindex="-1"></a>        base<span class="op">.</span><span class="fu">markText</span>({ <span class="dt">style</span><span class="op">:</span> <span class="st">"label"</span> })<span class="op">.</span><span class="fu">encode</span>(vl<span class="op">.</span><span class="fu">text</span>()<span class="op">.</span><span class="fu">max</span>(<span class="st">"max"</span>))<span class="op">,</span></span>
+<span id="cb35-668"><a href="#cb35-668" aria-hidden="true" tabindex="-1"></a>        base<span class="op">.</span><span class="fu">markTick</span>({ <span class="dt">style</span><span class="op">:</span> <span class="st">"tick"</span><span class="op">,</span> <span class="dt">size</span><span class="op">:</span> <span class="dv">8</span><span class="op">,</span> <span class="dt">color</span><span class="op">:</span> <span class="st">"#ccc"</span> })</span>
+<span id="cb35-669"><a href="#cb35-669" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb35-670"><a href="#cb35-670" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span><span class="fu">encode</span>(vl<span class="op">.</span><span class="fu">y</span>()<span class="op">.</span><span class="fu">value</span>(y0))<span class="op">;</span></span>
 <span id="cb35-671"><a href="#cb35-671" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-672"><a href="#cb35-672" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> vl</span>
-<span id="cb35-673"><a href="#cb35-673" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">layer</span>(base<span class="op">,</span> line<span class="op">,</span> points<span class="op">,</span> <span class="op">...</span>ticks)</span>
-<span id="cb35-674"><a href="#cb35-674" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">data</span>(dat)</span>
-<span id="cb35-675"><a href="#cb35-675" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">transform</span>(</span>
-<span id="cb35-676"><a href="#cb35-676" aria-hidden="true" tabindex="-1"></a>      vl<span class="op">.</span><span class="fu">filter</span>(attribs<span class="op">.</span><span class="fu">map</span>(a <span class="kw">=&gt;</span> <span class="vs">`datum["</span><span class="sc">${</span>a<span class="sc">}</span><span class="vs">"] != null`</span>)<span class="op">.</span><span class="fu">join</span>(<span class="st">" &amp;&amp; "</span>))<span class="op">,</span></span>
-<span id="cb35-677"><a href="#cb35-677" aria-hidden="true" tabindex="-1"></a>      vl<span class="op">.</span><span class="fu">window</span>(vl<span class="op">.</span><span class="fu">count</span>()<span class="op">.</span><span class="fu">as</span>(<span class="st">"index"</span>))<span class="op">,</span></span>
-<span id="cb35-678"><a href="#cb35-678" aria-hidden="true" tabindex="-1"></a>      vl<span class="op">.</span><span class="fu">fold</span>(attribs)<span class="op">,</span></span>
-<span id="cb35-679"><a href="#cb35-679" aria-hidden="true" tabindex="-1"></a>      vl<span class="op">.</span><span class="fu">groupby</span>(<span class="st">"key"</span>)<span class="op">.</span><span class="fu">joinaggregate</span>(vl<span class="op">.</span><span class="fu">min</span>(<span class="st">"value"</span>)<span class="op">.</span><span class="fu">as</span>(<span class="st">"min"</span>)<span class="op">,</span> vl<span class="op">.</span><span class="fu">max</span>(<span class="st">"value"</span>)<span class="op">.</span><span class="fu">as</span>(<span class="st">"max"</span>))<span class="op">,</span></span>
-<span id="cb35-680"><a href="#cb35-680" aria-hidden="true" tabindex="-1"></a>      vl<span class="op">.</span><span class="fu">calculate</span>(<span class="st">"(datum.value - datum.min) / (datum.max - datum.min)"</span>)<span class="op">.</span><span class="fu">as</span>(<span class="st">"norm_val"</span>)<span class="op">,</span></span>
-<span id="cb35-681"><a href="#cb35-681" aria-hidden="true" tabindex="-1"></a>      vl<span class="op">.</span><span class="fu">calculate</span>(<span class="st">"(datum.min + datum.max) / 2"</span>)<span class="op">.</span><span class="fu">as</span>(<span class="st">"mid"</span>)</span>
-<span id="cb35-682"><a href="#cb35-682" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb35-683"><a href="#cb35-683" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">config</span>({</span>
-<span id="cb35-684"><a href="#cb35-684" aria-hidden="true" tabindex="-1"></a>      <span class="dt">axisX</span><span class="op">:</span> { <span class="dt">domain</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span> <span class="dt">labelAngle</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">tickColor</span><span class="op">:</span> <span class="st">"#ccc"</span><span class="op">,</span> <span class="dt">title</span><span class="op">:</span> <span class="kw">null</span> }<span class="op">,</span></span>
-<span id="cb35-685"><a href="#cb35-685" aria-hidden="true" tabindex="-1"></a>      <span class="dt">view</span><span class="op">:</span> { <span class="dt">stroke</span><span class="op">:</span> <span class="kw">null</span> }<span class="op">,</span></span>
-<span id="cb35-686"><a href="#cb35-686" aria-hidden="true" tabindex="-1"></a>      <span class="dt">style</span><span class="op">:</span> {</span>
-<span id="cb35-687"><a href="#cb35-687" aria-hidden="true" tabindex="-1"></a>        <span class="dt">label</span><span class="op">:</span> { <span class="dt">baseline</span><span class="op">:</span> <span class="st">"middle"</span><span class="op">,</span> <span class="dt">align</span><span class="op">:</span> <span class="st">"right"</span><span class="op">,</span> <span class="dt">dx</span><span class="op">:</span> <span class="op">-</span><span class="dv">5</span> }<span class="op">,</span></span>
-<span id="cb35-688"><a href="#cb35-688" aria-hidden="true" tabindex="-1"></a>        <span class="dt">tick</span><span class="op">:</span> { <span class="dt">orient</span><span class="op">:</span> <span class="st">"horizontal"</span> }</span>
-<span id="cb35-689"><a href="#cb35-689" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb35-690"><a href="#cb35-690" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb35-691"><a href="#cb35-691" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">width</span>(width <span class="op">-</span> <span class="dv">100</span>)</span>
-<span id="cb35-692"><a href="#cb35-692" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">height</span>(height)</span>
-<span id="cb35-693"><a href="#cb35-693" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">title</span>({</span>
-<span id="cb35-694"><a href="#cb35-694" aria-hidden="true" tabindex="-1"></a>      <span class="dt">text</span><span class="op">:</span> <span class="st">'Model Performance for Cancer vs Non-Cancer Data'</span><span class="op">,</span></span>
-<span id="cb35-695"><a href="#cb35-695" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontSize</span><span class="op">:</span> <span class="dv">12</span><span class="op">,</span></span>
-<span id="cb35-696"><a href="#cb35-696" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontWeight</span><span class="op">:</span> <span class="st">'normal'</span><span class="op">,</span></span>
-<span id="cb35-697"><a href="#cb35-697" aria-hidden="true" tabindex="-1"></a>      <span class="dt">anchor</span><span class="op">:</span> <span class="st">'middle'</span><span class="op">,</span></span>
-<span id="cb35-698"><a href="#cb35-698" aria-hidden="true" tabindex="-1"></a>      <span class="dt">color</span><span class="op">:</span> <span class="st">'black'</span><span class="op">,</span></span>
-<span id="cb35-699"><a href="#cb35-699" aria-hidden="true" tabindex="-1"></a>      <span class="dt">font</span><span class="op">:</span> <span class="st">'monospace'</span><span class="op">,</span></span>
-<span id="cb35-700"><a href="#cb35-700" aria-hidden="true" tabindex="-1"></a>      <span class="dt">offset</span><span class="op">:</span> <span class="dv">40</span></span>
-<span id="cb35-701"><a href="#cb35-701" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb35-702"><a href="#cb35-702" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">render</span>()<span class="op">;</span></span>
-<span id="cb35-703"><a href="#cb35-703" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-704"><a href="#cb35-704" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-705"><a href="#cb35-705" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb35-672"><a href="#cb35-672" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Create an array with *numTicks* ticks</span></span>
+<span id="cb35-673"><a href="#cb35-673" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> ticks <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({ <span class="dt">length</span><span class="op">:</span> numTicks })</span>
+<span id="cb35-674"><a href="#cb35-674" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">map</span>((_<span class="op">,</span> i) <span class="kw">=&gt;</span> <span class="fu">tick</span>((height <span class="op">/</span> (numTicks <span class="op">-</span> <span class="dv">1</span>)) <span class="op">*</span> i))<span class="op">;</span></span>
+<span id="cb35-675"><a href="#cb35-675" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-676"><a href="#cb35-676" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> vl</span>
+<span id="cb35-677"><a href="#cb35-677" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">layer</span>(base<span class="op">,</span> line<span class="op">,</span> points<span class="op">,</span> <span class="op">...</span>ticks)</span>
+<span id="cb35-678"><a href="#cb35-678" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">data</span>(dat)</span>
+<span id="cb35-679"><a href="#cb35-679" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">transform</span>(</span>
+<span id="cb35-680"><a href="#cb35-680" aria-hidden="true" tabindex="-1"></a>      vl<span class="op">.</span><span class="fu">filter</span>(attribs<span class="op">.</span><span class="fu">map</span>(a <span class="kw">=&gt;</span> <span class="vs">`datum["</span><span class="sc">${</span>a<span class="sc">}</span><span class="vs">"] != null`</span>)<span class="op">.</span><span class="fu">join</span>(<span class="st">" &amp;&amp; "</span>))<span class="op">,</span></span>
+<span id="cb35-681"><a href="#cb35-681" aria-hidden="true" tabindex="-1"></a>      vl<span class="op">.</span><span class="fu">window</span>(vl<span class="op">.</span><span class="fu">count</span>()<span class="op">.</span><span class="fu">as</span>(<span class="st">"index"</span>))<span class="op">,</span></span>
+<span id="cb35-682"><a href="#cb35-682" aria-hidden="true" tabindex="-1"></a>      vl<span class="op">.</span><span class="fu">fold</span>(attribs)<span class="op">,</span></span>
+<span id="cb35-683"><a href="#cb35-683" aria-hidden="true" tabindex="-1"></a>      vl<span class="op">.</span><span class="fu">groupby</span>(<span class="st">"key"</span>)<span class="op">.</span><span class="fu">joinaggregate</span>(vl<span class="op">.</span><span class="fu">min</span>(<span class="st">"value"</span>)<span class="op">.</span><span class="fu">as</span>(<span class="st">"min"</span>)<span class="op">,</span> vl<span class="op">.</span><span class="fu">max</span>(<span class="st">"value"</span>)<span class="op">.</span><span class="fu">as</span>(<span class="st">"max"</span>))<span class="op">,</span></span>
+<span id="cb35-684"><a href="#cb35-684" aria-hidden="true" tabindex="-1"></a>      vl<span class="op">.</span><span class="fu">calculate</span>(<span class="st">"(datum.value - datum.min) / (datum.max - datum.min)"</span>)<span class="op">.</span><span class="fu">as</span>(<span class="st">"norm_val"</span>)<span class="op">,</span></span>
+<span id="cb35-685"><a href="#cb35-685" aria-hidden="true" tabindex="-1"></a>      vl<span class="op">.</span><span class="fu">calculate</span>(<span class="st">"(datum.min + datum.max) / 2"</span>)<span class="op">.</span><span class="fu">as</span>(<span class="st">"mid"</span>)</span>
+<span id="cb35-686"><a href="#cb35-686" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb35-687"><a href="#cb35-687" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">config</span>({</span>
+<span id="cb35-688"><a href="#cb35-688" aria-hidden="true" tabindex="-1"></a>      <span class="dt">axisX</span><span class="op">:</span> { <span class="dt">domain</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span> <span class="dt">labelAngle</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">tickColor</span><span class="op">:</span> <span class="st">"#ccc"</span><span class="op">,</span> <span class="dt">title</span><span class="op">:</span> <span class="kw">null</span> }<span class="op">,</span></span>
+<span id="cb35-689"><a href="#cb35-689" aria-hidden="true" tabindex="-1"></a>      <span class="dt">view</span><span class="op">:</span> { <span class="dt">stroke</span><span class="op">:</span> <span class="kw">null</span> }<span class="op">,</span></span>
+<span id="cb35-690"><a href="#cb35-690" aria-hidden="true" tabindex="-1"></a>      <span class="dt">style</span><span class="op">:</span> {</span>
+<span id="cb35-691"><a href="#cb35-691" aria-hidden="true" tabindex="-1"></a>        <span class="dt">label</span><span class="op">:</span> { <span class="dt">baseline</span><span class="op">:</span> <span class="st">"middle"</span><span class="op">,</span> <span class="dt">align</span><span class="op">:</span> <span class="st">"right"</span><span class="op">,</span> <span class="dt">dx</span><span class="op">:</span> <span class="op">-</span><span class="dv">5</span> }<span class="op">,</span></span>
+<span id="cb35-692"><a href="#cb35-692" aria-hidden="true" tabindex="-1"></a>        <span class="dt">tick</span><span class="op">:</span> { <span class="dt">orient</span><span class="op">:</span> <span class="st">"horizontal"</span> }</span>
+<span id="cb35-693"><a href="#cb35-693" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb35-694"><a href="#cb35-694" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb35-695"><a href="#cb35-695" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">width</span>(width <span class="op">-</span> <span class="dv">100</span>)</span>
+<span id="cb35-696"><a href="#cb35-696" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">height</span>(height)</span>
+<span id="cb35-697"><a href="#cb35-697" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">title</span>({</span>
+<span id="cb35-698"><a href="#cb35-698" aria-hidden="true" tabindex="-1"></a>      <span class="dt">text</span><span class="op">:</span> <span class="st">'Model Performance for Cancer vs Non-Cancer Data'</span><span class="op">,</span></span>
+<span id="cb35-699"><a href="#cb35-699" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontSize</span><span class="op">:</span> <span class="dv">12</span><span class="op">,</span></span>
+<span id="cb35-700"><a href="#cb35-700" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fontWeight</span><span class="op">:</span> <span class="st">'normal'</span><span class="op">,</span></span>
+<span id="cb35-701"><a href="#cb35-701" aria-hidden="true" tabindex="-1"></a>      <span class="dt">anchor</span><span class="op">:</span> <span class="st">'middle'</span><span class="op">,</span></span>
+<span id="cb35-702"><a href="#cb35-702" aria-hidden="true" tabindex="-1"></a>      <span class="dt">color</span><span class="op">:</span> <span class="st">'black'</span><span class="op">,</span></span>
+<span id="cb35-703"><a href="#cb35-703" aria-hidden="true" tabindex="-1"></a>      <span class="dt">font</span><span class="op">:</span> <span class="st">'monospace'</span><span class="op">,</span></span>
+<span id="cb35-704"><a href="#cb35-704" aria-hidden="true" tabindex="-1"></a>      <span class="dt">offset</span><span class="op">:</span> <span class="dv">40</span></span>
+<span id="cb35-705"><a href="#cb35-705" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb35-706"><a href="#cb35-706" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">render</span>()<span class="op">;</span></span>
+<span id="cb35-707"><a href="#cb35-707" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-708"><a href="#cb35-708" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-709"><a href="#cb35-709" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-4" data-nodetype="declaration">
@@ -1834,7 +1847,7 @@ window.df_data = [{"Model":"Standard XGBoost","Accuracy":0.703125,"Class 3 Preci
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb36" data-startfrom="712" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 711;"><span id="cb36-712"><a href="#cb36-712" aria-hidden="true" tabindex="-1"></a>attribs <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(dat[<span class="dv">0</span>])<span class="op">.</span><span class="fu">filter</span>(a <span class="kw">=&gt;</span> <span class="op">!</span><span class="pp">isNaN</span>(dat[<span class="dv">0</span>][a])) <span class="co">//Find the attributes that are numbers</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36" data-startfrom="716" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 715;"><span id="cb36-716"><a href="#cb36-716" aria-hidden="true" tabindex="-1"></a>attribs <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(dat[<span class="dv">0</span>])<span class="op">.</span><span class="fu">filter</span>(a <span class="kw">=&gt;</span> <span class="op">!</span><span class="pp">isNaN</span>(dat[<span class="dv">0</span>][a])) <span class="co">//Find the attributes that are numbers</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-5" data-nodetype="declaration">
