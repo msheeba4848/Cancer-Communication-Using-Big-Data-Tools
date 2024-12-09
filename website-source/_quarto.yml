@@ -6,14 +6,16 @@ website:
   title: Cancer & Reddit
   navbar:
     left:
+      - href: data_cleaning.ipynb
+        text: Data Cleaning
       - href: eda_hints.qmd
         text: HINTS EDA
       - href: eda_reddit.qmd
         text: Reddit EDA
       - href: nlp.qmd
         text: NLP
-      - href: ml.qmd
-        text: ML
+      - href: hints_regression.qmd
+        text: Machine Learning
       - href: summary.qmd
         text: Summary
   page-footer:
@@ -28,6 +30,8 @@ website:
 
 format:
   html:
+    code-fold: true
     theme: cosmo
-    css: styles.css
     toc: true
+    # Optional: Uncomment if you want to add your custom styles
+    # css: styles.css
