@@ -21,6 +21,7 @@ import pyreadr
 import pandas as pd
 from IPython.display import display
 import matplotlib.pyplot as plt
+from matplotlib.colors import LinearSegmentedColormap
 import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
@@ -161,24 +162,31 @@ display(correlation_with_target_spearman)
 
 ```{python}
 # Heat Map of Spearman Correlation
+# Ensure the correlation matrix is symmetric
+correlation_matrix_spearman = correlation_matrix_spearman.loc[correlation_matrix_spearman.index, correlation_matrix_spearman.index]
+
 # Mask the upper triangle of the matrix for better visualization
 mask = np.triu(np.ones_like(correlation_matrix_spearman, dtype=bool))
 
+# Define a custom colormap from white to the specified hex color
+custom_cmap = LinearSegmentedColormap.from_list("custom_cmap", ["#ffffff", "#3d6469"])
+
 # Plot the heatmap
-plt.figure(figsize=(10, 8))
+plt.figure(figsize=(12, 10))
 sns.heatmap(
     correlation_matrix_spearman,
     mask=mask,
     annot=True,
     fmt=".2f",
-    cmap="coolwarm",
+    cmap=custom_cmap,
     cbar=True,
     square=True,
-    xticklabels=correlation_matrix_spearman.columns,
+    xticklabels=correlation_matrix_spearman.index,
     yticklabels=correlation_matrix_spearman.columns
 )
 plt.title("Spearman Correlation Matrix (Ordinal Data)", pad=20)
 plt.xticks(rotation=45, ha='right')
+plt.yticks(rotation=0)
 plt.tight_layout()
 plt.show()
 ```
@@ -583,7 +591,7 @@ from IPython.display import display, Javascript
 display(Javascript(f'window.df_data = {model_comparison_json};'))
 ```
 
-```{ojs}
+```{ojs, echo=FALSE}
 function parseCSV(csvString) {
   return d3.csvParse(csvString);
 }
@@ -632,10 +640,10 @@ viewof numTicks = slider({
 chart = {
   const height = 350;
   const labelMap = {
-    class_3: "Class 3 Precision",
-    class_4: "Class 4 Precision",
-    class_3_r: "Class 3 Recall",
-    class_4_r: "Class 4 Recall",
+    class_3: "High Trust in Healthcare Precision Scores",
+    class_4: "Low Trust in Healthcare Precision Scores",
+    class_3_r: "High Trust in Healthcare Recall Scores",
+    class_4_r: "Low Trust in Healthcare Recall Scores",
   };
   
   const hover = vl
@@ -651,8 +659,8 @@ chart = {
 
 const line = base.markLine().encode(
   vl.color().fieldN("Model").scale({
-    domain: ['Standard XGBoost', 'Class Imbalance XGBoost (SMOTE)', 'Tuned XGBoost', 'Random Forest'],  // Adjust these categories based on your actual data
-    range: ['#1E90FF', '#FFD700', '#32CD32', '#FF4500']
+    domain: ['Standard XGBoost', 'Class Imbalance XGBoost (SMOTE)', 'Tuned XGBoost', 'Random Forest'], 
+    range: ["#3d6469", "#ffa205", "#ff4500", "#d40637"]
   }),
   vl.detail().fieldN("index"),
   vl.opacity().if(hover, vl.value(1)).value(0.3),
@@ -734,16 +742,16 @@ The Hyperparameter Tuned XGBoost model is the best overall in terms of accuracy 
 
 # HINTS | Conclusion: Comparing Random Forest and XGBoost
 
-| Metric                 | **Random Forest** | **XGBoost (Standard)** | **XGBoost (SMOTE)** | **XGBoost (Tuned)** |
-|------------------------|-------------------|------------------------|---------------------|---------------------|
-| **Accuracy**            | 0.70              | 0.65                   | 0.62                | 0.74                |
-| **Class 0 Precision**   | 0.75              | 0.79                   | 0.82                | 0.79                |
-| **Class 0 Recall**      | 0.70              | 0.75                   | 0.65                | 0.90                |
-| **Class 1 Precision**   | 0.30              | 0.24                   | 0.28                | 0.29                |
-| **Class 1 Recall**      | 0.40              | 0.29                   | 0.50                | 0.14                |
-| **F1-score (Class 0)**  | 0.72              | 0.77                   | 0.73                | 0.84                |
-| **F1-score (Class 1)**  | 0.35              | 0.26                   | 0.36                | 0.19                |
-| **Macro avg F1-score** | 0.53              | 0.51                   | 0.54                | 0.52                |
-| **Weighted avg F1**     | 0.66              | 0.66                   | 0.65                | 0.70                |
+| Metric                                           | Random Forest | XGBoost (Standard) | XGBoost (SMOTE) | XGBoost (Tuned) |
+|--------------------------------------------------|---------------|---------------------|------------------|------------------|
+| Accuracy                                         | 0.70          | 0.65                | 0.62             | 0.74             |
+| Trust in Healthcare System - High Precision      | 0.75          | 0.79                | 0.82             | 0.79             |
+| Trust in Healthcare System - High Recall         | 0.70          | 0.75                | 0.65             | 0.90             |
+| Trust in Healthcare System - Low Precision       | 0.30          | 0.24                | 0.28             | 0.29             |
+| Trust in Healthcare System - Low Recall          | 0.40          | 0.29                | 0.50             | 0.14             |
+| F1-score (Trust in Healthcare System - High)     | 0.72          | 0.77                | 0.73             | 0.84             |
+| F1-score (Trust in Healthcare System - Low)      | 0.35          | 0.26                | 0.36             | 0.19             |
+| Macro avg F1-score                               | 0.53          | 0.51                | 0.54             | 0.52             |
+| Weighted avg F1                                  | 0.66          | 0.66                | 0.65             | 0.70             |
 
 The XGBoost (Tuned) model is the best choice based on its highest accuracy (74%) and superior performance for Class 0 (High Trust in Healthcare), with a strong recall of 90%. While it still struggles with Class 1 (Low Trust in Healthcare), the improved overall performance makes it the most reliable model for the task at hand.

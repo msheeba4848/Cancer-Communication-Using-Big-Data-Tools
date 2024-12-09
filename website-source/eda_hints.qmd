@@ -133,18 +133,28 @@ melted_correlation <- melt(correlation_matrix_spearman)
 # Mask the upper triangle and diagonal of the correlation matrix
 melted_correlation$value[upper.tri(correlation_matrix_spearman, diag = TRUE)] <- NA
 
+# Create a custom color scale
+custom_colors <- colorRampPalette(c("#ffffff", "#3d6469"))(100)
+
 # Plot the heatmap
 ggplot(melted_correlation, aes(x = Var1, y = Var2, fill = value)) +
   geom_tile() +
-  scale_fill_gradient2(low = "blue", high = "red", mid = "white", 
-                       midpoint = 0, name = "Spearman Correlation", 
-                       limits = c(-1, 1), na.value = "white") +
+  scale_fill_gradientn(colours = custom_colors, 
+                       limits = c(-1, 1), 
+                       na.value = "white",
+                       name = "Spearman\nCorrelation") +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
+        axis.text.y = element_text(angle = 0, hjust = 1),
         axis.title.x = element_blank(),
-        axis.title.y = element_blank()) +
+        axis.title.y = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        legend.position = "right") +
   labs(title = "Spearman Correlation Matrix (Ordinal Data)") +
-  coord_fixed()  # Ensures the x and y axes are the same length
+  coord_fixed() +
+  geom_text(aes(label = ifelse(is.na(value), "", sprintf("%.2f", value))), 
+            color = "black", size = 2.5)
 ```
 
 
