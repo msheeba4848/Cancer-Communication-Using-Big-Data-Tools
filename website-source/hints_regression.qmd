@@ -584,20 +584,27 @@ display(Javascript(f'window.df_data = {model_comparison_json};'))
 ```
 
 ```{ojs}
+function parseCSV(csvString) {
+  return d3.csvParse(csvString);
+}
+```
+
+```{ojs}
 // Import the necessary libraries
 d3 = require("d3", "d3-svg-legend")
 
 // Define and load your datasets
-dat = d3.csv('df.csv', function(d){
-  return {
+dat = await FileAttachment('df.csv')
+  .text()
+  .then(parseCSV)
+  .then(data => data.map(d => ({
     'Model': d['Model'], 
-    'Accuracy': d['Accuracy'], 
+    'Accuracy': +d['Accuracy'], 
     'Class 3 Precision': +d['Class 3 Precision'],
     'Class 4 Precision': +d['Class 4 Precision'],
     'Class 3 Recall': +d['Class 3 Recall'],
     'Class 4 Recall': +d['Class 4 Recall']
-  };
-});
+  })));
 
 dat;
 
