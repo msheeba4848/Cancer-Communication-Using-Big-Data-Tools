@@ -1,2 +1,51 @@
 # NLP
 
+
+## TF-IDF
+
+### What words are commonly used in the Cancer Subreddits?
+
+| Word         | TF-IDF       |
+|--------------|--------------|
+| time         | 604.333288   |
+| removed      | 510.072719   |
+| thank        | 508.752837   |
+| information  | 491.421062   |
+| doctor       | 480.772518   |
+| people       | 467.593201   |
+| work         | 443.772165   |
+| patient      | 387.074392   |
+| cancer       | 365.678933   |
+| best         | 340.635342   |
+
+
+
+
+## SparkNLP
+
+
+
+
+### Is there a Difference between Cancer and Non-Cancer Related Subreddits?
+
+| sentiment_label | count_cancer | count_non_cancer |
+|-----------------|--------------|------------------|
+| positive       | 5929         | 5715             |
+| negative       | 4071         | 4285             |
+
+
+Chi-square statistic: 9.325853191514204
+P-value: 0.0022594309243996907
+Degrees of freedom: 1
+Expected frequencies: 
+[[5822. 5822.]
+ [4178. 4178.]]
+
+
+## NRC-LEX
+
+### Is there a difference in emotional sentiments between Cancer and Non-Cancer Subreddits?
+| subreddit     | positive | negative | neutral | anger   | fear    | disgust | sadness | joy     | surprise | trust   |
+|------------|----------|----------|---------|---------|---------|---------|---------|---------|----------|---------|
+| Cancer     | 0.202806 | 0.119079 | 0.0     | 0.037681 | 0.067383 | 0.033798 | 0.058226 | 0.044399 | 0.028933 | 0.119079 |
+| Non-Cancer | 0.170739 | 0.096125 | 0.0     | 0.034273 | 0.041384 | 0.023316 | 0.034463 | 0.044963 | 0.024675 | 0.082917 |
