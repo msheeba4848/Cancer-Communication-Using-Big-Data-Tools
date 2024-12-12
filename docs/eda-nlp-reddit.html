@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.39">
+<meta name="generator" content="quarto-1.4.550">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Reddit PushShift Exloratory Data Analysis – Cancer &amp; Reddit</title>
+<title>Understanding Cancer Communication - Reddit PushShift Exloratory Data Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -69,10 +69,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6bd9cfa162949bde0a231f530c97869d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -117,11 +117,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Cancer &amp; Reddit</span>
+    <span class="navbar-title">Understanding Cancer Communication</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -144,7 +144,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./hints_regression.html"> 
-<span class="menu-text">Machine Learning</span></a>
+<span class="menu-text">HINTS ML</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./reddit_ml.html"> 
+<span class="menu-text">Reddit ML</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./summary.html"> 
@@ -152,7 +156,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
+          <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -166,7 +170,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#reddit-questions-and-searches" id="toc-reddit-questions-and-searches" class="nav-link active" data-scroll-target="#reddit-questions-and-searches">Reddit Questions and Searches</a></li>
+  <li><a href="#reddit-pushshift-exloratory-data-analysis" id="toc-reddit-pushshift-exloratory-data-analysis" class="nav-link active" data-scroll-target="#reddit-pushshift-exloratory-data-analysis">Reddit PushShift Exloratory Data Analysis</a>
+  <ul class="collapse">
+  <li><a href="#reddit-questions-and-searches" id="toc-reddit-questions-and-searches" class="nav-link" data-scroll-target="#reddit-questions-and-searches">Reddit Questions and Searches</a></li>
+  </ul></li>
   <li><a href="#loading-data" id="toc-loading-data" class="nav-link" data-scroll-target="#loading-data">Loading Data</a></li>
   <li><a href="#basic-exploration" id="toc-basic-exploration" class="nav-link" data-scroll-target="#basic-exploration">Basic Exploration</a></li>
   <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions">Questions:</a>
@@ -214,6 +221,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="reddit-pushshift-exloratory-data-analysis" class="level1">
+<h1>Reddit PushShift Exloratory Data Analysis</h1>
 <section id="reddit-questions-and-searches" class="level3">
 <h3 class="anchored" data-anchor-id="reddit-questions-and-searches">Reddit Questions and Searches</h3>
 <ul>
@@ -225,7 +234,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Reddits and subreddits that contain the word “cancer”</li>
 </ul>
 <p>In addition, we combed the entire Reddit PushShift dataset provided based on the following criteria:</p>
-<table class="caption-top table">
+<table class="table">
 <colgroup>
 <col style="width: 11%">
 <col style="width: 88%">
@@ -280,9 +289,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
+</section>
 <section id="loading-data" class="level1">
 <h1>Loading Data</h1>
-<div id="cell-3" class="cell" data-gather="{&quot;logged&quot;:1733793845523}" data-execution_count="1">
+<div id="cell-2" class="cell" data-gather="{&quot;logged&quot;:1733793845523}" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -362,7 +372,7 @@ Successfully installed nrclex-3.0.0</code></pre>
 </section>
 <section id="basic-exploration" class="level1">
 <h1>Basic Exploration</h1>
-<div id="cell-5" class="cell" data-execution_count="45">
+<div id="cell-4" class="cell" data-execution_count="45">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'../data/csv/Merged_data.csv'</span>, delimiter<span class="op">=</span><span class="st">','</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>)</span>
@@ -371,9 +381,10 @@ Successfully installed nrclex-3.0.0</code></pre>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="45">
 <div>
+<div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -411,7 +422,8 @@ Successfully installed nrclex-3.0.0</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-6" class="cell" data-gather="{&quot;logged&quot;:1733775050806}" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}" data-execution_count="1">
+</div>
+<div id="cell-5" class="cell" data-gather="{&quot;logged&quot;:1733775050806}" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using Big Cloud Data qeuried for the EDA Analysis to run with </span></span>
@@ -474,7 +486,7 @@ root
 shape of the comments dataframe is 10,000x20</code></pre>
 </div>
 </div>
-<div id="cell-7" class="cell" data-gather="{&quot;logged&quot;:1733775089744}" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}" data-execution_count="2">
+<div id="cell-6" class="cell" data-gather="{&quot;logged&quot;:1733775089744}" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>output_path <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>workspace_wasbs_base_url<span class="sc">}</span><span class="ss">not_cancer_subreddit.parquet"</span></span>
@@ -528,7 +540,7 @@ root
 shape of the comments dataframe is 10,000x20</code></pre>
 </div>
 </div>
-<div id="cell-8" class="cell" data-gather="{&quot;logged&quot;:1733775701615}" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}" data-execution_count="7">
+<div id="cell-7" class="cell" data-gather="{&quot;logged&quot;:1733775701615}" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine Big data cloud data to perform EDA </span></span>
@@ -571,7 +583,7 @@ root
 shape of the comments dataframe is 20,000x4</code></pre>
 </div>
 </div>
-<div id="cell-9" class="cell" data-gather="{&quot;logged&quot;:1733793946723}" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}" data-execution_count="2">
+<div id="cell-8" class="cell" data-gather="{&quot;logged&quot;:1733793946723}" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Convert parquet into pandas </span></span>
@@ -606,7 +618,7 @@ shape of the comments dataframe is 20,000x4</code></pre>
 shape of the Pandas DataFrame is (20000, 4)</code></pre>
 </div>
 </div>
-<div id="cell-10" class="cell" data-gather="{&quot;logged&quot;:1733793948770}" data-execution_count="3">
+<div id="cell-9" class="cell" data-gather="{&quot;logged&quot;:1733793948770}" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># checking for missing values</span></span>
@@ -623,7 +635,7 @@ subreddit           0
 dtype: int64</code></pre>
 </div>
 </div>
-<div id="cell-11" class="cell" data-gather="{&quot;logged&quot;:1733793950778}" data-execution_count="4">
+<div id="cell-10" class="cell" data-gather="{&quot;logged&quot;:1733793950778}" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#for i in df.columns:</span></span>
@@ -648,7 +660,7 @@ subreddit           object
 dtype: object</code></pre>
 </div>
 </div>
-<div id="cell-12" class="cell" data-gather="{&quot;logged&quot;:1733793951776}" data-execution_count="5">
+<div id="cell-11" class="cell" data-gather="{&quot;logged&quot;:1733793951776}" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> preprocess_text(text):</span>
@@ -665,9 +677,10 @@ dtype: object</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="19">
 <div>
+<div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -698,6 +711,7 @@ dtype: object</code></pre>
 </div>
 </div>
 </div>
+</div>
 </section>
 <section id="questions" class="level1">
 <h1>Questions:</h1>
@@ -708,7 +722,7 @@ dtype: object</code></pre>
 <h2 class="anchored" data-anchor-id="what-is-the-sentiment-distribution-across-these-diverse-healthcare-subreddits">What is the sentiment distribution across these diverse healthcare subreddits?</h2>
 <p><strong>Purpose</strong>: To understand how different healthcare communities perceive their situations, we analyzed the sentiment distribution across various healthcare-related subreddits by categorizing each comment as positive, negative, or neutral based on its sentiment score. Positive scores indicate optimistic or supportive comments, negative scores reflect frustration or concern, and neutral scores suggest factual or balanced tones. This analysis provides a snapshot of the emotional climate across healthcare subreddits, helping us gauge the general sentiment expressed by members of each community.</p>
 <p><strong>Outcome</strong>: It is seen that there is right skewed distribution for ‘negative’ and positive has a left-skewed distribution with an expection for ‘WomensHealth’ subreddit. The counts on an overall scale were slightly more for negative than the positive. However, as this doesn’t specifically answer our questions in great depth, we explore further.</p>
-<div id="cell-15" class="cell" data-gather="{&quot;logged&quot;:1733794054042}" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}" data-execution_count="10">
+<div id="cell-14" class="cell" data-gather="{&quot;logged&quot;:1733794054042}" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>sid <span class="op">=</span> SentimentIntensityAnalyzer()</span>
@@ -739,7 +753,7 @@ dtype: object</code></pre>
 <li>The sentiment analysis across healthcare subreddits shows a wide range of emotional tones. Subreddits like braincancer, predental, and HealthInsurance exhibit higher positive sentiment, possibly reflecting optimism or supportive environments. In contrast, subreddits such as UlcerativeColitis, Lymphedema, and leukemia lean more negative, indicating challenging or difficult discussions. Many subreddits, including breastcancer and cancer, have a high proportion of neutral sentiment, suggesting factual or balanced discussions.</li>
 <li>The analysis of emotions across healthcare subreddits reveals a diverse emotional landscape, with certain emotions being more prominent in specific communities. For example, sadness is particularly high in subreddits such as Cancersurvivors, BRCA, and predental, likely reflecting the emotional challenges related to these conditions. Fear is notably prevalent in subreddits like skincancer, thyroidcancer, and publichealth, indicating concerns over diagnosis, treatment, and potential health risks. On the other hand, joy is relatively high in WomensHealth and braincancer, suggesting instances of shared positive experiences or supportive interactions. Anger is particularly pronounced in subreddits such as Fuckcancer and Microbiome, possibly reflecting frustration with healthcare systems, treatments, or conditions.</li>
 </ul>
-<div id="cell-17" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}">
+<div id="cell-16" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using pretained transformeers model</span></span>
@@ -776,7 +790,7 @@ dtype: object</code></pre>
 <span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.show()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-18" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}">
+<div id="cell-17" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">## using vader for emotional scoring</span></span>
@@ -803,7 +817,7 @@ dtype: object</code></pre>
 <span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.show()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-19" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}">
+<div id="cell-18" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using textblob for sentiment analysis as a proxy for emotion</span></span>
@@ -830,7 +844,7 @@ dtype: object</code></pre>
 <h2 class="anchored" data-anchor-id="what-are-the-primary-topics-or-themes-discussed-in-each-subreddit">What are the primary topics or themes discussed in each subreddit?</h2>
 <p><strong>Purpose</strong>: The goal of analyzing primary topics or themes across healthcare subreddits is to identify common areas of discussion within each community. These themes could include treatment challenges, symptom management, and the need for emotional support, among others. By understanding the primary concerns in each subreddit, we can gain insights into what matters most to different healthcare communities. Additionally, exploring correlations between these topics and sentiment may reveal how specific discussions align with positive, negative, or neutral emotions, providing a deeper understanding of each community’s unique experiences and perspectives.</p>
 <p><strong>Outcome</strong>: The topic analysis across healthcare subreddits reveals a variety of key themes discussed within these communities. Topic 1 centers around understanding medical treatments, particularly radiation and prostate-related issues, suggesting a need for clarity on complex procedures. Topic 2 highlights patient-doctor relationships and the desire for reassurance regarding symptoms like lumps, indicating some mistrust or frustration with healthcare providers. Topic 3 reflects general concerns about treatment and care, as well as the challenges of navigating personal health decisions. Topic 4 focuses on experiences with pain and family dynamics, with mentions of “mom” and “dad,” suggesting that family support plays a significant role in coping with diagnoses. Lastly, Topic 5 discusses life-impacting elements of treatment, like blood work, chemotherapy, and managing side effects.</p>
-<div id="cell-21" class="cell" data-gather="{&quot;logged&quot;:1733783421387}" data-execution_count="16">
+<div id="cell-20" class="cell" data-gather="{&quot;logged&quot;:1733783421387}" data-execution_count="16">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>vectorizer <span class="op">=</span> CountVectorizer(max_df<span class="op">=</span><span class="fl">0.9</span>, min_df<span class="op">=</span><span class="dv">10</span>, stop_words<span class="op">=</span><span class="st">'english'</span>)</span>
@@ -864,7 +878,7 @@ Topic 5:
 <h2 class="anchored" data-anchor-id="are-certain-subreddits-more-likely-to-express-interpersonal-conflict-or-emotional-support">Are certain subreddits more likely to express interpersonal conflict or emotional support?</h2>
 <p><strong>Purpose</strong>: This analysis aims to identify which subreddits are more likely to feature discussions about interpersonal conflict or emotional support, highlighting the role of community dynamics in health-related experiences. By examining the frequency of keywords associated with conflict—such as negative emotions, struggles, and relational challenges—and support keywords that signify kindness, empathy, and encouragement, we can determine which communities focus more on sharing challenges versus offering support.</p>
 <p><strong>Outcome</strong>: The analysis of conflict and support mentions across healthcare subreddits reveals varying dynamics in community interactions. Subreddits like Autoimmune, CrohnsDisease, Fuckcancer, and HealthInsurance exhibit high levels of both conflict and support, indicating that members frequently discuss frustrations as well as offer mutual encouragement. In contrast, communities such as Cancersurvivors, Lymphedema, and PreCervicalCancer have high support but little conflict, suggesting a stronger focus on encouragement and empathy rather than interpersonal challenges. Other subreddits like BRCA, Hashimotos, and Microbiome display high conflict with minimal support, potentially reflecting specific challenges or frustrations unique to those conditions.</p>
-<div id="cell-23" class="cell" data-gather="{&quot;logged&quot;:1733797935626}" data-execution_count="58">
+<div id="cell-22" class="cell" data-gather="{&quot;logged&quot;:1733797935626}" data-execution_count="58">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>conflict_keywords <span class="op">=</span> [</span>
@@ -955,7 +969,7 @@ Topic 5:
 <h2 class="anchored" data-anchor-id="how-does-sentiment-vary-over-time-within-different-healthcare-communities">How does sentiment vary over time within different healthcare communities?</h2>
 <p><strong>Purpose</strong>: The goal of this analysis is to examine how sentiment fluctuates over time within different healthcare communities. By identifying temporal trends in sentiment, we can uncover patterns that may reflect the impact of external events or stages in personal health journeys. For instance, certain healthcare subreddits might experience shifts in sentiment during awareness months, treatment advancements, or policy changes, while others may show personal emotional cycles as members navigate ongoing health challenges.</p>
 <p><strong>Outcome</strong>: As there is no pull of data across time, we are leaving this to work on it later</p>
-<div id="cell-25" class="cell" data-gather="{&quot;logged&quot;:1733793997548}" data-execution_count="8">
+<div id="cell-24" class="cell" data-gather="{&quot;logged&quot;:1733793997548}" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'date'</span>] <span class="op">=</span> df[<span class="st">'created_utc'</span>].dt.date</span>
@@ -970,7 +984,7 @@ Topic 5:
 <h2 class="anchored" data-anchor-id="what-is-the-average-sentiment-score">What is the average sentiment score?</h2>
 <p><strong>Purpose</strong>: The purpose of calculating the average sentiment score is to understand the general emotional tone across different subreddits. By examining the average sentiment for each subreddit, we can gain insights into whether discussions within these communities tend to be positive, negative, or neutral overall. This analysis helps identify which healthcare communities are more optimistic or challenged in their outlook, offering a broader view of the emotional landscape within each subreddit.</p>
 <p><strong>Outcome</strong>: The sentiment analysis for healthcare subreddits on July 1, 2024, reveals a range of emotional tones across communities. Subreddits like CancerCaregivers (0.737608) and predental (0.9921) have positive sentiment scores, suggesting a supportive or encouraging atmosphere among members. On the other hand, communities like BRCA (-0.9525), Cancersurvivors (-0.9826), and CrohnsDisease (-0.569) show more negative sentiment, potentially indicating challenges, frustrations, or concerns commonly shared by these users. Several subreddits, such as BladderCancer (0.031667) and AskDocs (-0.26722), exhibit scores closer to neutral, implying a balanced mix of positive and negative experiences. This on an overall scale of sentiment scores highlights the diversity of emotional climates within these healthcare communities, reflecting the unique support needs and challenges faced by each group.</p>
-<div id="cell-27" class="cell" data-gather="{&quot;logged&quot;:1733797594507}" data-execution_count="57">
+<div id="cell-26" class="cell" data-gather="{&quot;logged&quot;:1733797594507}" data-execution_count="57">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert data to a date time just in case </span></span>
@@ -1019,7 +1033,7 @@ Topic 5:
 <h2 class="anchored" data-anchor-id="how-is-the-sentiment-score-distribution">How is the sentiment score distribution?</h2>
 <p><strong>Purpose</strong>: To analyze the distribution of sentiment scores across healthcare subreddits, providing insight into the range of emotions expressed by community members. This analysis helps identify whether discussions tend to lean more positive, negative, or neutral overall and reveals the diversity of emotional experiences within each subreddit. By examining the sentiment score distribution, we gain a clearer picture of the general mood and the emotional dynamics present in these healthcare communities.</p>
 <p><strong>Outcome</strong>: The sentiment score distribution across healthcare subreddits reveals significant variability in the emotional tone of discussions. Subreddits like CancerCaregivers and ProstateCancer have a wide range of sentiment scores, extending from highly negative to highly positive, indicating mixed experiences and emotions. Some communities, such as braincancer and predental, show consistently positive scores, suggesting a more supportive or optimistic atmosphere. Conversely, subreddits like BRCA, Cancersurvivors, and UlcerativeColitis have consistently low sentiment scores, reflecting a generally negative emotional tone. Other subreddits, such as Autoimmune and WomensHealth, display a balanced distribution, with both positive and negative sentiment expressed.</p>
-<div id="cell-29" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}">
+<div id="cell-28" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#sns.boxplot(data=df, x='subreddit', y='sentiment_score')</span></span>
@@ -1041,7 +1055,7 @@ Topic 5:
 <li>In terms of the association between commenth length and sentiment score, though it is a visual scatterplot, there is not much association betweent the both. The length of 100 for instance, has sentiment scores between -1 and +1, and also for longer comment lengths. But as the length of the comment increased, the sentiment scores are at it’s extreme or rather more pronounced.</li>
 </ol></li>
 </ul>
-<div id="cell-31" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}">
+<div id="cell-30" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lengh of comments</span></span>
@@ -1073,7 +1087,7 @@ Topic 5:
 <h2 class="anchored" data-anchor-id="how-does-the-engagement-differ-across-different-subreddits">How does the engagement differ across different subreddits?</h2>
 <p><strong>Purpose</strong>: To understand how engagement varies across different subreddits, potentially highlighting topics that strongly resonate with the community or address relevant, relatable issues. Here, we analyze engagement using metrics like ‘controversiality’ and ‘mentions’ to uncover patterns in community response.</p>
 <p><strong>Outcomes</strong>: - Using Controversiality: The data reveals that most subreddits exhibit low to zero levels of “controversiality,” indicating minimal engagement or conflict in community interactions for most topics. However, a few subreddits, such as lymphoma and nursing, show slightly higher values, suggesting that discussions in these communities may spark more diverse opinions or higher engagement. - Using “Conflict” and “Support Mentions”: This shows significant variation in community dynamics. Subreddits like Autoimmune, CrohnsDisease, Fuckcancer, HealthInsurance, and braincancer have high percentages for both conflict and support mentions, suggesting these communities frequently discuss both interpersonal challenges and offer mutual support. On the other hand, subreddits like Cancersurvivors and CancerCaregivers reflect a high level of support mentions but little conflict, possibly indicating these communities focus more on encouragement and less on contentious discussions. Subreddits such as thyroidcancer and testicularcancer have moderate levels of both conflict and support, showing a balanced mix of challenges and supportive exchanges. Conversely, topics like Lymphedema, WomensHealth, and skincancer show lower engagement in conflict or support discussions, which might indicate less emphasis on community interaction for these specific conditions.</p>
-<div id="cell-33" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}">
+<div id="cell-32" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># avg controversiality per subreddit</span></span>
@@ -1092,7 +1106,7 @@ Topic 5:
 <h2 class="anchored" data-anchor-id="what-are-the-most-common-words-or-phrases-for-positive-versus-negative-comments">What are the most common words or phrases for positive versus negative comments?</h2>
 <p><strong>Purpose</strong>: Identifying the most common words in positive versus negative comments provides insight into the experiences and attitudes within the community. This analysis helps uncover topics, concerns, and emotions associated with each sentiment, offering a more nuanced understanding of the community’s overall mood and focus.</p>
 <p><strong>Outcome</strong>: The most common words within positive and negative comments, we observe frequent use of personal pronouns like “I,” “my,” and “you,” suggesting that these comments are often personal narratives or responses directed toward others. Words like “cancer,” “treatment,” and “was” appear across both sentiment categories, highlighting the centrality of health experiences in these discussions. In positive comments, expressions such as “to,” “and,” and “but” indicate explanatory language, often associated with sharing advice or encouragement. Conversely, negative comments include words like “not” and “so,” hinting at expressions of dissatisfaction, frustration, or challenges.</p>
-<div id="cell-35" class="cell" data-gather="{&quot;logged&quot;:1733798101876}" data-execution_count="61">
+<div id="cell-34" class="cell" data-gather="{&quot;logged&quot;:1733798101876}" data-execution_count="61">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> wordcloud <span class="im">import</span> STOPWORDS</span>
@@ -1155,7 +1169,7 @@ Topic 5:
 <h2 class="anchored" data-anchor-id="are-there-specific-times-of-day-or-days-of-the-week-when-users-discuss-certain-emotions-more-frequently">Are there specific times of day or days of the week when users discuss certain emotions more frequently?</h2>
 <p><strong>Purpose</strong>: To identify patterns in the timing of emotional discussions, revealing when users are most active or in need of support. This can help understand community dynamics and determine whether certain emotions are more prevalent at specific times or days, providing insights into user engagement and support needs.</p>
 <p><strong>Outcome</strong>: As it is only for one day, we can only do it across the hour. The graph presents sentiment scores across different hours on Monday, indicating variations in sentiment throughout the day. For example, positive sentiment peaks around 8 am and 12 pm, as reflected by scores of 0.377 and 0.253 respectively, while negative sentiment is more prominent at 6 am, 9 am, and 5 pm, with values like -0.664, -0.504, and -0.953. Though it would be better to do it across time.</p>
-<div id="cell-37" class="cell" data-gather="{&quot;logged&quot;:1733785153932}" data-execution_count="30">
+<div id="cell-36" class="cell" data-gather="{&quot;logged&quot;:1733785153932}" data-execution_count="30">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># day of the week and hour extraction</span></span>
@@ -1189,7 +1203,7 @@ Topic 5:
 <h2 class="anchored" data-anchor-id="is-there-a-difference-in-sentiment-or-emotion-between-users-who-post-frequently-versus-those-who-post-infrequently">Is there a difference in sentiment or emotion between users who post frequently versus those who post infrequently?</h2>
 <p><strong>Purpose</strong>: To explore whether frequent posters differ in sentiment or emotional expression compared to infrequent posters, potentially indicating deeper engagement or ongoing health concerns. Since unique user IDs aren’t available, comment length will be used as a proxy for engagement, with longer comments representing more involved or frequent contributors.</p>
 <p><strong>Outcome</strong>: The sentiment scores suggest that frequent posters have a generally neutral sentiment with a slight positive inclination (-0.011), whereas infrequent posters lean more negative with a sentiment score of -0.407. This indicates that users who post more often may express more balanced or slightly positive emotions, while those who post infrequently tend to express more negativity in their comments. This could reflect a higher level of involvement or support within the community for frequent posters, while infrequent posters may only engage during times of distress or negative experiences.</p>
-<div id="cell-39" class="cell" data-gather="{&quot;logged&quot;:1733785124708}" data-execution_count="29">
+<div id="cell-38" class="cell" data-gather="{&quot;logged&quot;:1733785124708}" data-execution_count="29">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># comment length in terms of word count</span></span>
@@ -1224,7 +1238,7 @@ Topic 5:
 <h2 class="anchored" data-anchor-id="do-specific-healthcare-related-terms-or-topics-e.g.-treatment-diagnosis-insurance-correlate-with-particular-emotions">Do specific healthcare-related terms or topics (e.g., “treatment,” “diagnosis,” “insurance”) correlate with particular emotions?</h2>
 <p><strong>Purpose:</strong> To explore whether specific healthcare-related terms or topics, like “treatment,” “diagnosis,” or “insurance,” are associated with distinct emotions. For example, discussions around insurance may evoke frustration, while conversations about successful treatments could elicit feelings of relief. Understanding these correlations can provide insight into the emotional landscape surrounding different aspects of healthcare within the community.</p>
 <p><strong>Outcome</strong>: The sentiment scores across various healthcare subreddits show notable variation. Subreddits like CancerCaregivers and WomensHealth display high positive sentiment, potentially reflecting supportive environments or success stories within these communities. Conversely, subreddits such as UlcerativeColitis and Cancersurvivors show significantly negative sentiment scores, possibly indicating the challenges or frustrations often shared in these groups. Topics like HealthInsurance and thyroidcancer have more moderate positive sentiments, while pancreaticcancer and publichealth lean negative, suggesting complex or distressing issues discussed in these areas. This variety in sentiment scores highlights the diverse emotional landscapes within different healthcare communities.</p>
-<div id="cell-41" class="cell" data-execution_count="64">
+<div id="cell-40" class="cell" data-execution_count="64">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filtweing comments with healthcare terms </span></span>
@@ -1255,7 +1269,7 @@ Topic 5:
 <p><strong>Purpose:</strong> Identifying the most common expressions of gratitude, frustration, and hope offers valuable insight into the language used for support, shared challenges, and encouragement within healthcare communities. This analysis helps uncover how individuals convey their emotions, revealing the words and phrases that resonate most when expressing appreciation, challenges, or optimism.</p>
 <p><strong>Note</strong>: The words are editable</p>
 <p><strong>Outcome</strong>: The data reveals that “hope” is the most frequently expressed emotion among the three categories, with 62 mentions. This suggests that individuals within these healthcare communities often express optimism or a desire for positive outcomes. Expressions of gratitude, with 22 mentions, indicate an appreciation for support or shared experiences, reflecting a sense of community and thankfulness. In contrast, “frustration” is mentioned less frequently, with 6 mentions, signaling that while there are challenges, they may be less dominant in the discourse compared to hopeful or thankful sentiments. This analysis, using keywords like “thank you,” “frustrated,” and “hope,” helps highlight the tone of discussions within these communities.</p>
-<div id="cell-43" class="cell" data-gather="{&quot;logged&quot;:1733796242068}" data-execution_count="41">
+<div id="cell-42" class="cell" data-gather="{&quot;logged&quot;:1733796242068}" data-execution_count="41">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># keywords for each emotion category</span></span>
@@ -1300,7 +1314,7 @@ Topic 5:
 <h2 class="anchored" data-anchor-id="what-are-the-patterns-of-conversation-in-highly-controversial-versus-non-controversial-comments">What are the patterns of conversation in highly controversial versus non-controversial comments?</h2>
 <p><strong>Purpose</strong>: To identify topics that spark strong reactions or disagreements within the community by examining highly controversial comments, providing insight into issues that may lead to divided opinions or heightened sensitivity.</p>
 <p><strong>Outcome:</strong> The average sentiment score for highly controversial comments is positive at approximately 0.45, while non-controversial comments tend to have a slightly negative sentiment, averaging around -0.06. This suggests that discussions in controversial comments might evoke a more intense range of emotions, potentially reflecting the engagement or importance of the issues raised.</p>
-<div id="cell-46" class="cell" data-gather="{&quot;logged&quot;:1733785062776}" data-execution_count="27">
+<div id="cell-45" class="cell" data-gather="{&quot;logged&quot;:1733785062776}" data-execution_count="27">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># avg sentiment for controversial vs. non-controversial comments</span></span>
@@ -1329,7 +1343,7 @@ Topic 5:
 <h2 class="anchored" data-anchor-id="how-do-emotional-responses-change-when-users-discuss-their-own-health-experiences-versus-others-experiences">How do emotional responses change when users discuss their own health experiences versus others’ experiences?</h2>
 <p><strong>Purpose</strong> To understand if users show distinct emotional responses when sharing their own health experiences versus supporting others, providing insight into how personal versus supportive perspectives influence the type and intensity of emotions expressed. This can help identify patterns of empathy, vulnerability, or encouragement within the community.</p>
 <p><strong>Outcome</strong>: The sentiment analysis shows varying emotional responses based on whether users are discussing their own health experiences or others’ experiences. When discussing their own health challenges alone, users express more negative sentiment (average sentiment score of -0.398). In contrast, users who mention both personal and others’ experiences exhibit a slight positive sentiment (0.072). Users focusing solely on others’ experiences show a less negative sentiment (-0.095) compared to personal discussions. This suggests that users may exhibit more vulnerability or frustration when discussing personal challenges, while discussions about others’ experiences might invoke more neutral or positive support-oriented responses.</p>
-<div id="cell-48" class="cell" data-gather="{&quot;logged&quot;:1733785078426}" data-execution_count="28">
+<div id="cell-47" class="cell" data-gather="{&quot;logged&quot;:1733785078426}" data-execution_count="28">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using "my" and "your" personal and other-focused comments</span></span>
@@ -1398,7 +1412,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1430,45 +1455,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1503,11 +1490,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -1555,6 +1538,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
+      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

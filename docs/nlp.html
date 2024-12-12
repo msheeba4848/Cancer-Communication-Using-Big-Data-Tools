@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.39">
+<meta name="generator" content="quarto-1.4.550">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>nlp – Cancer &amp; Reddit</title>
+<title>Understanding Cancer Communication</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -35,10 +35,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6bd9cfa162949bde0a231f530c97869d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -69,6 +69,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -80,11 +109,11 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Cancer &amp; Reddit</span>
+    <span class="navbar-title">Understanding Cancer Communication</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -107,7 +136,11 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./hints_regression.html"> 
-<span class="menu-text">HINTS Machine Learning</span></a>
+<span class="menu-text">HINTS ML</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./reddit_ml.html"> 
+<span class="menu-text">Reddit ML</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./summary.html"> 
@@ -115,7 +148,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
+          <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -131,91 +164,37 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#nlp" id="toc-nlp" class="nav-link active" data-scroll-target="#nlp">NLP</a>
   <ul class="collapse">
-  <li><a href="#tf-idf" id="toc-tf-idf" class="nav-link" data-scroll-target="#tf-idf">TF-IDF</a>
-  <ul class="collapse">
-  <li><a href="#what-words-are-commonly-used-in-the-cancer-subreddits" id="toc-what-words-are-commonly-used-in-the-cancer-subreddits" class="nav-link" data-scroll-target="#what-words-are-commonly-used-in-the-cancer-subreddits">What words are commonly used in the Cancer Subreddits?</a></li>
-  </ul></li>
   <li><a href="#sparknlp" id="toc-sparknlp" class="nav-link" data-scroll-target="#sparknlp">SparkNLP</a>
   <ul class="collapse">
-  <li><a href="#is-there-a-difference-between-cancer-and-non-cancer-related-subreddits" id="toc-is-there-a-difference-between-cancer-and-non-cancer-related-subreddits" class="nav-link" data-scroll-target="#is-there-a-difference-between-cancer-and-non-cancer-related-subreddits">Is there a Difference between Cancer and Non-Cancer Related Subreddits?</a></li>
+  <li><a href="#does-sentiment-vary-between-cancer-and-non-cancer-subreddits" id="toc-does-sentiment-vary-between-cancer-and-non-cancer-subreddits" class="nav-link" data-scroll-target="#does-sentiment-vary-between-cancer-and-non-cancer-subreddits">Does sentiment vary between cancer and non-cancer subreddits?</a></li>
   </ul></li>
   <li><a href="#nrc-lex" id="toc-nrc-lex" class="nav-link" data-scroll-target="#nrc-lex">NRC-LEX</a>
   <ul class="collapse">
   <li><a href="#is-there-a-difference-in-emotional-sentiments-between-cancer-and-non-cancer-subreddits" id="toc-is-there-a-difference-in-emotional-sentiments-between-cancer-and-non-cancer-subreddits" class="nav-link" data-scroll-target="#is-there-a-difference-in-emotional-sentiments-between-cancer-and-non-cancer-subreddits">Is there a difference in emotional sentiments between Cancer and Non-Cancer Subreddits?</a></li>
   </ul></li>
+  <li><a href="#tf-idf" id="toc-tf-idf" class="nav-link" data-scroll-target="#tf-idf">TF-IDF</a>
+  <ul class="collapse">
+  <li><a href="#what-words-are-commonly-used-in-the-cancer-subreddits" id="toc-what-words-are-commonly-used-in-the-cancer-subreddits" class="nav-link" data-scroll-target="#what-words-are-commonly-used-in-the-cancer-subreddits">What words are commonly used in the Cancer Subreddits?</a></li>
+  </ul></li>
+  <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
 
 
 
 
 <section id="nlp" class="level1">
 <h1>NLP</h1>
-<section id="tf-idf" class="level2">
-<h2 class="anchored" data-anchor-id="tf-idf">TF-IDF</h2>
-<section id="what-words-are-commonly-used-in-the-cancer-subreddits" class="level3">
-<h3 class="anchored" data-anchor-id="what-words-are-commonly-used-in-the-cancer-subreddits">What words are commonly used in the Cancer Subreddits?</h3>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Word</th>
-<th>TF-IDF</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>time</td>
-<td>604.333288</td>
-</tr>
-<tr class="even">
-<td>removed</td>
-<td>510.072719</td>
-</tr>
-<tr class="odd">
-<td>thank</td>
-<td>508.752837</td>
-</tr>
-<tr class="even">
-<td>information</td>
-<td>491.421062</td>
-</tr>
-<tr class="odd">
-<td>doctor</td>
-<td>480.772518</td>
-</tr>
-<tr class="even">
-<td>people</td>
-<td>467.593201</td>
-</tr>
-<tr class="odd">
-<td>work</td>
-<td>443.772165</td>
-</tr>
-<tr class="even">
-<td>patient</td>
-<td>387.074392</td>
-</tr>
-<tr class="odd">
-<td>cancer</td>
-<td>365.678933</td>
-</tr>
-<tr class="even">
-<td>best</td>
-<td>340.635342</td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
 <section id="sparknlp" class="level2">
 <h2 class="anchored" data-anchor-id="sparknlp">SparkNLP</h2>
-<section id="is-there-a-difference-between-cancer-and-non-cancer-related-subreddits" class="level3">
-<h3 class="anchored" data-anchor-id="is-there-a-difference-between-cancer-and-non-cancer-related-subreddits">Is there a Difference between Cancer and Non-Cancer Related Subreddits?</h3>
-<table class="caption-top table">
+<section id="does-sentiment-vary-between-cancer-and-non-cancer-subreddits" class="level3">
+<h3 class="anchored" data-anchor-id="does-sentiment-vary-between-cancer-and-non-cancer-subreddits">Does sentiment vary between cancer and non-cancer subreddits?</h3>
+<p>Two different types of sentiment analysis was performed on both the cancer and non-cancer subreddits. In this method, a pretrained SparNLP pipeline in Azure ML was used to classify the comments has positive, negative, or neutral.</p>
+<table class="table">
 <thead>
 <tr class="header">
 <th>sentiment_label</th>
@@ -236,14 +215,56 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
-<p>Chi-square statistic: 9.325853191514204 P-value: 0.0022594309243996907 Degrees of freedom: 1 Expected frequencies: [[5822. 5822.] [4178. 4178.]]</p>
+<ol type="1">
+<li><p>Data Loading Comments from cancer-related and non-cancer subreddits were loaded as Parquet files saved in an Azure Blob container.</p></li>
+<li><p>Sentiment Analysis using SparkNLP Using the Spark NLP analyze_sentiment pretrained pipeline, the comments were analyzed to classify their sentiment as positive, negative, or neutral.</p></li>
+<li><p>Weighted Scores A custom function mapped sentiment labels to numerical scores (positive = 1, negative = -1, neutral = 0) to compute a weighted sentiment score for each comment.</p></li>
+<li><p>Sentiment Labeling Comments were labeled based on their weighted scores (positive, negative, or neutral).</p></li>
+<li><p>Grouping and Aggregation The data was grouped by sentiment labels, and counts were computed for cancer-related and non-cancer subreddits.</p></li>
+<li><p>Statistical Testing A Chi-square test was conducted to assess whether the differences in sentiment distribution between the two categories showed a difference in positive and negative sentiment in the cancer and non-cancer subreddits.</p></li>
+</ol>
+<p>The source code for the sentiment analysis using SparkNLP is here:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot-images/sparknlp_barplot.png" class="img-fluid figure-img"></p>
+<figcaption>Sentiment in Cancer and Non-Cancer Subreddits</figcaption>
+</figure>
+</div>
+<p>Results of Chi-square Test<br>
+Chi-square statistic: 9.325853191514204<br>
+P-value: 0.0022594309243996907<br>
+Degrees of freedom: 1<br>
+Expected frequencies: [[5822. 5822.]<br>
+[4178. 4178.]]</p>
+<p>To assess the difference between positive and negative sentiment in the cancer and non-cancer subreddits the odds ratio (OR) is calculated as:</p>
+<p><span class="math display">\[Odds Ratio (OR) = \frac{(\text{Positive Cancer} / \text{Positive Non-Cancer})}{(\text{Negative Cancer} / \text{Negative Non-Cancer})}\]</span></p>
+<p><span class="math display">\[OR = \frac{(5929/5715)}{(4071/4285)}\]</span></p>
+<p><span class="math display">\[OR = \frac{(5929 \times 4285)}{(5715 \times 4071)}\]</span></p>
+<p><span class="math display">\[OR = 1.065\]</span></p>
+<p><span class="math display">\[\beta = ln(OR)\]</span></p>
+<p><span class="math display">\[\beta = ln(1.065) = 0.063\]</span></p>
+<p>The coefficient indicates the log odds of cancer for the “positive” sentiment label relative to the “negative” sentiment label. A positive value of 0.063 suggests that there is a slight increase in “positive” sentiment in the cancer subreddits compared to the non-cancer subreddits.</p>
+<p>The p-value of 0.002 confirms a statistical significance. However, with the odds ratio, the positive sentiment is only slightly increased.</p>
+<p>Positive sentiment was higher in the cancer subreddit indicating the these groups may provide support and resiliency in the communities who use these subreddits. In comparison to the rest of Reddit (the non-cancer subreddits), users may look for look and discuss for more information about experience with treatment, logistics, and navigating a cancer diagnosis, fostering a space for encouragement and information.</p>
 </section>
 </section>
 <section id="nrc-lex" class="level2">
 <h2 class="anchored" data-anchor-id="nrc-lex">NRC-LEX</h2>
 <section id="is-there-a-difference-in-emotional-sentiments-between-cancer-and-non-cancer-subreddits" class="level3">
 <h3 class="anchored" data-anchor-id="is-there-a-difference-in-emotional-sentiments-between-cancer-and-non-cancer-subreddits">Is there a difference in emotional sentiments between Cancer and Non-Cancer Subreddits?</h3>
-<table class="caption-top table">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot-images/nrc_lex_heatmap.png" class="img-fluid figure-img"></p>
+<figcaption>Sentiment in Cancer and Non-Cancer Subreddits</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot-images/average_sentiment_nrc.png" class="img-fluid figure-img"></p>
+<figcaption>Sentiment in Cancer and Non-Cancer Subreddits</figcaption>
+</figure>
+</div>
+<table class="table">
 <colgroup>
 <col style="width: 11%">
 <col style="width: 9%">
@@ -301,9 +322,102 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
-
-
 </section>
+</section>
+<section id="tf-idf" class="level2">
+<h2 class="anchored" data-anchor-id="tf-idf">TF-IDF</h2>
+<section id="what-words-are-commonly-used-in-the-cancer-subreddits" class="level3">
+<h3 class="anchored" data-anchor-id="what-words-are-commonly-used-in-the-cancer-subreddits">What words are commonly used in the Cancer Subreddits?</h3>
+<p>Given the results of the sentiment analysis, the frequency of popular words in the cancer subreddit were assess using term frequency-inverse document frequency (TF-IDF). This method was used to identify unique or prominent keywords.</p>
+<ol type="1">
+<li>DATA PREPARATION</li>
+</ol>
+<ul>
+<li>Two separate datasets were loaded: one for cancer-related subreddits and another for non-cancer subreddits.</li>
+<li>The datasets were combined into a single DataFrame with an additional column specifying the source (cancer or non_cancer).</li>
+<li>Text content was preprocessed into a column for TF-IDF analysis.</li>
+</ul>
+<ol start="2" type="1">
+<li>TF-IDF VECTORIZATION</li>
+</ol>
+<ul>
+<li>The TfidfVectorizer from scikit-learn was applied separately for cancer text data to compute TF-IDF scores for each word in the respective datasets.</li>
+<li>Common stop words were removed, and the top 20 keywords were extracted based on their aggregated TF-IDF scores across all documents.</li>
+</ul>
+<ol start="3" type="1">
+<li>AGGREGATION &amp; RANKING</li>
+</ol>
+<ul>
+<li>Words were ranked in descending order of their total TF-IDF scores for the cancer dataset.</li>
+<li>Rankings allowed for the identification of keywords in the cancer dataset.</li>
+</ul>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Word</th>
+<th>TF-IDF</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>time</td>
+<td>604.333288</td>
+</tr>
+<tr class="even">
+<td>removed</td>
+<td>510.072719</td>
+</tr>
+<tr class="odd">
+<td>thank</td>
+<td>508.752837</td>
+</tr>
+<tr class="even">
+<td>information</td>
+<td>491.421062</td>
+</tr>
+<tr class="odd">
+<td>doctor</td>
+<td>480.772518</td>
+</tr>
+<tr class="even">
+<td>people</td>
+<td>467.593201</td>
+</tr>
+<tr class="odd">
+<td>work</td>
+<td>443.772165</td>
+</tr>
+<tr class="even">
+<td>patient</td>
+<td>387.074392</td>
+</tr>
+<tr class="odd">
+<td>cancer</td>
+<td>365.678933</td>
+</tr>
+<tr class="even">
+<td>best</td>
+<td>340.635342</td>
+</tr>
+</tbody>
+</table>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="plot-images/wordcloud.png" class="img-fluid figure-img"></p>
+<figcaption>TF-IDF</figcaption>
+</figure>
+</div>
+<p>In this word cloud we see words such as time, removed, thank, and information. Some of these words may be used in conversations to talk about cancer care and possibly gratitude from support groups in the Reddit forum.</p>
+</section>
+</section>
+<section id="sources" class="level2">
+<h2 class="anchored" data-anchor-id="sources">Sources</h2>
+<ol type="1">
+<li>Crowdsourcing a Word-Emotion Association Lexicon, Saif Mohammad and Peter Turney, Computational Intelligence, 29 (3), 436-465, 2013.</li>
+<li>Emotions Evoked by Common Words and Phrases: Using Mechanical Turk to Create an Emotion Lexicon, Saif Mohammad and Peter Turney, In Proceedings of the NAACL-HLT 2010 Workshop on Computational Approaches to Analysis and Generation of Emotion in Text, June 2010, LA, California.</li>
+</ol>
+
+
 </section>
 </section>
 
@@ -343,7 +457,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -375,45 +500,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -448,11 +535,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -500,6 +583,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
+      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

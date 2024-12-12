@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.39">
+<meta name="generator" content="quarto-1.4.550">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Cleaning – Cancer &amp; Reddit</title>
+<title>Understanding Cancer Communication - About the Data and Data Cleaning</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -69,10 +69,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6bd9cfa162949bde0a231f530c97869d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -117,11 +117,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Cancer &amp; Reddit</span>
+    <span class="navbar-title">Understanding Cancer Communication</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -156,7 +156,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
+          <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -170,7 +170,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#hints-preparation-of-data" id="toc-hints-preparation-of-data" class="nav-link active" data-scroll-target="#hints-preparation-of-data">HINTS Preparation of Data</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#hints-preparation-of-data" id="toc-hints-preparation-of-data" class="nav-link" data-scroll-target="#hints-preparation-of-data">HINTS Preparation of Data</a></li>
+  <li><a href="#reddit-preparation-of-the-data" id="toc-reddit-preparation-of-the-data" class="nav-link" data-scroll-target="#reddit-preparation-of-the-data">Reddit Preparation of the Data</a></li>
   </ul>
 </nav>
     </div>
@@ -179,7 +181,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Data Cleaning</h1>
+<h1 class="title">About the Data and Data Cleaning</h1>
 </div>
 
 
@@ -196,52 +198,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div id="cell-1" class="cell" data-execution_count="29">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pyreadr</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>To explore the use of online sources in health communication, two publicly available datasets were used, HINTS and Reddit Pushshift. The Health Information National Trends Survey (HINTS) collects information about the Amercian’s use of cancer-related information. In this project, eleven questions from the HINTS survey were collected for review. These questions focus on gathering information about individuals’ behaviors, trust, and perceptions related to cancer information and health communication. These questions collectively provide insights into the sources and levels of trust Americans place in health and cancer information, their experiences in searching for such information, and their perceptions of the reliability of online and social media health content. HINTS is used to better understand how the American public looks for health information for themselves or their loved ones.</p>
+<p>The Reddit Pushshift dataset includes free text data from the Reddit online forum where users can post and look for information. It also includes subreddits, which branch off into various subreddits—dedicated communities centered around specific topics. By examining this dataset, this project complements insights from HINTS, offering a unique perspective on how individuals seek, share, and discuss cancer-related health information online. The analysis of Reddit data allows researchers to explore the dynamic and informal exchanges that occur in digital forums to better our understanding of how cancer information is communicated.</p>
+</section>
 <section id="hints-preparation-of-data" class="level2">
 <h2 class="anchored" data-anchor-id="hints-preparation-of-data">HINTS Preparation of Data</h2>
 <div id="cell-3" class="cell" data-execution_count="30">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the .rda file</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> pyreadr.read_r(<span class="st">'/Users/elizabethkovalchuk/Documents/DSAN6000/Project/fall-2024-project-team-35/data/HINTS6_R_20240524/hints6_public.rda'</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the DataFrame from the loaded data</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>hints <span class="op">=</span> result[<span class="st">'public'</span>]  <span class="co"># Assuming 'public' is the name of the R object in the file</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify the columns to select</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>columns <span class="op">=</span> [</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"HHID"</span>, <span class="st">"SeekCancerInfo"</span>, <span class="st">"CancerFrustrated"</span>, <span class="st">"CancerTrustDoctor"</span>,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CancerTrustFamily"</span>, <span class="st">"CancerTrustGov"</span>, <span class="st">"CancerTrustCharities"</span>,</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CancerTrustReligiousOrgs"</span>, <span class="st">"CancerTrustScientists"</span>, <span class="st">"Electronic2_HealthInfo"</span>,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"MisleadingHealthInfo"</span>, <span class="st">"TrustHCSystem"</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the relevant columns</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>hints_select <span class="op">=</span> hints[columns]</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co"># # Convert the 'updatedate' column if required (commented for now)</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># hints_select['updatedate'] = pd.to_datetime(hints_select['updatedate'] / 1000, unit='s')</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview the first few rows</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Sample data from the HINTS dataset:"</span>)</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>display(hints_select.head())</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Shape of the original dataset: </span><span class="sc">{</span>hints_select<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pyreadr</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the .rda file</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> pyreadr.read_r(<span class="st">'/Users/elizabethkovalchuk/Documents/DSAN6000/Project/fall-2024-project-team-35/data/HINTS6_R_20240524/hints6_public.rda'</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the DataFrame from the loaded data</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>hints <span class="op">=</span> result[<span class="st">'public'</span>]  <span class="co"># Assuming 'public' is the name of the R object in the file</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify the columns to select</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>columns <span class="op">=</span> [</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"HHID"</span>, <span class="st">"SeekCancerInfo"</span>, <span class="st">"CancerFrustrated"</span>, <span class="st">"CancerTrustDoctor"</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CancerTrustFamily"</span>, <span class="st">"CancerTrustGov"</span>, <span class="st">"CancerTrustCharities"</span>,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CancerTrustReligiousOrgs"</span>, <span class="st">"CancerTrustScientists"</span>, <span class="st">"Electronic2_HealthInfo"</span>,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"MisleadingHealthInfo"</span>, <span class="st">"TrustHCSystem"</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the relevant columns</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>hints_select <span class="op">=</span> hints[columns]</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># # Convert the 'updatedate' column if required (commented for now)</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># hints_select['updatedate'] = pd.to_datetime(hints_select['updatedate'] / 1000, unit='s')</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview the first few rows</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Sample data from the HINTS dataset:"</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>display(hints_select.head())</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Shape of the original dataset: </span><span class="sc">{</span>hints_select<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Sample data from the HINTS dataset:</code></pre>
+<pre><code>Sample data from the HINTS dataset:
+Shape of the original dataset: (6252, 12)</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
+<div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -340,19 +345,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </div>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Shape of the original dataset: (6252, 12)</code></pre>
 </div>
 </div>
 <div id="cell-4" class="cell" data-execution_count="31">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count missing values in each column</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>missing_values <span class="op">=</span> hints_select.isna().<span class="bu">sum</span>()</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the count of missing values</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Missing values per column:"</span>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>display(missing_values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count missing values in each column</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>missing_values <span class="op">=</span> hints_select.isna().<span class="bu">sum</span>()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the count of missing values</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Missing values per column:"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>display(missing_values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Missing values per column:</code></pre>
@@ -376,20 +379,20 @@ dtype: int64</code></pre>
 <div id="cell-5" class="cell" data-execution_count="32">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List of ordinal columns</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>ordinal_columns <span class="op">=</span> [</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"SeekCancerInfo"</span>, <span class="st">"CancerFrustrated"</span>, <span class="st">"CancerTrustDoctor"</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CancerTrustFamily"</span>, <span class="st">"CancerTrustGov"</span>, <span class="st">"CancerTrustCharities"</span>,</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CancerTrustReligiousOrgs"</span>, <span class="st">"CancerTrustScientists"</span>, <span class="st">"Electronic2_HealthInfo"</span>,</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"MisleadingHealthInfo"</span>, <span class="st">"TrustHCSystem"</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Display unique values for each ordinal column</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Unique values for ordinal columns:"</span>)</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> column <span class="kw">in</span> ordinal_columns:</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    unique_values <span class="op">=</span> hints_select[column].unique()</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Column: </span><span class="sc">{</span>column<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Unique Values: </span><span class="sc">{</span>unique_values<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List of ordinal columns</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ordinal_columns <span class="op">=</span> [</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"SeekCancerInfo"</span>, <span class="st">"CancerFrustrated"</span>, <span class="st">"CancerTrustDoctor"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CancerTrustFamily"</span>, <span class="st">"CancerTrustGov"</span>, <span class="st">"CancerTrustCharities"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CancerTrustReligiousOrgs"</span>, <span class="st">"CancerTrustScientists"</span>, <span class="st">"Electronic2_HealthInfo"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"MisleadingHealthInfo"</span>, <span class="st">"TrustHCSystem"</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Display unique values for each ordinal column</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Unique values for ordinal columns:"</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> column <span class="kw">in</span> ordinal_columns:</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    unique_values <span class="op">=</span> hints_select[column].unique()</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Column: </span><span class="sc">{</span>column<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Unique Values: </span><span class="sc">{</span>unique_values<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unique values for ordinal columns:
@@ -442,40 +445,42 @@ Categories (7, object): ['A little', 'Missing data (Not Ascertained)', 'Missing 
 <div id="cell-6" class="cell" data-execution_count="33">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the valid scales for each column</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>valid_scales <span class="op">=</span> {</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CancerFrustrated"</span>: [<span class="st">'Somewhat disagree'</span>, <span class="st">'Strongly disagree'</span>, <span class="st">'Somewhat agree'</span>, <span class="st">'Strongly agree'</span>],</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CancerTrustDoctor"</span>: [<span class="st">'A lot'</span>, <span class="st">'Some'</span>, <span class="st">'Not at all'</span>, <span class="st">'A little'</span>],</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CancerTrustFamily"</span>: [<span class="st">'A lot'</span>, <span class="st">'Some'</span>, <span class="st">'Not at all'</span>, <span class="st">'A little'</span>],</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CancerTrustGov"</span>: [<span class="st">'A lot'</span>, <span class="st">'Some'</span>, <span class="st">'Not at all'</span>, <span class="st">'A little'</span>],</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CancerTrustCharities"</span>: [<span class="st">'A lot'</span>, <span class="st">'Some'</span>, <span class="st">'Not at all'</span>, <span class="st">'A little'</span>],</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CancerTrustReligiousOrgs"</span>: [<span class="st">'A lot'</span>, <span class="st">'Some'</span>, <span class="st">'Not at all'</span>, <span class="st">'A little'</span>],</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CancerTrustScientists"</span>: [<span class="st">'A lot'</span>, <span class="st">'Some'</span>, <span class="st">'Not at all'</span>, <span class="st">'A little'</span>],</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"TrustHCSystem"</span>: [<span class="st">'A lot'</span>, <span class="st">'Some'</span>, <span class="st">'Not at all'</span>, <span class="st">'A little'</span>],</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Electronic2_HealthInfo"</span>: [<span class="st">'Yes'</span>, <span class="st">'No'</span>], </span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"MisleadingHealthInfo"</span>: [<span class="st">'I do not use social media'</span>, <span class="st">'None'</span>, <span class="st">'A little'</span>, <span class="st">'Some'</span>, <span class="st">'A lot'</span>]  </span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a copy of the original DataFrame</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>hints_cleaned <span class="op">=</span> hints_select.copy()</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the DataFrame</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> column, scale <span class="kw">in</span> valid_scales.items():</span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    hints_cleaned <span class="op">=</span> hints_cleaned[hints_cleaned[column].isin(scale)]</span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the cleaned dataset and its shape</span></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Data after filtering invalid values:"</span>)</span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>display(hints_cleaned.head())</span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Shape of the cleaned dataset: </span><span class="sc">{</span>hints_cleaned<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the valid scales for each column</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>valid_scales <span class="op">=</span> {</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CancerFrustrated"</span>: [<span class="st">'Somewhat disagree'</span>, <span class="st">'Strongly disagree'</span>, <span class="st">'Somewhat agree'</span>, <span class="st">'Strongly agree'</span>],</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CancerTrustDoctor"</span>: [<span class="st">'A lot'</span>, <span class="st">'Some'</span>, <span class="st">'Not at all'</span>, <span class="st">'A little'</span>],</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CancerTrustFamily"</span>: [<span class="st">'A lot'</span>, <span class="st">'Some'</span>, <span class="st">'Not at all'</span>, <span class="st">'A little'</span>],</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CancerTrustGov"</span>: [<span class="st">'A lot'</span>, <span class="st">'Some'</span>, <span class="st">'Not at all'</span>, <span class="st">'A little'</span>],</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CancerTrustCharities"</span>: [<span class="st">'A lot'</span>, <span class="st">'Some'</span>, <span class="st">'Not at all'</span>, <span class="st">'A little'</span>],</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CancerTrustReligiousOrgs"</span>: [<span class="st">'A lot'</span>, <span class="st">'Some'</span>, <span class="st">'Not at all'</span>, <span class="st">'A little'</span>],</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CancerTrustScientists"</span>: [<span class="st">'A lot'</span>, <span class="st">'Some'</span>, <span class="st">'Not at all'</span>, <span class="st">'A little'</span>],</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"TrustHCSystem"</span>: [<span class="st">'A lot'</span>, <span class="st">'Some'</span>, <span class="st">'Not at all'</span>, <span class="st">'A little'</span>],</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Electronic2_HealthInfo"</span>: [<span class="st">'Yes'</span>, <span class="st">'No'</span>], </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"MisleadingHealthInfo"</span>: [<span class="st">'I do not use social media'</span>, <span class="st">'None'</span>, <span class="st">'A little'</span>, <span class="st">'Some'</span>, <span class="st">'A lot'</span>]  </span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a copy of the original DataFrame</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>hints_cleaned <span class="op">=</span> hints_select.copy()</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the DataFrame</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> column, scale <span class="kw">in</span> valid_scales.items():</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    hints_cleaned <span class="op">=</span> hints_cleaned[hints_cleaned[column].isin(scale)]</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the cleaned dataset and its shape</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Data after filtering invalid values:"</span>)</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>display(hints_cleaned.head())</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Shape of the cleaned dataset: </span><span class="sc">{</span>hints_cleaned<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Data after filtering invalid values:</code></pre>
+<pre><code>Data after filtering invalid values:
+Shape of the cleaned dataset: (323, 12)</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
+<div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -574,50 +579,26 @@ Categories (7, object): ['A little', 'Missing data (Not Ascertained)', 'Missing 
 
 </div>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Shape of the cleaned dataset: (323, 12)</code></pre>
 </div>
 </div>
-<div id="cell-7" class="cell" data-execution_count="34">
+<div id="cell-7" class="cell" data-execution_count="35">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the number of NA or NaN values in each column</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>na_count <span class="op">=</span> hints_cleaned.isna().<span class="bu">sum</span>()</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"NA values count per column:"</span>)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(na_count)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hints_cleaned.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>NA values count per column:
-HHID                        0
-SeekCancerInfo              0
-CancerFrustrated            0
-CancerTrustDoctor           0
-CancerTrustFamily           0
-CancerTrustGov              0
-CancerTrustCharities        0
-CancerTrustReligiousOrgs    0
-CancerTrustScientists       0
-Electronic2_HealthInfo      0
-MisleadingHealthInfo        0
-TrustHCSystem               0
-dtype: int64
-(323, 12)</code></pre>
-</div>
-</div>
-<div id="cell-8" class="cell" data-execution_count="35">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count unique values in the 'SeekCancerInfo' column</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>value_counts <span class="op">=</span> hints_cleaned[<span class="st">'SeekCancerInfo'</span>].value_counts()</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Unique value counts in 'SeekCancerInfo':"</span>)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(value_counts)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the cleaned dataset to an Excel file</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>output_file <span class="op">=</span> <span class="st">"../data/csv/hints_cleaned_forML_spearman.csv"</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>hints_cleaned.to_csv(output_file, index<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Cleaned dataset saved as </span><span class="sc">{</span>output_file<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the number of NA or NaN values in each column</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>na_count <span class="op">=</span> hints_cleaned.isna().<span class="bu">sum</span>()</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#print("NA values count per column:")</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#print(na_count)</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#print(hints_cleaned.shape)</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Count unique values in the 'SeekCancerInfo' column</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>value_counts <span class="op">=</span> hints_cleaned[<span class="st">'SeekCancerInfo'</span>].value_counts()</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#print("Unique value counts in 'SeekCancerInfo':")</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">#print(value_counts)</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the cleaned dataset to an Excel file</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>output_file <span class="op">=</span> <span class="st">"../data/csv/hints_cleaned_forML_spearman.csv"</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>hints_cleaned.to_csv(output_file, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co">#print(f"Cleaned dataset saved as {output_file}")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Unique value counts in 'SeekCancerInfo':
@@ -629,6 +610,43 @@ Name: count, dtype: int64
 Cleaned dataset saved as ../data/csv/hints_cleaned_forML_spearman.csv</code></pre>
 </div>
 </div>
+</section>
+<section id="reddit-preparation-of-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="reddit-preparation-of-the-data">Reddit Preparation of the Data</h2>
+<p>The data was queried from the Reddit Pushshift dataset. Following the themes captured in the HINTs dataset, we performanced an intial eight queries searching for comments that included keywords in each of the questions in the HINTs dataset. The initial query was performed in AWS on a sample of the data. After reviewing some of the comments, all the unique subreddits were found. Searching through these subreddits, we made a list of subreddits that actually included comments about cancer and filtered out any of the subreddits that were not relevant to health at all.</p>
+<p>List of Cancer Subreddits that discussed cancer in the comments.</p>
+<pre><code>subreddit_list = ['CrohnsDisease', 'thyroidcancer', 'AskDocs', 'UlcerativeColitis', 'Autoimmune', 
+              'BladderCancer', 'breastcancer', 'CancerFamilySupport', 'doihavebreastcancer', 
+              'WomensHealth', 'ProstateCancer', 'cll', 'Microbiome', 'predental', 'endometrialcancer', 
+              'cancer', 'Hashimotos', 'coloncancer', 'PreCervicalCancer', 'lymphoma', 'Lymphedema', 
+              'CancerCaregivers', 'braincancer', 'lynchsyndrome', 'nursing', 'testicularcancer', 'leukemia', 
+              'publichealth', 'Health', 'Fuckcancer', 'HealthInsurance', 'BRCA', 'Cancersurvivors', 
+              'pancreaticcancer', 'skincancer', 'stomachcancer']</code></pre>
+<p>These subreddits were compared to a random sample from the full Reddit dataset excluding the list of cancer subreddits above. The subreddits were queried in Azure ML using a Spark. The data was copied from the instructor’s Azure blob container.</p>
+<div id="cell-9" class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Path to the Azure ML Blob Container</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>workspace_default_storage_account <span class="op">=</span> <span class="st">"projectgstoragedfb938a3e"</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>workspace_default_container <span class="op">=</span> <span class="st">"azureml-blobstore-becc8696-e562-432e-af12-8a5e3e1f9b0f"</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>workspace_wasbs_base_url <span class="op">=</span> <span class="ss">f"wasbs://</span><span class="sc">{</span>workspace_default_container<span class="sc">}</span><span class="ss">@</span><span class="sc">{</span>workspace_default_storage_account<span class="sc">}</span><span class="ss">.blob.core.windows.net/"</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>comments_path <span class="op">=</span> <span class="st">"cancer/comments"</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>submissions_path <span class="op">=</span> <span class="st">"cancer/submissions"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>PySpark was used to clean the data by removing leading and trailing whitespaces, removing punctuation (using regex), removing underscores, and converting to lowercase. Both subsets of data were limited to 10,000 rows in order to allow a reasonable compute time for each job. After the data was cleaned it was saved into a two parquet files in an Azure ML blob container to use for the rest of the project. The combined cancer subreddits and non-cancer subreddit totaled in 20,000 rows.</p>
+<div id="cell-11" class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cancer subset of Reddit Data saved to an Azure ML Blob Container</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>output_path <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>workspace_wasbs_base_url<span class="sc">}</span><span class="ss">cancer_subreddit.parquet"</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Non-cancer subset of Reddit Data saved to an Azure ML Blob Container</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>output_path <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>workspace_wasbs_base_url<span class="sc">}</span><span class="ss">not_cancer_subreddit.parquet"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>The source code for the cleaning the Reddit data is in GitHub: <a href="https://github.com/gu-dsan6000/fall-2024-project-team-35/tree/main/code/spark-job-sample-data">fall-2024-project-team-35/code/spark-job-sample-data</a></p>
 
 
 </section>
@@ -669,7 +687,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -701,45 +730,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -774,11 +765,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -826,6 +813,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
+      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

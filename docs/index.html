@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.39">
+<meta name="generator" content="quarto-1.4.550">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Cancer &amp; Reddit</title>
+<title>Understanding Cancer Communication</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -35,10 +35,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6bd9cfa162949bde0a231f530c97869d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -80,11 +80,11 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Cancer &amp; Reddit</span>
+    <span class="navbar-title">Understanding Cancer Communication</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -107,7 +107,11 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./hints_regression.html"> 
-<span class="menu-text">Machine Learning</span></a>
+<span class="menu-text">HINTS ML</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./reddit_ml.html"> 
+<span class="menu-text">Reddit ML</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./summary.html"> 
@@ -115,7 +119,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
+          <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -129,24 +133,29 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#using-reddit-pushshift-to-enrich-understanding-of-cancer-communication" id="toc-using-reddit-pushshift-to-enrich-understanding-of-cancer-communication" class="nav-link active" data-scroll-target="#using-reddit-pushshift-to-enrich-understanding-of-cancer-communication">Using Reddit Pushshift to Enrich Understanding of Cancer Communication</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#data-sources" id="toc-data-sources" class="nav-link" data-scroll-target="#data-sources">Data Sources</a>
   <ul class="collapse">
   <li><a href="#the-health-information-national-trends-survey-hints" id="toc-the-health-information-national-trends-survey-hints" class="nav-link" data-scroll-target="#the-health-information-national-trends-survey-hints">The Health Information National Trends Survey (HINTS)</a></li>
   <li><a href="#the-reddit-pushshift-data-set" id="toc-the-reddit-pushshift-data-set" class="nav-link" data-scroll-target="#the-reddit-pushshift-data-set">The Reddit PushShift Data Set</a></li>
   </ul></li>
   <li><a href="#sources" id="toc-sources" class="nav-link" data-scroll-target="#sources">Sources:</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
 
 
 
 
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
+<section id="using-reddit-pushshift-to-enrich-understanding-of-cancer-communication" class="level1">
+<h1>Using Reddit Pushshift to Enrich Understanding of Cancer Communication</h1>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>Project Authors: Tiana Le, Sheeba Moghal, Ishaan Babbar, Liz Kovalchuk</p>
 <p>In the digital age, where information is readily available at our fingertips, understanding how people navigate and trust health information is critical. With countless sources such as healthcare professionals, government agencies, social media, and online forums, it is essential to explore what the United States population believes about the reliability and accessibility of health information. To better understand this phenomenon, data was gathered from an online forum called Reddit. The Reddit dataset comprises textual data that offers valuable insights into the information shared online about health, particularly topics related to cancer. Using NLP methods, we can explore the most common topics and also the sentiment toward these topics. In addition to the textual data, we will also use the Health Information National Trends Survey (HINTS), which is administered by National Cancer Institute. In this survey, people were asked directly about what they think about health information. Using both the Reddit data and HINTS, we seek to understand trust, frustrations, and overall sentiment about healthcare and more specifically, cancer information.</p>
 <p>Our project explores the Pushshift Reddit Dataset to examine trust in healthcare, likely narrowing specifically to r/cancer forums. While there are some assumptions that need to be made to pair our corroborating dataset, the Health Information National Trends Survey (HINTS) survey, with the Reddit dataset, we believe that we compare and use both of these datasets to investigate the following questions:</p>
@@ -156,10 +165,10 @@ ul.task-list li input[type="checkbox"] {
 <li>Evidence of other interpersonal conflict in healthcare discussions and emotion / sentiment analysis (e.g.&nbsp;sadness, disgust, surprise, joy, anger).</li>
 </ul>
 </section>
-<section id="data-sources" class="level1">
-<h1>Data Sources</h1>
-<section id="the-health-information-national-trends-survey-hints" class="level2">
-<h2 class="anchored" data-anchor-id="the-health-information-national-trends-survey-hints">The Health Information National Trends Survey (HINTS)</h2>
+<section id="data-sources" class="level2">
+<h2 class="anchored" data-anchor-id="data-sources">Data Sources</h2>
+<section id="the-health-information-national-trends-survey-hints" class="level3">
+<h3 class="anchored" data-anchor-id="the-health-information-national-trends-survey-hints">The Health Information National Trends Survey (HINTS)</h3>
 <p>The Health Information National Trends Survey (HINTS) is a significant research initiative launched by the National Cancer Institute (NCI) in 2001. It aims to assess how adults in the United States access and utilize health information with a particular focus on cancer-related topics. HINTS provides a rich source of data that helps researchers understand public interactions with health information, including trends in health communication, knowledge, attitudes, and behaviors regarding cancer prevention and control.</p>
 <p>It is an excellent starting place for structured questionnaires that would be helfpul to enhance in a “more accessible” format of Reddit data.</p>
 <p>HINTS employs a cross-sectional, nationally representative survey methodology targeting non-institutionalized adults aged 18 years and older. This design allows for the collection of data that reflects the diverse experiences and perspectives of the U.S. population13. Annual Administration: Initially conducted biennially, HINTS has transitioned to an annual survey format. This change enhances the ability to track evolving trends in health information access and utilization over time.</p>
@@ -174,8 +183,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <p>Though HINTS was initially conducted biennially, HINTS has transitioned to an annual survey format. This change enhances the ability to track evolving trends in health information access and utilization over time.</p>
 </section>
-<section id="the-reddit-pushshift-data-set" class="level2">
-<h2 class="anchored" data-anchor-id="the-reddit-pushshift-data-set">The Reddit PushShift Data Set</h2>
+<section id="the-reddit-pushshift-data-set" class="level3">
+<h3 class="anchored" data-anchor-id="the-reddit-pushshift-data-set">The Reddit PushShift Data Set</h3>
 <p>The Pushshift Reddit dataset is a comprehensive collection of submissions and comments from Reddit, designed to facilitate social media research by providing easy access to historical data. Launched in 2015, Pushshift has become a crucial resource for researchers interested in analyzing user-generated content on one of the largest social media platforms.</p>
 <p>The data leveraged from the Reddit dataset was from the provided repository of pre-processed data:</p>
 <ul>
@@ -185,8 +194,8 @@ ul.task-list li input[type="checkbox"] {
 <p>The data queried is of both submissions and comments from the PushShift Dataset.</p>
 </section>
 </section>
-<section id="sources" class="level1">
-<h1>Sources:</h1>
+<section id="sources" class="level2">
+<h2 class="anchored" data-anchor-id="sources">Sources:</h2>
 <ol type="1">
 <li>Finney Rutten, L. J., Arora, N. K., Bakken, S., &amp; Hesse, B. W. (2022). Expanding the Health Information National Trends Survey research: A comparison of health information seeking behaviors across countries. Health Communication, 37(1), 1-10. https://doi.org/10.1080/10810730.2022.2134522</li>
 <li>National Cancer Institute. (2021). Health Information National Trends Survey (HINTS). Retrieved from https://hints.cancer.gov</li>
@@ -196,6 +205,7 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -234,7 +244,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -266,45 +287,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -339,11 +322,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -391,6 +370,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
+      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
