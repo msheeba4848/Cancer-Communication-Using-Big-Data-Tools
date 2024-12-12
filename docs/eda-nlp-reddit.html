@@ -1,0 +1,1801 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.39">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Reddit PushShift Exloratory Data Analysis – Cancer &amp; Reddit</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-6bd9cfa162949bde0a231f530c97869d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Cancer &amp; Reddit</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./data_cleaning.html"> 
+<span class="menu-text">Data Cleaning</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./eda_hints.html"> 
+<span class="menu-text">HINTS EDA</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./eda-nlp-reddit.html" aria-current="page"> 
+<span class="menu-text">Reddit EDA</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./nlp.html"> 
+<span class="menu-text">NLP</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./hints_regression.html"> 
+<span class="menu-text">Machine Learning</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./summary.html"> 
+<span class="menu-text">Summary</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#reddit-questions-and-searches" id="toc-reddit-questions-and-searches" class="nav-link active" data-scroll-target="#reddit-questions-and-searches">Reddit Questions and Searches</a></li>
+  <li><a href="#loading-data" id="toc-loading-data" class="nav-link" data-scroll-target="#loading-data">Loading Data</a></li>
+  <li><a href="#basic-exploration" id="toc-basic-exploration" class="nav-link" data-scroll-target="#basic-exploration">Basic Exploration</a></li>
+  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions">Questions:</a>
+  <ul class="collapse">
+  <li><a href="#what-is-the-sentiment-distribution-across-these-diverse-healthcare-subreddits" id="toc-what-is-the-sentiment-distribution-across-these-diverse-healthcare-subreddits" class="nav-link" data-scroll-target="#what-is-the-sentiment-distribution-across-these-diverse-healthcare-subreddits">What is the sentiment distribution across these diverse healthcare subreddits?</a></li>
+  <li><a href="#which-emotions-are-most-common-in-specific-healthcare-communities" id="toc-which-emotions-are-most-common-in-specific-healthcare-communities" class="nav-link" data-scroll-target="#which-emotions-are-most-common-in-specific-healthcare-communities">Which emotions are most common in specific healthcare communities?</a></li>
+  <li><a href="#what-are-the-primary-topics-or-themes-discussed-in-each-subreddit" id="toc-what-are-the-primary-topics-or-themes-discussed-in-each-subreddit" class="nav-link" data-scroll-target="#what-are-the-primary-topics-or-themes-discussed-in-each-subreddit">What are the primary topics or themes discussed in each subreddit?</a></li>
+  <li><a href="#are-certain-subreddits-more-likely-to-express-interpersonal-conflict-or-emotional-support" id="toc-are-certain-subreddits-more-likely-to-express-interpersonal-conflict-or-emotional-support" class="nav-link" data-scroll-target="#are-certain-subreddits-more-likely-to-express-interpersonal-conflict-or-emotional-support">Are certain subreddits more likely to express interpersonal conflict or emotional support?</a></li>
+  <li><a href="#how-does-sentiment-vary-over-time-within-different-healthcare-communities" id="toc-how-does-sentiment-vary-over-time-within-different-healthcare-communities" class="nav-link" data-scroll-target="#how-does-sentiment-vary-over-time-within-different-healthcare-communities">How does sentiment vary over time within different healthcare communities?</a></li>
+  <li><a href="#what-is-the-average-sentiment-score" id="toc-what-is-the-average-sentiment-score" class="nav-link" data-scroll-target="#what-is-the-average-sentiment-score">What is the average sentiment score?</a></li>
+  <li><a href="#how-is-the-sentiment-score-distribution" id="toc-how-is-the-sentiment-score-distribution" class="nav-link" data-scroll-target="#how-is-the-sentiment-score-distribution">How is the sentiment score distribution?</a></li>
+  <li><a href="#is-there-any-association-between-the-comment-length-and-the-sentiment" id="toc-is-there-any-association-between-the-comment-length-and-the-sentiment" class="nav-link" data-scroll-target="#is-there-any-association-between-the-comment-length-and-the-sentiment">Is there any association between the comment length and the sentiment?</a></li>
+  <li><a href="#how-does-the-engagement-differ-across-different-subreddits" id="toc-how-does-the-engagement-differ-across-different-subreddits" class="nav-link" data-scroll-target="#how-does-the-engagement-differ-across-different-subreddits">How does the engagement differ across different subreddits?</a></li>
+  <li><a href="#what-are-the-most-common-words-or-phrases-for-positive-versus-negative-comments" id="toc-what-are-the-most-common-words-or-phrases-for-positive-versus-negative-comments" class="nav-link" data-scroll-target="#what-are-the-most-common-words-or-phrases-for-positive-versus-negative-comments">What are the most common words or phrases for positive versus negative comments?</a></li>
+  <li><a href="#are-there-specific-times-of-day-or-days-of-the-week-when-users-discuss-certain-emotions-more-frequently" id="toc-are-there-specific-times-of-day-or-days-of-the-week-when-users-discuss-certain-emotions-more-frequently" class="nav-link" data-scroll-target="#are-there-specific-times-of-day-or-days-of-the-week-when-users-discuss-certain-emotions-more-frequently">Are there specific times of day or days of the week when users discuss certain emotions more frequently?</a></li>
+  <li><a href="#is-there-a-difference-in-sentiment-or-emotion-between-users-who-post-frequently-versus-those-who-post-infrequently" id="toc-is-there-a-difference-in-sentiment-or-emotion-between-users-who-post-frequently-versus-those-who-post-infrequently" class="nav-link" data-scroll-target="#is-there-a-difference-in-sentiment-or-emotion-between-users-who-post-frequently-versus-those-who-post-infrequently">Is there a difference in sentiment or emotion between users who post frequently versus those who post infrequently?</a></li>
+  <li><a href="#do-specific-healthcare-related-terms-or-topics-e.g.-treatment-diagnosis-insurance-correlate-with-particular-emotions" id="toc-do-specific-healthcare-related-terms-or-topics-e.g.-treatment-diagnosis-insurance-correlate-with-particular-emotions" class="nav-link" data-scroll-target="#do-specific-healthcare-related-terms-or-topics-e.g.-treatment-diagnosis-insurance-correlate-with-particular-emotions">Do specific healthcare-related terms or topics (e.g., “treatment,” “diagnosis,” “insurance”) correlate with particular emotions?</a></li>
+  <li><a href="#what-are-the-most-common-expressions-of-gratitude-frustration-or-hope" id="toc-what-are-the-most-common-expressions-of-gratitude-frustration-or-hope" class="nav-link" data-scroll-target="#what-are-the-most-common-expressions-of-gratitude-frustration-or-hope">What are the most common expressions of gratitude, frustration, or hope?</a></li>
+  <li><a href="#are-there-differences-in-the-types-of-issues-discussed-by-new-users-versus-long-time-users" id="toc-are-there-differences-in-the-types-of-issues-discussed-by-new-users-versus-long-time-users" class="nav-link" data-scroll-target="#are-there-differences-in-the-types-of-issues-discussed-by-new-users-versus-long-time-users">Are there differences in the types of issues discussed by new users versus long-time users?</a></li>
+  <li><a href="#what-are-the-patterns-of-conversation-in-highly-controversial-versus-non-controversial-comments" id="toc-what-are-the-patterns-of-conversation-in-highly-controversial-versus-non-controversial-comments" class="nav-link" data-scroll-target="#what-are-the-patterns-of-conversation-in-highly-controversial-versus-non-controversial-comments">What are the patterns of conversation in highly controversial versus non-controversial comments?</a></li>
+  <li><a href="#how-do-emotional-responses-change-when-users-discuss-their-own-health-experiences-versus-others-experiences" id="toc-how-do-emotional-responses-change-when-users-discuss-their-own-health-experiences-versus-others-experiences" class="nav-link" data-scroll-target="#how-do-emotional-responses-change-when-users-discuss-their-own-health-experiences-versus-others-experiences">How do emotional responses change when users discuss their own health experiences versus others’ experiences?</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Reddit PushShift Exloratory Data Analysis</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="reddit-questions-and-searches" class="level3">
+<h3 class="anchored" data-anchor-id="reddit-questions-and-searches">Reddit Questions and Searches</h3>
+<ul>
+<li>Entire comments and subcomments that contain the word “cancer”
+<ul>
+<li>(Parallel to A1, B3a, B13 in HINTS?)</li>
+<li>Calculate frequency per year</li>
+</ul></li>
+<li>Reddits and subreddits that contain the word “cancer”</li>
+</ul>
+<p>In addition, we combed the entire Reddit PushShift dataset provided based on the following criteria:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 88%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Variable</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FrustratingCancerSearch</td>
+<td>“Frustrating” or “frustrat” and “cancer” (HINTS A2b)</td>
+</tr>
+<tr class="even">
+<td>CancerDoctorsTrust</td>
+<td>“Cancer” and “doctors” or “trust” (does not need to contain “trust” since trust is included in NRC sentiment analysis) (HINTS A3a)</td>
+</tr>
+<tr class="odd">
+<td>CancerFamilyTrust</td>
+<td>“Cancer” and “family” or “friends” or various familial terms (e.g., “sister,” “brother,” “mother”) or “trust” (HINTS A3b)</td>
+</tr>
+<tr class="even">
+<td>CancerGovHealthcarePrograms</td>
+<td>“Cancer” and government_healthcare_programs, such as [“Medicare,” “Medicaid,” “ACA,” “NIH,” etc.] or “trust” (HINTS A3c)</td>
+</tr>
+<tr class="odd">
+<td>CancerCharitiesTrust</td>
+<td>“Cancer” and cancer_charities, such as [“American Cancer Society,” “LLS,” “BCRF,” “Livestrong,” etc.] or “trust” (HINTS A3d)</td>
+</tr>
+<tr class="even">
+<td>CancerReligiousOrgTrust</td>
+<td>“Cancer” and charitable_religious_organizations, such as [“Catholic Relief Services,” “World Vision,” “Salvation Army,” etc.] or “trust” (HINTS A3e)</td>
+</tr>
+<tr class="odd">
+<td>CancerScientistsTrust</td>
+<td>“Cancer” and top_cancer_institutes, such as [“MD Anderson,” “Mayo Clinic,” “UCSF,” “Roswell Park,” etc.] or “trust” (HINTS A3f)</td>
+</tr>
+<tr class="even">
+<td>InsuranceCancer</td>
+<td>“Insurance” and “cancer”</td>
+</tr>
+<tr class="odd">
+<td>MedicareCancer</td>
+<td>“Medicare” and “cancer”</td>
+</tr>
+<tr class="even">
+<td>MedicaidCancer</td>
+<td>“Medicaid” and “cancer”</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="loading-data" class="level1">
+<h1>Loading Data</h1>
+<div id="cell-3" class="cell" data-gather="{&quot;logged&quot;:1733793845523}" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install wordcloud</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> wordcloud <span class="im">import</span> WordCloud</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.sentiment.vader <span class="im">import</span> SentimentIntensityAnalyzer</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install nrclex</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nrclex <span class="im">import</span> NRCLex</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> LatentDirichletAllocation</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.feature_extraction.text <span class="im">import</span> CountVectorizer</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> datetime</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> nltk</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">#!pip install textblob</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> textblob <span class="im">import</span> TextBlob</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>nltk.download(<span class="st">'vader_lexicon'</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>nltk.download(<span class="st">'punkt'</span>)  <span class="co"># For tokenization</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>nltk.download(<span class="st">'averaged_perceptron_tagger'</span>)<span class="co"># Required for NRCLex</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">#!pip install transformers</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">#from transformers import pipeline</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 64, 6, Finished, Available, Finished)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Collecting wordcloud
+  Downloading wordcloud-1.9.4-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (511 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 511.1/511.1 kB 36.7 MB/s eta 0:00:00
+Requirement already satisfied: pillow in /home/trusted-service-user/cluster-env/env/lib/python3.10/site-packages (from wordcloud) (9.2.0)
+Requirement already satisfied: numpy&gt;=1.6.1 in /home/trusted-service-user/cluster-env/env/lib/python3.10/site-packages (from wordcloud) (1.23.4)
+Requirement already satisfied: matplotlib in /home/trusted-service-user/cluster-env/env/lib/python3.10/site-packages (from wordcloud) (3.6.2)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /home/trusted-service-user/cluster-env/env/lib/python3.10/site-packages (from matplotlib-&gt;wordcloud) (2.8.2)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /home/trusted-service-user/cluster-env/env/lib/python3.10/site-packages (from matplotlib-&gt;wordcloud) (4.38.0)
+Requirement already satisfied: pyparsing&gt;=2.2.1 in /home/trusted-service-user/cluster-env/env/lib/python3.10/site-packages (from matplotlib-&gt;wordcloud) (3.0.9)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /home/trusted-service-user/cluster-env/env/lib/python3.10/site-packages (from matplotlib-&gt;wordcloud) (1.4.4)
+Requirement already satisfied: packaging&gt;=20.0 in /home/trusted-service-user/cluster-env/env/lib/python3.10/site-packages (from matplotlib-&gt;wordcloud) (21.3)
+Requirement already satisfied: cycler&gt;=0.10 in /home/trusted-service-user/cluster-env/env/lib/python3.10/site-packages (from matplotlib-&gt;wordcloud) (0.11.0)
+Requirement already satisfied: contourpy&gt;=1.0.1 in /home/trusted-service-user/cluster-env/env/lib/python3.10/site-packages (from matplotlib-&gt;wordcloud) (1.0.6)
+Requirement already satisfied: six&gt;=1.5 in /home/trusted-service-user/cluster-env/env/lib/python3.10/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib-&gt;wordcloud) (1.16.0)
+Installing collected packages: wordcloud
+Successfully installed wordcloud-1.9.4
+Collecting nrclex
+  Downloading NRCLex-4.0-py3-none-any.whl (4.4 kB)
+  Downloading NRCLex-3.0.0.tar.gz (396 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 396.4/396.4 kB 24.1 MB/s eta 0:00:00
+  Preparing metadata (setup.py) ... - done
+Requirement already satisfied: textblob in /home/trusted-service-user/cluster-env/env/lib/python3.10/site-packages (from nrclex) (0.15.3)
+Requirement already satisfied: nltk&gt;=3.1 in /home/trusted-service-user/cluster-env/env/lib/python3.10/site-packages (from textblob-&gt;nrclex) (3.6.2)
+Requirement already satisfied: joblib in /home/trusted-service-user/cluster-env/env/lib/python3.10/site-packages (from nltk&gt;=3.1-&gt;textblob-&gt;nrclex) (1.2.0)
+Requirement already satisfied: tqdm in /home/trusted-service-user/cluster-env/env/lib/python3.10/site-packages (from nltk&gt;=3.1-&gt;textblob-&gt;nrclex) (4.64.1)
+Requirement already satisfied: click in /home/trusted-service-user/cluster-env/env/lib/python3.10/site-packages (from nltk&gt;=3.1-&gt;textblob-&gt;nrclex) (8.1.3)
+Requirement already satisfied: regex in /home/trusted-service-user/cluster-env/env/lib/python3.10/site-packages (from nltk&gt;=3.1-&gt;textblob-&gt;nrclex) (2022.10.31)
+Building wheels for collected packages: nrclex
+  Building wheel for nrclex (setup.py) ... - \ | / done
+  Created wheel for nrclex: filename=NRCLex-3.0.0-py3-none-any.whl size=43311 sha256=5828b8b72ecb01d3370007d41b87701fe645380bc6c36955aabdb9160bfc07eb
+  Stored in directory: /home/trusted-service-user/.cache/pip/wheels/7e/b4/2a/69658a21d1cc6414aff94c1aa6b31f7e79b735422987995f75
+Successfully built nrclex
+Installing collected packages: nrclex
+Successfully installed nrclex-3.0.0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[nltk_data] Downloading package vader_lexicon to /home/trusted-
+[nltk_data]     service-user/nltk_data...
+[nltk_data] Downloading package punkt to /home/trusted-service-
+[nltk_data]     user/nltk_data...
+[nltk_data]   Unzipping tokenizers/punkt.zip.
+[nltk_data] Downloading package averaged_perceptron_tagger to
+[nltk_data]     /home/trusted-service-user/nltk_data...
+[nltk_data]   Unzipping taggers/averaged_perceptron_tagger.zip.</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>True</code></pre>
+</div>
+</div>
+</section>
+<section id="basic-exploration" class="level1">
+<h1>Basic Exploration</h1>
+<div id="cell-5" class="cell" data-execution_count="45">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'../data/csv/Merged_data.csv'</span>, delimiter<span class="op">=</span><span class="st">','</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="45">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">body</th>
+<th data-quarto-table-cell-role="th">controversiality</th>
+<th data-quarto-table-cell-role="th">created_utc</th>
+<th data-quarto-table-cell-role="th">subreddit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>I'd like to think I've dealt with cancer head ...</td>
+<td>0</td>
+<td>1719826058</td>
+<td>CancerFamilySupport</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>thank you for pointing out how it’s misunderst...</td>
+<td>0</td>
+<td>1719799836</td>
+<td>CrohnsDisease</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>It made me realise exactly how little I had. A...</td>
+<td>0</td>
+<td>1719847236</td>
+<td>breastcancer</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-6" class="cell" data-gather="{&quot;logged&quot;:1733775050806}" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using Big Cloud Data qeuried for the EDA Analysis to run with </span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># testing to make sure i can read the parquet file from the blob again</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>workspace_default_storage_account <span class="op">=</span> <span class="st">"projectgstoragedfb938a3e"</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>workspace_default_container <span class="op">=</span> <span class="st">"azureml-blobstore-becc8696-e562-432e-af12-8a5e3e1f9b0f"</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>workspace_wasbs_base_url <span class="op">=</span> <span class="ss">f"wasbs://</span><span class="sc">{</span>workspace_default_container<span class="sc">}</span><span class="ss">@</span><span class="sc">{</span>workspace_default_storage_account<span class="sc">}</span><span class="ss">.blob.core.windows.net/"</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># the parquet path again</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>output_path <span class="op">=</span> <span class="ss">f"wasbs://</span><span class="sc">{</span>workspace_default_container<span class="sc">}</span><span class="ss">@</span><span class="sc">{</span>workspace_default_storage_account<span class="sc">}</span><span class="ss">.blob.core.windows.net/cancer_subreddit.parquet"</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the Parquet file back into a dataframe</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> spark.read.parquet(output_path)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Show first 5 rows</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>df1.show(<span class="dv">5</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>df1.printSchema()</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>comments_row_count <span class="op">=</span> df1.count()</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>comment_col_count <span class="op">=</span> <span class="bu">len</span>(df1.columns)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"shape of the comments dataframe is </span><span class="sc">{</span>comments_row_count<span class="sc">:,}</span><span class="ss">x</span><span class="sc">{</span>comment_col_count<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 60, 6, Finished, Available, Finished)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>+------------------+----------------------+--------------------+--------------------+----------------+-----------+-------------+------+------+-------+----------+----------+------------+-----+--------+-------------+------------+----+---+--------------------+
+|            author|author_flair_css_class|   author_flair_text|                body|controversiality|created_utc|distinguished|edited|gilded|     id|   link_id| parent_id|retrieved_on|score|stickied|    subreddit|subreddit_id|yyyy| mm|        cleaned_body|
++------------------+----------------------+--------------------+--------------------+----------------+-----------+-------------+------+------+-------+----------+----------+------------+-----+--------+-------------+------------+----+---+--------------------+
+| redhtbassplyr0311|                  null|         RN - ICU 🍕|Check out Northsi...|               0| 1714691222|         null|  null|     0|l2bha78|t3_1cir563|t3_1cir563|  1714691237|    2|   false|      nursing|    t5_2ra72|2024|  5|check out northsi...|
+|  vegan-princess01|                  null|                null|I had something s...|               0| 1714691276|         null|  null|     0|l2bhf47|t3_1cisin7|t3_1cisin7|  1714691291|    1|   false| WomensHealth|    t5_2rpzk|2024|  5|i had something s...|
+|           Smirto9|                  null|                null|That's an insulti...|               0| 1714691284|         null|  null|     0|l2bhfug|t3_1chbacv|t3_1chbacv|  1714691299|    1|   false|      nursing|    t5_2ra72|2024|  5|thats an insultin...|
+|       StaleWoolfe|               default|Layperson/not ver...|Yeah sorry, it wa...|               0| 1714691482|         null|  null|     0|l2bhxr1|t3_1cin7rh|t1_l2bh09i|  1714691499|    2|   false|      AskDocs|    t5_2xtuc|2024|  5|yeah sorry it was...|
+|BeautifulDreamerAZ|                  null|                null|I see my colorect...|               0| 1714691514|         null|  null|     0|l2bi0q4|t3_1cimzaw|t1_l2ap5xq|  1714691529|    1|   false|CrohnsDisease|    t5_2s453|2024|  5|i see my colorect...|
++------------------+----------------------+--------------------+--------------------+----------------+-----------+-------------+------+------+-------+----------+----------+------------+-----+--------+-------------+------------+----+---+--------------------+
+only showing top 5 rows
+
+root
+ |-- author: string (nullable = true)
+ |-- author_flair_css_class: string (nullable = true)
+ |-- author_flair_text: string (nullable = true)
+ |-- body: string (nullable = true)
+ |-- controversiality: long (nullable = true)
+ |-- created_utc: long (nullable = true)
+ |-- distinguished: string (nullable = true)
+ |-- edited: double (nullable = true)
+ |-- gilded: long (nullable = true)
+ |-- id: string (nullable = true)
+ |-- link_id: string (nullable = true)
+ |-- parent_id: string (nullable = true)
+ |-- retrieved_on: long (nullable = true)
+ |-- score: long (nullable = true)
+ |-- stickied: boolean (nullable = true)
+ |-- subreddit: string (nullable = true)
+ |-- subreddit_id: string (nullable = true)
+ |-- yyyy: integer (nullable = true)
+ |-- mm: integer (nullable = true)
+ |-- cleaned_body: string (nullable = true)
+
+shape of the comments dataframe is 10,000x20</code></pre>
+</div>
+</div>
+<div id="cell-7" class="cell" data-gather="{&quot;logged&quot;:1733775089744}" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}" data-execution_count="2">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>output_path <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>workspace_wasbs_base_url<span class="sc">}</span><span class="ss">not_cancer_subreddit.parquet"</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the Parquet file back into a dataframe</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>df2 <span class="op">=</span> spark.read.parquet(output_path)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Show first 5 rows</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>df2.show(<span class="dv">5</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>df2.printSchema()</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>comments_row_count <span class="op">=</span> df2.count()</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>comment_col_count <span class="op">=</span> <span class="bu">len</span>(df2.columns)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"shape of the comments dataframe is </span><span class="sc">{</span>comments_row_count<span class="sc">:,}</span><span class="ss">x</span><span class="sc">{</span>comment_col_count<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 60, 7, Finished, Available, Finished)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>+----------------+----------------------+-----------------+--------------------+----------------+-----------+-------------+------+------+-------+----------+----------+------------+-----+--------+-------------------+------------+----+---+--------------------+
+|          author|author_flair_css_class|author_flair_text|                body|controversiality|created_utc|distinguished|edited|gilded|     id|   link_id| parent_id|retrieved_on|score|stickied|          subreddit|subreddit_id|yyyy| mm|        cleaned_body|
++----------------+----------------------+-----------------+--------------------+----------------+-----------+-------------+------+------+-------+----------+----------+------------+-----+--------+-------------------+------------+----+---+--------------------+
+|     LittleGrowl|                  null|             null|It’s like saying ...|               0| 1701783300|         null|  null|     0|kc3bfti|t3_18baicd|t1_kc34yud|  1701783318|   22|   false|relationship_advice|    t5_2r0cn|2023| 12|its like saying n...|
+|      TimmyOTule|                  null|             null|    It was fake man.|               1| 1701783300|         null|  null|     0|kc3bftr|t3_18b2s9m|t3_18b2s9m|  1701783318|    0|   false|         conspiracy|    t5_2qh4r|2023| 12|     it was fake man|
+| Bee-El-Zu-Bubba|                  null|     Ꙅↄarɘↄlaw 🖑|No, you cannot co...|               0| 1701783300|         null|  null|     0|kc3bftu|t3_18bbu11|t3_18bbu11|  1701783318|    6|   false|   YuGiOhMasterDuel|   t5_3l4f55|2023| 12|no you cannot com...|
+|    MothofTerror|                  null|             null|Wiser words have ...|               0| 1701783300|         null|  null|     0|kc3bfut|t3_18bb1dy|t1_kc37aji|  1701783318|    3|   false|         AmazonVine|   t5_28yu6q|2023| 12|wiser words have ...|
+|Odd-Location1287|                  null|             null|Cara vai sem pres...|               0| 1701783300|         null|  null|     0|kc3bfv1|t3_172y51n|t3_172y51n|  1701783318|    1|   false|    monsterhunterbr|   t5_3bcads|2023| 12|cara vai sem pres...|
++----------------+----------------------+-----------------+--------------------+----------------+-----------+-------------+------+------+-------+----------+----------+------------+-----+--------+-------------------+------------+----+---+--------------------+
+only showing top 5 rows
+
+root
+ |-- author: string (nullable = true)
+ |-- author_flair_css_class: string (nullable = true)
+ |-- author_flair_text: string (nullable = true)
+ |-- body: string (nullable = true)
+ |-- controversiality: long (nullable = true)
+ |-- created_utc: long (nullable = true)
+ |-- distinguished: string (nullable = true)
+ |-- edited: double (nullable = true)
+ |-- gilded: long (nullable = true)
+ |-- id: string (nullable = true)
+ |-- link_id: string (nullable = true)
+ |-- parent_id: string (nullable = true)
+ |-- retrieved_on: long (nullable = true)
+ |-- score: long (nullable = true)
+ |-- stickied: boolean (nullable = true)
+ |-- subreddit: string (nullable = true)
+ |-- subreddit_id: string (nullable = true)
+ |-- yyyy: integer (nullable = true)
+ |-- mm: integer (nullable = true)
+ |-- cleaned_body: string (nullable = true)
+
+shape of the comments dataframe is 10,000x20</code></pre>
+</div>
+</div>
+<div id="cell-8" class="cell" data-gather="{&quot;logged&quot;:1733775701615}" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}" data-execution_count="7">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine Big data cloud data to perform EDA </span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df1.union(df2)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Show top 5</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Select neccesary columns for EDA created </span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.select(<span class="st">'body'</span> ,<span class="st">'controversiality'</span>, <span class="st">'created_utc'</span>, <span class="st">'subreddit'</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>df.show(<span class="dv">5</span>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>df.printSchema()</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>comments_row_count <span class="op">=</span> df.count()</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>comment_col_count <span class="op">=</span> <span class="bu">len</span>(df.columns)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"shape of the comments dataframe is </span><span class="sc">{</span>comments_row_count<span class="sc">:,}</span><span class="ss">x</span><span class="sc">{</span>comment_col_count<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Save into one parquet file </span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>output_path <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>workspace_wasbs_base_url<span class="sc">}</span><span class="ss">merged_cancer_subreddit.parquet"</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>df.write.parquet(output_path)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 60, 12, Finished, Available, Finished)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>+--------------------+----------------+-----------+-------------+
+|                body|controversiality|created_utc|    subreddit|
++--------------------+----------------+-----------+-------------+
+|Check out Northsi...|               0| 1714691222|      nursing|
+|I had something s...|               0| 1714691276| WomensHealth|
+|That's an insulti...|               0| 1714691284|      nursing|
+|Yeah sorry, it wa...|               0| 1714691482|      AskDocs|
+|I see my colorect...|               0| 1714691514|CrohnsDisease|
++--------------------+----------------+-----------+-------------+
+only showing top 5 rows
+
+root
+ |-- body: string (nullable = true)
+ |-- controversiality: long (nullable = true)
+ |-- created_utc: long (nullable = true)
+ |-- subreddit: string (nullable = true)
+
+shape of the comments dataframe is 20,000x4</code></pre>
+</div>
+</div>
+<div id="cell-9" class="cell" data-gather="{&quot;logged&quot;:1733793946723}" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}" data-execution_count="2">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Convert parquet into pandas </span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the parquet path again</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>workspace_default_storage_account <span class="op">=</span> <span class="st">"projectgstoragedfb938a3e"</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>workspace_default_container <span class="op">=</span> <span class="st">"azureml-blobstore-becc8696-e562-432e-af12-8a5e3e1f9b0f"</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>output_path <span class="op">=</span> <span class="ss">f"wasbs://</span><span class="sc">{</span>workspace_default_container<span class="sc">}</span><span class="ss">@</span><span class="sc">{</span>workspace_default_storage_account<span class="sc">}</span><span class="ss">.blob.core.windows.net/merged_cancer_subreddit.parquet"</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>merged_df_spark <span class="op">=</span> spark.read.parquet(output_path)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> merged_df_spark.toPandas()</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.head(<span class="dv">5</span>))</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"shape of the Pandas DataFrame is </span><span class="sc">{</span>df<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 64, 7, Finished, Available, Finished)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                body  controversiality  \
+0  Check out Northside Hospital -Atlanta, Piedmon...                 0   
+1  I had something similar and managed to get it ...                 0   
+2  That's an insulting offer, and I'm a LPN. Out ...                 0   
+3  Yeah sorry, it was my mistake. I meant to say ...                 0   
+4  I see my colorectal dr tomorrow. My disease is...                 0   
+
+   created_utc      subreddit  
+0   1714691222        nursing  
+1   1714691276   WomensHealth  
+2   1714691284        nursing  
+3   1714691482        AskDocs  
+4   1714691514  CrohnsDisease  
+shape of the Pandas DataFrame is (20000, 4)</code></pre>
+</div>
+</div>
+<div id="cell-10" class="cell" data-gather="{&quot;logged&quot;:1733793948770}" data-execution_count="3">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># checking for missing values</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>df.isna().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 64, 8, Finished, Available, Finished)</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>body                0
+controversiality    0
+created_utc         0
+subreddit           0
+dtype: int64</code></pre>
+</div>
+</div>
+<div id="cell-11" class="cell" data-gather="{&quot;logged&quot;:1733793950778}" data-execution_count="4">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#for i in df.columns:</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#    print(df[i].unique())</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[<span class="st">'subreddit'</span>].unique())</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.dtypes)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># converting the time to datetime</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'created_utc'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'created_utc'</span>], unit<span class="op">=</span><span class="st">'s'</span>)  <span class="co"># Convert timestamp if necessary</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 64, 9, Finished, Available, Finished)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['nursing' 'WomensHealth' 'AskDocs' ... 'PKA' 'Fumofumo' 'LiminalSpace']
+body                object
+controversiality     int64
+created_utc          int64
+subreddit           object
+dtype: object</code></pre>
+</div>
+</div>
+<div id="cell-12" class="cell" data-gather="{&quot;logged&quot;:1733793951776}" data-execution_count="5">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> preprocess_text(text):</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    text <span class="op">=</span> text.lower()</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    text <span class="op">=</span> re.sub(<span class="vs">r'[^\w\s]'</span>, <span class="st">''</span>, text)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> text</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'body'</span>] <span class="op">=</span> df[<span class="st">'body'</span>].<span class="bu">apply</span>(preprocess_text)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 64, 10, Finished, Available, Finished)</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">body</th>
+<th data-quarto-table-cell-role="th">controversiality</th>
+<th data-quarto-table-cell-role="th">created_utc</th>
+<th data-quarto-table-cell-role="th">subreddit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>check out northside hospital atlanta piedmont ...</td>
+<td>0</td>
+<td>2024-05-02 23:07:02</td>
+<td>nursing</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>i had something similar and managed to get it ...</td>
+<td>0</td>
+<td>2024-05-02 23:07:56</td>
+<td>WomensHealth</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="questions" class="level1">
+<h1>Questions:</h1>
+<p>In this exploratory data analysis, the primary goal was to gain a comprehensive understanding of the dataset that would eventually assist us to go into further advanced modeling and to answer our questions, which includes columns such as ‘body’, ‘controversiality’, ‘created_utc’, and ‘subreddit’.</p>
+<p>The analysis in this section is focused on several key aspects to uncover insights within healthcare-related subreddits. Given the diversity of subreddits, we aimed to examine how emotions vary across different communities, as each subreddit likely captures unique sentiments and experiences related to health.</p>
+<p>The ‘body’ column, containing user comments, was analyzed for sentiment and emotion using tools like VADER and NRCLex to classify emotions such as sadness, anger, trust, and joy across different subreddit groups. Additionally, metrics related to ‘controversiality’ were explored to understand engagement and potential conflicts within discussions. The ‘created_utc’ column was leveraged to study temporal trends, analyzing how sentiment and emotion change over time or vary by day of the week. By examining these aspects, we were able to answer targeted questions about user experiences, sentiment distributions, engagement patterns, and common themes discussed within each community, ultimately providing a holistic view of the dataset’s emotional landscape. Overall, we use all the existing data to further truly mine into newer classification techniniques.</p>
+<section id="what-is-the-sentiment-distribution-across-these-diverse-healthcare-subreddits" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-the-sentiment-distribution-across-these-diverse-healthcare-subreddits">What is the sentiment distribution across these diverse healthcare subreddits?</h2>
+<p><strong>Purpose</strong>: To understand how different healthcare communities perceive their situations, we analyzed the sentiment distribution across various healthcare-related subreddits by categorizing each comment as positive, negative, or neutral based on its sentiment score. Positive scores indicate optimistic or supportive comments, negative scores reflect frustration or concern, and neutral scores suggest factual or balanced tones. This analysis provides a snapshot of the emotional climate across healthcare subreddits, helping us gauge the general sentiment expressed by members of each community.</p>
+<p><strong>Outcome</strong>: It is seen that there is right skewed distribution for ‘negative’ and positive has a left-skewed distribution with an expection for ‘WomensHealth’ subreddit. The counts on an overall scale were slightly more for negative than the positive. However, as this doesn’t specifically answer our questions in great depth, we explore further.</p>
+<div id="cell-15" class="cell" data-gather="{&quot;logged&quot;:1733794054042}" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}" data-execution_count="10">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>sid <span class="op">=</span> SentimentIntensityAnalyzer()</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># sentiment score and label</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'sentiment_score'</span>] <span class="op">=</span> df[<span class="st">'body'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: sid.polarity_scores(x)[<span class="st">'compound'</span>])</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'sentiment_label'</span>] <span class="op">=</span> df[<span class="st">'sentiment_score'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">'positive'</span> <span class="cf">if</span> x <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">'negative'</span> <span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">'neutral'</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co">#custom_palette = sns.color_palette("Set2", n_colors=len(df['subreddit'].unique()))</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.figure(figsize=(15, 7))</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co">#sns.countplot(data=df, x='sentiment_label', hue='subreddit', palette=custom_palette)</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.title('Sentiment Distribution by Subreddit')</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.xticks(rotation=90)</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.legend(loc='upper right', bbox_to_anchor=(1.1, 1))</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.show()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 64, 15, Finished, Available, Finished)</code></pre>
+</div>
+</div>
+</section>
+<section id="which-emotions-are-most-common-in-specific-healthcare-communities" class="level2">
+<h2 class="anchored" data-anchor-id="which-emotions-are-most-common-in-specific-healthcare-communities">Which emotions are most common in specific healthcare communities?</h2>
+<p>The goal of this analysis is to identify the most common emotions, such as sadness, anger, and trust, within different healthcare communities on Reddit. By examining the emotional tone of discussions in each subreddit, we can gain insights into the unique challenges and concerns faced by members of these communities. Understanding predominant emotions in specific subreddits helps reveal the emotional landscape of each group, highlighting areas of support, frustration, or other significant feelings that characterize their experiences.</p>
+<p><strong>Note</strong>: Used three approaches here 1. TextBlob 2. Vader 3. Transformers</p>
+<p><strong>Outcome</strong>: As we have usd three approaches to judge polarity, sentiment, and emotion, it’ll be broken down accordingly</p>
+<ul>
+<li>On basis of Polarity: The analysis reveals varying predominant emotions across healthcare subreddits, with each community displaying unique emotional tones. Subreddits like braincancer and skincancer show notably high positive sentiment, possibly reflecting resilience or hope within these groups, while Fuckcancer and Hashimotos indicate stronger expressions of frustration or anger. Communities like CancerCaregivers and HealthInsurance have a more balanced emotional tone, with a mix of support and concerns.</li>
+<li>The sentiment analysis across healthcare subreddits shows a wide range of emotional tones. Subreddits like braincancer, predental, and HealthInsurance exhibit higher positive sentiment, possibly reflecting optimism or supportive environments. In contrast, subreddits such as UlcerativeColitis, Lymphedema, and leukemia lean more negative, indicating challenging or difficult discussions. Many subreddits, including breastcancer and cancer, have a high proportion of neutral sentiment, suggesting factual or balanced discussions.</li>
+<li>The analysis of emotions across healthcare subreddits reveals a diverse emotional landscape, with certain emotions being more prominent in specific communities. For example, sadness is particularly high in subreddits such as Cancersurvivors, BRCA, and predental, likely reflecting the emotional challenges related to these conditions. Fear is notably prevalent in subreddits like skincancer, thyroidcancer, and publichealth, indicating concerns over diagnosis, treatment, and potential health risks. On the other hand, joy is relatively high in WomensHealth and braincancer, suggesting instances of shared positive experiences or supportive interactions. Anger is particularly pronounced in subreddits such as Fuckcancer and Microbiome, possibly reflecting frustration with healthcare systems, treatments, or conditions.</li>
+</ul>
+<div id="cell-17" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using pretained transformeers model</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co">#MAX_LENGTH = 512</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co">#def truncate_text(text, max_length=MAX_LENGTH):</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a> <span class="co">#   tokens = text.split()  # Tokenize by whitespace</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#  if len(tokens) &gt; max_length:</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>   <span class="co">#     text = ' '.join(tokens[:max_length])</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">#return text</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="co">#df['truncated_body'] = df['body'].apply(lambda x: truncate_text(x))</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="co"># loading a pretrained emotion classification model</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="co">#emotion_classifier = pipeline(</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a> <span class="co">#   "text-classification", </span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>  <span class="co">#  model="j-hartmann/emotion-english-distilroberta-base", </span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>   <span class="co"># return_all_scores=True, </span></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>   <span class="co"># truncation=True</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a><span class="co">#)</span></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="co">#def get_emotions_transformers(text):</span></span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a> <span class="co">#   emotion_scores = emotion_classifier(text)[0]  # emootional scores</span></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># converting these list of scores to a dictionary</span></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>  <span class="co">#  return {item['label']: item['score'] for item in emotion_scores}</span></span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a><span class="co">#emotion_df = pd.DataFrame(df['body'].apply(get_emotions_transformers).tolist())</span></span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a><span class="co">##emotion_df['subreddit'] = df['subreddit']</span></span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a><span class="co">#emotion_avg = emotion_df.groupby('subreddit').mean()</span></span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.figure(figsize=(15, 8))</span></span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a><span class="co">#sns.heatmap(emotion_avg, annot=True, cmap='coolwarm')</span></span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.title('Average Emotion Scores by Subreddit')</span></span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.show()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-18" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">## using vader for emotional scoring</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co"># VADER</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co">#sid = SentimentIntensityAnalyzer()#</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co">#def get_vader_scores(text):</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a> <span class="co">#   scores = sid.polarity_scores(text)</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a> <span class="co">#   return {</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">#      'positive': scores['pos'],</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>   <span class="co">#     'negative': scores['neg'],</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">#    'neutral': scores['neu'],</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>     <span class="co">#   'compound': scores['compound']</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">#}</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="co">#vader_df = pd.DataFrame(df['body'].apply(get_vader_scores).tolist())</span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a><span class="co">#vader_df['subreddit'] = df['subreddit']</span></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a><span class="co">#vader_avg = vader_df.groupby('subreddit').mean()</span></span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.figure(figsize=(15, 8))</span></span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a><span class="co">#sns.heatmap(vader_avg, annot=True, cmap='coolwarm')</span></span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.title('Average VADER Sentiment Scores by Subreddit')</span></span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.show()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cell-19" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using textblob for sentiment analysis as a proxy for emotion</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co">#def get_sentiment(text):</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a> <span class="co">#   blob = TextBlob(text)</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">#  return {</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#      'polarity': blob.sentiment.polarity,       # -1 (negative) to 1 (positive)</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#      'subjectivity': blob.sentiment.subjectivity # 0 (objective) to 1 (subjective)</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">#  }</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co">#sentiment_df = pd.DataFrame(df['body'].apply(get_sentiment).tolist())</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="co">#sentiment_df['subreddit'] = df['subreddit']</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="co">#sentiment_avg = sentiment_df.groupby('subreddit').mean()</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.figure(figsize=(15, 8))</span></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="co">#sns.heatmap(sentiment_avg, annot=True, cmap='coolwarm')</span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.title('Average Sentiment by Subreddit')</span></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.show()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="what-are-the-primary-topics-or-themes-discussed-in-each-subreddit" class="level2">
+<h2 class="anchored" data-anchor-id="what-are-the-primary-topics-or-themes-discussed-in-each-subreddit">What are the primary topics or themes discussed in each subreddit?</h2>
+<p><strong>Purpose</strong>: The goal of analyzing primary topics or themes across healthcare subreddits is to identify common areas of discussion within each community. These themes could include treatment challenges, symptom management, and the need for emotional support, among others. By understanding the primary concerns in each subreddit, we can gain insights into what matters most to different healthcare communities. Additionally, exploring correlations between these topics and sentiment may reveal how specific discussions align with positive, negative, or neutral emotions, providing a deeper understanding of each community’s unique experiences and perspectives.</p>
+<p><strong>Outcome</strong>: The topic analysis across healthcare subreddits reveals a variety of key themes discussed within these communities. Topic 1 centers around understanding medical treatments, particularly radiation and prostate-related issues, suggesting a need for clarity on complex procedures. Topic 2 highlights patient-doctor relationships and the desire for reassurance regarding symptoms like lumps, indicating some mistrust or frustration with healthcare providers. Topic 3 reflects general concerns about treatment and care, as well as the challenges of navigating personal health decisions. Topic 4 focuses on experiences with pain and family dynamics, with mentions of “mom” and “dad,” suggesting that family support plays a significant role in coping with diagnoses. Lastly, Topic 5 discusses life-impacting elements of treatment, like blood work, chemotherapy, and managing side effects.</p>
+<div id="cell-21" class="cell" data-gather="{&quot;logged&quot;:1733783421387}" data-execution_count="16">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>vectorizer <span class="op">=</span> CountVectorizer(max_df<span class="op">=</span><span class="fl">0.9</span>, min_df<span class="op">=</span><span class="dv">10</span>, stop_words<span class="op">=</span><span class="st">'english'</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>dtm <span class="op">=</span> vectorizer.fit_transform(df[<span class="st">'body'</span>])</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>lda <span class="op">=</span> LatentDirichletAllocation(n_components<span class="op">=</span><span class="dv">5</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>lda.fit(dtm)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="co"># topic modeling using LDA </span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, topic <span class="kw">in</span> <span class="bu">enumerate</span>(lda.components_):</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Topic </span><span class="sc">{</span>idx <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">:"</span>)</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>([vectorizer.get_feature_names_out()[i] <span class="cf">for</span> i <span class="kw">in</span> topic.argsort()[<span class="op">-</span><span class="dv">10</span>:]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 61, 21, Finished, Available, Finished)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Topic 1:
+['time', 'need', 'make', 'youre', 'thats', 'think', 'people', 'dont', 'like', 'just']
+Topic 2:
+['es', 'na', 'da', 'die', 'se', 'la', 'en', 'yes', 'que', 'thank']
+Topic 3:
+['really', 'did', 'ive', 'good', 'know', 'time', 'dont', 'like', 'just', 'im']
+Topic 4:
+['terms', 'question', 'automatically', 'concerns', 'subreddit', 'questions', 'does', 'removed', 'post', 'information']
+Topic 5:
+['thanks', 'post', 'concerns', 'performed', 'automatically', 'bot', 'action', 'moderators', 'contact', 'questions']</code></pre>
+</div>
+</div>
+</section>
+<section id="are-certain-subreddits-more-likely-to-express-interpersonal-conflict-or-emotional-support" class="level2">
+<h2 class="anchored" data-anchor-id="are-certain-subreddits-more-likely-to-express-interpersonal-conflict-or-emotional-support">Are certain subreddits more likely to express interpersonal conflict or emotional support?</h2>
+<p><strong>Purpose</strong>: This analysis aims to identify which subreddits are more likely to feature discussions about interpersonal conflict or emotional support, highlighting the role of community dynamics in health-related experiences. By examining the frequency of keywords associated with conflict—such as negative emotions, struggles, and relational challenges—and support keywords that signify kindness, empathy, and encouragement, we can determine which communities focus more on sharing challenges versus offering support.</p>
+<p><strong>Outcome</strong>: The analysis of conflict and support mentions across healthcare subreddits reveals varying dynamics in community interactions. Subreddits like Autoimmune, CrohnsDisease, Fuckcancer, and HealthInsurance exhibit high levels of both conflict and support, indicating that members frequently discuss frustrations as well as offer mutual encouragement. In contrast, communities such as Cancersurvivors, Lymphedema, and PreCervicalCancer have high support but little conflict, suggesting a stronger focus on encouragement and empathy rather than interpersonal challenges. Other subreddits like BRCA, Hashimotos, and Microbiome display high conflict with minimal support, potentially reflecting specific challenges or frustrations unique to those conditions.</p>
+<div id="cell-23" class="cell" data-gather="{&quot;logged&quot;:1733797935626}" data-execution_count="58">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>conflict_keywords <span class="op">=</span> [</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"frustration"</span>, <span class="st">"disappointment"</span>, <span class="st">"anger"</span>, <span class="st">"resentment"</span>, <span class="st">"annoyance"</span>, <span class="st">"conflict"</span>, </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"tension"</span>, <span class="st">"irritation"</span>, <span class="st">"betrayal"</span>, <span class="st">"arguments"</span>, <span class="st">"struggle"</span>, <span class="st">"stress"</span>, </span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"misunderstanding"</span>, <span class="st">"criticism"</span>, <span class="st">"blame"</span>, <span class="st">"guilt"</span>, <span class="st">"hostility"</span>, <span class="st">"resent"</span>, </span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"unhappy"</span>, <span class="st">"sadness"</span>, <span class="st">"upset"</span>, <span class="st">"hurt"</span>, <span class="st">"fighting"</span>, <span class="st">"argument"</span>, <span class="st">"tough"</span>, </span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"challenging"</span>, <span class="st">"difficulty"</span>, <span class="st">"pressure"</span>, <span class="st">"discouragement"</span>, <span class="st">"despair"</span>, </span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"fear"</span>, <span class="st">"helplessness"</span>, <span class="st">"hopelessness"</span>, <span class="st">"loss"</span>, <span class="st">"disapproval"</span>, <span class="st">"rejection"</span>, </span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"grief"</span>, <span class="st">"pain"</span>, <span class="st">"suffering"</span>, <span class="st">"alienation"</span>, <span class="st">"abandonment"</span>, <span class="st">"desperation"</span>, </span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"friction"</span>, <span class="st">"dispute"</span>, <span class="st">"distrust"</span>, <span class="st">"confusion"</span>, <span class="st">"embarrassment"</span>, <span class="st">"injustice"</span>, </span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"unfair"</span>, <span class="st">"isolation"</span>, <span class="st">"loneliness"</span>, <span class="st">"agitation"</span>, <span class="st">"disgust"</span>, <span class="st">"irritability"</span>, </span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"exclusion"</span>, <span class="st">"condemnation"</span>, <span class="st">"bitterness"</span>, <span class="st">"exasperation"</span>, <span class="st">"discontent"</span>, </span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"jealousy"</span>, <span class="st">"envy"</span>, <span class="st">"regret"</span>, <span class="st">"doubt"</span>, <span class="st">"turmoil"</span>, <span class="st">"burden"</span>, <span class="st">"anxiety"</span>, </span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"pressure"</span>, <span class="st">"insecurity"</span>, <span class="st">"worry"</span>, <span class="st">"distress"</span>, <span class="st">"disillusionment"</span>, <span class="st">"strife"</span>, </span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"unresolved"</span>, <span class="st">"torment"</span>, <span class="st">"persecution"</span>, <span class="st">"victimization"</span>, <span class="st">"abrasiveness"</span>, </span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"defiance"</span>, <span class="st">"rebellion"</span>, <span class="st">"protest"</span>, <span class="st">"contempt"</span>, <span class="st">"accusation"</span>, <span class="st">"attack"</span>, </span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"judgment"</span>, <span class="st">"exclusion"</span>, <span class="st">"neglect"</span>, <span class="st">"withdrawal"</span>, <span class="st">"abuse"</span>, <span class="st">"mockery"</span>, <span class="st">"clash"</span></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>] <span class="co"># added more words to balance the viz</span></span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>support_keywords <span class="op">=</span> [</span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"support"</span>, <span class="st">"help"</span>, <span class="st">"care"</span>, <span class="st">"encourage"</span>, <span class="st">"comfort"</span>, <span class="st">"kindness"</span>, <span class="st">"understanding"</span>, </span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"compassion"</span>, <span class="st">"empathy"</span>, <span class="st">"assistance"</span>, <span class="st">"guidance"</span>, <span class="st">"backing"</span>, <span class="st">"aid"</span>, <span class="st">"uplifting"</span>, </span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"positive"</span>, <span class="st">"friendship"</span>, <span class="st">"community"</span>, <span class="st">"reassurance"</span>, <span class="st">"sympathy"</span>, <span class="st">"solidarity"</span>, </span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"together"</span>, <span class="st">"listening"</span>, <span class="st">"patience"</span>, <span class="st">"trust"</span>, <span class="st">"love"</span>, <span class="st">"appreciation"</span>, <span class="st">"encouragement"</span>, </span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"advice"</span>, <span class="st">"warmth"</span>, <span class="st">"respect"</span>, <span class="st">"hope"</span>, <span class="st">"motivating"</span>, <span class="st">"strength"</span>, <span class="st">"connection"</span></span>
+<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'conflict_mention'</span>] <span class="op">=</span> df[<span class="st">'body'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="bu">any</span>(keyword <span class="kw">in</span> x <span class="cf">for</span> keyword <span class="kw">in</span> conflict_keywords))</span>
+<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'support_mention'</span>] <span class="op">=</span> df[<span class="st">'body'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="bu">any</span>(keyword <span class="kw">in</span> x <span class="cf">for</span> keyword <span class="kw">in</span> support_keywords))</span>
+<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregate counts</span></span>
+<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a>conflict_counts <span class="op">=</span> df.groupby(<span class="st">'subreddit'</span>)[<span class="st">'conflict_mention'</span>].<span class="bu">sum</span>().sort_values(ascending <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb35-32"><a href="#cb35-32" aria-hidden="true" tabindex="-1"></a>support_counts <span class="op">=</span> df.groupby(<span class="st">'subreddit'</span>)[<span class="st">'support_mention'</span>].<span class="bu">sum</span>().sort_values(ascending <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb35-33"><a href="#cb35-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-34"><a href="#cb35-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Select top 50 reddit</span></span>
+<span id="cb35-35"><a href="#cb35-35" aria-hidden="true" tabindex="-1"></a>top_conflict_subreddit <span class="op">=</span> conflict_counts.head(<span class="dv">40</span>).index</span>
+<span id="cb35-36"><a href="#cb35-36" aria-hidden="true" tabindex="-1"></a>top_support_subreddit <span class="op">=</span> support_counts.head(<span class="dv">40</span>).index</span>
+<span id="cb35-37"><a href="#cb35-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-38"><a href="#cb35-38" aria-hidden="true" tabindex="-1"></a><span class="co"># combine two sets </span></span>
+<span id="cb35-39"><a href="#cb35-39" aria-hidden="true" tabindex="-1"></a>top_subreddit <span class="op">=</span> <span class="bu">set</span>(top_conflict_subreddit).union(<span class="bu">set</span>(top_support_subreddit))</span>
+<span id="cb35-40"><a href="#cb35-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-41"><a href="#cb35-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter Df for these subreddit </span></span>
+<span id="cb35-42"><a href="#cb35-42" aria-hidden="true" tabindex="-1"></a>filtered_df <span class="op">=</span> df[df[<span class="st">'subreddit'</span>].isin(top_subreddit)]</span>
+<span id="cb35-43"><a href="#cb35-43" aria-hidden="true" tabindex="-1"></a>filtered_conflict_counts <span class="op">=</span> filtered_df.groupby(<span class="st">'subreddit'</span>)[<span class="st">'conflict_mention'</span>].<span class="bu">sum</span>()</span>
+<span id="cb35-44"><a href="#cb35-44" aria-hidden="true" tabindex="-1"></a>filtered_support_counts <span class="op">=</span> filtered_df.groupby(<span class="st">'subreddit'</span>)[<span class="st">'support_mention'</span>].<span class="bu">sum</span>()</span>
+<span id="cb35-45"><a href="#cb35-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-46"><a href="#cb35-46" aria-hidden="true" tabindex="-1"></a>conflict_values <span class="op">=</span> filtered_conflict_counts.values</span>
+<span id="cb35-47"><a href="#cb35-47" aria-hidden="true" tabindex="-1"></a>support_values <span class="op">=</span> filtered_support_counts.values</span>
+<span id="cb35-48"><a href="#cb35-48" aria-hidden="true" tabindex="-1"></a>subreddit_labels <span class="op">=</span> filtered_conflict_counts.index</span>
+<span id="cb35-49"><a href="#cb35-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-50"><a href="#cb35-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Add theme </span></span>
+<span id="cb35-51"><a href="#cb35-51" aria-hidden="true" tabindex="-1"></a>hex_colors <span class="op">=</span> {</span>
+<span id="cb35-52"><a href="#cb35-52" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Conflict Mentions'</span> : <span class="st">"#ff4500"</span>, </span>
+<span id="cb35-53"><a href="#cb35-53" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Support Mentions'</span>: <span class="st">"#5f0922"</span></span>
+<span id="cb35-54"><a href="#cb35-54" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb35-55"><a href="#cb35-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-56"><a href="#cb35-56" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare data for dodge plot</span></span>
+<span id="cb35-57"><a href="#cb35-57" aria-hidden="true" tabindex="-1"></a>dodge_data <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb35-58"><a href="#cb35-58" aria-hidden="true" tabindex="-1"></a>    <span class="st">'subreddit'</span>: filtered_conflict_counts.index.tolist() <span class="op">+</span> filtered_support_counts.index.tolist(),</span>
+<span id="cb35-59"><a href="#cb35-59" aria-hidden="true" tabindex="-1"></a>    <span class="st">'mention_type'</span>: [<span class="st">'Conflict Mentions'</span>] <span class="op">*</span> <span class="bu">len</span>(filtered_conflict_counts) <span class="op">+</span> [<span class="st">'Support Mentions'</span>]  <span class="op">*</span> <span class="bu">len</span>(filtered_support_counts),</span>
+<span id="cb35-60"><a href="#cb35-60" aria-hidden="true" tabindex="-1"></a>    <span class="st">'count'</span>: filtered_conflict_counts.tolist() <span class="op">+</span> filtered_support_counts.tolist()</span>
+<span id="cb35-61"><a href="#cb35-61" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb35-62"><a href="#cb35-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-63"><a href="#cb35-63" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot using Seaborn</span></span>
+<span id="cb35-64"><a href="#cb35-64" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">5</span>))</span>
+<span id="cb35-65"><a href="#cb35-65" aria-hidden="true" tabindex="-1"></a>sns.barplot(data <span class="op">=</span> dodge_data, x<span class="op">=</span><span class="st">'subreddit'</span>, y<span class="op">=</span> <span class="st">'count'</span>, hue <span class="op">=</span> <span class="st">'mention_type'</span>, palette<span class="op">=</span>  hex_colors)</span>
+<span id="cb35-66"><a href="#cb35-66" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Frequency of Conflict and Support Mentions by Subreddit'</span>)</span>
+<span id="cb35-67"><a href="#cb35-67" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Subreddit'</span>)</span>
+<span id="cb35-68"><a href="#cb35-68" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Mentions Count'</span>)</span>
+<span id="cb35-69"><a href="#cb35-69" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">90</span>)</span>
+<span id="cb35-70"><a href="#cb35-70" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb35-71"><a href="#cb35-71" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 64, 63, Finished, Available, Finished)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-nlp-reddit_files/figure-html/cell-16-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="how-does-sentiment-vary-over-time-within-different-healthcare-communities" class="level2">
+<h2 class="anchored" data-anchor-id="how-does-sentiment-vary-over-time-within-different-healthcare-communities">How does sentiment vary over time within different healthcare communities?</h2>
+<p><strong>Purpose</strong>: The goal of this analysis is to examine how sentiment fluctuates over time within different healthcare communities. By identifying temporal trends in sentiment, we can uncover patterns that may reflect the impact of external events or stages in personal health journeys. For instance, certain healthcare subreddits might experience shifts in sentiment during awareness months, treatment advancements, or policy changes, while others may show personal emotional cycles as members navigate ongoing health challenges.</p>
+<p><strong>Outcome</strong>: As there is no pull of data across time, we are leaving this to work on it later</p>
+<div id="cell-25" class="cell" data-gather="{&quot;logged&quot;:1733793997548}" data-execution_count="8">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'date'</span>] <span class="op">=</span> df[<span class="st">'created_utc'</span>].dt.date</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co">#print(df['date'].unique()) # so didnt work so can we expand the data? </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 64, 13, Finished, Available, Finished)</code></pre>
+</div>
+</div>
+</section>
+<section id="what-is-the-average-sentiment-score" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-the-average-sentiment-score">What is the average sentiment score?</h2>
+<p><strong>Purpose</strong>: The purpose of calculating the average sentiment score is to understand the general emotional tone across different subreddits. By examining the average sentiment for each subreddit, we can gain insights into whether discussions within these communities tend to be positive, negative, or neutral overall. This analysis helps identify which healthcare communities are more optimistic or challenged in their outlook, offering a broader view of the emotional landscape within each subreddit.</p>
+<p><strong>Outcome</strong>: The sentiment analysis for healthcare subreddits on July 1, 2024, reveals a range of emotional tones across communities. Subreddits like CancerCaregivers (0.737608) and predental (0.9921) have positive sentiment scores, suggesting a supportive or encouraging atmosphere among members. On the other hand, communities like BRCA (-0.9525), Cancersurvivors (-0.9826), and CrohnsDisease (-0.569) show more negative sentiment, potentially indicating challenges, frustrations, or concerns commonly shared by these users. Several subreddits, such as BladderCancer (0.031667) and AskDocs (-0.26722), exhibit scores closer to neutral, implying a balanced mix of positive and negative experiences. This on an overall scale of sentiment scores highlights the diversity of emotional climates within these healthcare communities, reflecting the unique support needs and challenges faced by each group.</p>
+<div id="cell-27" class="cell" data-gather="{&quot;logged&quot;:1733797594507}" data-execution_count="57">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert data to a date time just in case </span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'date'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'date'</span>])</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Add new column for month </span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'month'</span>] <span class="op">=</span> df[<span class="st">'date'</span>].dt.to_period(<span class="st">'M'</span>)</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregate sentiment by month and subreddit</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>monthly_sentiment <span class="op">=</span> df.groupby([<span class="st">'month'</span>, <span class="st">'subreddit'</span>])[<span class="st">'sentiment_score'</span>].mean().unstack()</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter top 20 subreddit </span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>top_subreddits <span class="op">=</span> df[<span class="st">'subreddit'</span>].value_counts().head(<span class="dv">20</span>).index</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>monthly_sentiment <span class="op">=</span> monthly_sentiment[top_subreddits] </span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Add theme </span></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>hex_colors <span class="op">=</span> [</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#3d6469"</span>, <span class="st">"#ffa205"</span>, <span class="st">"#ff4500"</span>, <span class="st">"#08030a"</span>, <span class="st">"#feeece"</span>, <span class="st">"#d40637"</span>, <span class="st">"#5f0922"</span> </span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">8</span>))</span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>monthly_sentiment.T.plot(kind<span class="op">=</span><span class="st">'bar'</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">8</span>), color<span class="op">=</span>hex_colors[:<span class="bu">len</span>(top_subreddits)])</span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Average Sentiment Score by Subreddit'</span>)</span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Subreddit'</span>)</span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Average Sentiment Score'</span>)</span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">90</span>)</span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>plt.legend(title<span class="op">=</span><span class="st">"Subreddit"</span>, bbox_to_anchor<span class="op">=</span>(<span class="fl">1.05</span>, <span class="dv">1</span>), loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
+<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 64, 62, Finished, Available, Finished)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>&lt;Figure size 1500x800 with 0 Axes&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-nlp-reddit_files/figure-html/cell-18-output-3.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="how-is-the-sentiment-score-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="how-is-the-sentiment-score-distribution">How is the sentiment score distribution?</h2>
+<p><strong>Purpose</strong>: To analyze the distribution of sentiment scores across healthcare subreddits, providing insight into the range of emotions expressed by community members. This analysis helps identify whether discussions tend to lean more positive, negative, or neutral overall and reveals the diversity of emotional experiences within each subreddit. By examining the sentiment score distribution, we gain a clearer picture of the general mood and the emotional dynamics present in these healthcare communities.</p>
+<p><strong>Outcome</strong>: The sentiment score distribution across healthcare subreddits reveals significant variability in the emotional tone of discussions. Subreddits like CancerCaregivers and ProstateCancer have a wide range of sentiment scores, extending from highly negative to highly positive, indicating mixed experiences and emotions. Some communities, such as braincancer and predental, show consistently positive scores, suggesting a more supportive or optimistic atmosphere. Conversely, subreddits like BRCA, Cancersurvivors, and UlcerativeColitis have consistently low sentiment scores, reflecting a generally negative emotional tone. Other subreddits, such as Autoimmune and WomensHealth, display a balanced distribution, with both positive and negative sentiment expressed.</p>
+<div id="cell-29" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#sns.boxplot(data=df, x='subreddit', y='sentiment_score')</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.xticks(rotation=90)</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.title('Sentiment Score Distribution by Subreddit')</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.show()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="is-there-any-association-between-the-comment-length-and-the-sentiment" class="level2">
+<h2 class="anchored" data-anchor-id="is-there-any-association-between-the-comment-length-and-the-sentiment">Is there any association between the comment length and the sentiment?</h2>
+<p><strong>Purpose</strong>: To explore the relationship between comment length and sentiment, as longer comments may reflect more detailed personal experiences or intense emotions, while shorter comments might be more factual or express brief support or frustration. By examining this association, we can gain insights into how the depth of engagement in comments correlates with emotional expression across healthcare communities. This analysis may reveal whether individuals expressing strong sentiments tend to elaborate more on their experiences compared to those with neutral or less intense sentiments.</p>
+<p><strong>Outcome</strong>:</p>
+<ul>
+<li><ol type="a">
+<li>The average comment length varies widely across healthcare subreddits, reflecting different levels of engagement. Subreddits like HealthInsurance, UlcerativeColitis, and predental have longer comments, suggesting more detailed discussions. In contrast, communities like skincancer, pancreaticcancer, and Health have shorter comments, likely indicating brief or factual exchanges. These variations highlight differences in the depth of interaction within each community.</li>
+</ol></li>
+<li><ol start="2" type="a">
+<li>In terms of the association between commenth length and sentiment score, though it is a visual scatterplot, there is not much association betweent the both. The length of 100 for instance, has sentiment scores between -1 and +1, and also for longer comment lengths. But as the length of the comment increased, the sentiment scores are at it’s extreme or rather more pronounced.</li>
+</ol></li>
+</ul>
+<div id="cell-31" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lengh of comments</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="co">#df['comment_length'] = df['body'].apply(lambda x: len(x.split()))</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co"># avg comment length by subreddit</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="co">#avg_length_per_subreddit = df.groupby('subreddit')['comment_length'].mean()</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.figure(figsize=(12, 8))</span></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a><span class="co">#avg_length_per_subreddit.plot(kind='bar', color='skyblue')</span></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.title('Average Comment Length by Subreddit')</span></span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.xlabel('Subreddit')</span></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.ylabel('Average Comment Length (Words)')</span></span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.xticks(rotation=90)</span></span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.show()</span></span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a><span class="co"># comment length vs. sentiment score</span></span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.figure(figsize=(10, 6))</span></span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a><span class="co">#sns.scatterplot(data=df, x='comment_length', y='sentiment_score', alpha=0.6)</span></span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.title('Comment Length vs. Sentiment Score')</span></span>
+<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.xlabel('Comment Length (Words)')</span></span>
+<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.ylabel('Sentiment Score')</span></span>
+<span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.show()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="how-does-the-engagement-differ-across-different-subreddits" class="level2">
+<h2 class="anchored" data-anchor-id="how-does-the-engagement-differ-across-different-subreddits">How does the engagement differ across different subreddits?</h2>
+<p><strong>Purpose</strong>: To understand how engagement varies across different subreddits, potentially highlighting topics that strongly resonate with the community or address relevant, relatable issues. Here, we analyze engagement using metrics like ‘controversiality’ and ‘mentions’ to uncover patterns in community response.</p>
+<p><strong>Outcomes</strong>: - Using Controversiality: The data reveals that most subreddits exhibit low to zero levels of “controversiality,” indicating minimal engagement or conflict in community interactions for most topics. However, a few subreddits, such as lymphoma and nursing, show slightly higher values, suggesting that discussions in these communities may spark more diverse opinions or higher engagement. - Using “Conflict” and “Support Mentions”: This shows significant variation in community dynamics. Subreddits like Autoimmune, CrohnsDisease, Fuckcancer, HealthInsurance, and braincancer have high percentages for both conflict and support mentions, suggesting these communities frequently discuss both interpersonal challenges and offer mutual support. On the other hand, subreddits like Cancersurvivors and CancerCaregivers reflect a high level of support mentions but little conflict, possibly indicating these communities focus more on encouragement and less on contentious discussions. Subreddits such as thyroidcancer and testicularcancer have moderate levels of both conflict and support, showing a balanced mix of challenges and supportive exchanges. Conversely, topics like Lymphedema, WomensHealth, and skincancer show lower engagement in conflict or support discussions, which might indicate less emphasis on community interaction for these specific conditions.</p>
+<div id="cell-33" class="cell" data-jupyter="{&quot;outputs_hidden&quot;:false,&quot;source_hidden&quot;:false}" data-nteract="{&quot;transient&quot;:{&quot;deleting&quot;:false}}">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># avg controversiality per subreddit</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="co">#avg_controversiality_per_subreddit = df.groupby('subreddit')['controversiality'].mean()</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.figure(figsize=(12, 8))</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co">#avg_controversiality_per_subreddit.plot(kind='bar', color='lightcoral')</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.title('Average Controversiality by Subreddit')</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.xlabel('Subreddit')</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.ylabel('Average Controversiality')</span></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.xticks(rotation=90)</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.show()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="what-are-the-most-common-words-or-phrases-for-positive-versus-negative-comments" class="level2">
+<h2 class="anchored" data-anchor-id="what-are-the-most-common-words-or-phrases-for-positive-versus-negative-comments">What are the most common words or phrases for positive versus negative comments?</h2>
+<p><strong>Purpose</strong>: Identifying the most common words in positive versus negative comments provides insight into the experiences and attitudes within the community. This analysis helps uncover topics, concerns, and emotions associated with each sentiment, offering a more nuanced understanding of the community’s overall mood and focus.</p>
+<p><strong>Outcome</strong>: The most common words within positive and negative comments, we observe frequent use of personal pronouns like “I,” “my,” and “you,” suggesting that these comments are often personal narratives or responses directed toward others. Words like “cancer,” “treatment,” and “was” appear across both sentiment categories, highlighting the centrality of health experiences in these discussions. In positive comments, expressions such as “to,” “and,” and “but” indicate explanatory language, often associated with sharing advice or encouragement. Conversely, negative comments include words like “not” and “so,” hinting at expressions of dissatisfaction, frustration, or challenges.</p>
+<div id="cell-35" class="cell" data-gather="{&quot;logged&quot;:1733798101876}" data-execution_count="61">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> wordcloud <span class="im">import</span> STOPWORDS</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Add stopwords</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>extra_stopwords <span class="op">=</span> [<span class="st">'reddit'</span>, <span class="st">'post'</span>, <span class="st">'will'</span>, <span class="st">'one'</span>, <span class="st">"comment"</span>, <span class="st">"thread"</span>, <span class="st">"subreddit"</span>, </span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"question"</span>, <span class="st">"bot"</span>, <span class="st">"removed"</span>, <span class="st">"edit"</span>, <span class="st">'day'</span>, <span class="st">'now'</span>, <span class="st">'youre'</span>, <span class="st">'year'</span>, <span class="st">'much'</span>, <span class="st">'say'</span>,</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"contact"</span>, <span class="st">"message"</span>, <span class="st">"please"</span>, <span class="st">"thank"</span>, <span class="st">"moderator"</span>, <span class="st">"compose"</span>, <span class="st">"post"</span>, <span class="st">'didnt'</span>,</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https"</span>, <span class="st">"com"</span>, <span class="st">"automatically"</span>, <span class="st">"performed"</span>, <span class="st">"just"</span>, <span class="st">"like"</span>, <span class="st">"really"</span>, <span class="st">'time'</span>, <span class="st">'ive'</span>,</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"know"</span>, <span class="st">"think"</span>, <span class="st">"don"</span>, <span class="st">"does"</span>, <span class="st">"want"</span>, <span class="st">"make"</span>, <span class="st">"take"</span>, <span class="st">"said"</span>, <span class="st">"got"</span>, <span class="st">'go'</span>,</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"going"</span>, <span class="st">"see"</span>, <span class="st">"look"</span>, <span class="st">"people"</span>, <span class="st">"thing"</span>, <span class="st">"way"</span>, <span class="st">"good"</span>, <span class="st">"help"</span>, <span class="st">"you"</span>, <span class="st">'thats'</span>,</span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"i'm"</span>, <span class="st">"they"</span>, <span class="st">"we"</span>, <span class="st">"he"</span>, <span class="st">"she"</span>, <span class="st">"it"</span>, <span class="st">"my"</span>, <span class="st">"our"</span>, <span class="st">"their"</span>, <span class="st">"that"</span>, <span class="st">'need'</span>,</span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"this"</span>, <span class="st">"these"</span>, <span class="st">"those"</span>, <span class="st">"and"</span>, <span class="st">"but"</span>, <span class="st">"or"</span>, <span class="st">"if"</span>, <span class="st">"im"</span>, <span class="st">"dont"</span>, <span class="st">"moderators"</span>, <span class="st">"even"</span>, <span class="st">"still"</span>]</span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>custom_stopwords <span class="op">=</span> <span class="bu">set</span>(STOPWORDS)</span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>custom_stopwords.update(extra_stopwords)</span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a><span class="co"># positive vs negative</span></span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a>positive_comments <span class="op">=</span> <span class="st">' '</span>.join(df[df[<span class="st">'sentiment_score'</span>] <span class="op">&gt;</span> <span class="dv">0</span>][<span class="st">'body'</span>])</span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a>negative_comments <span class="op">=</span> <span class="st">' '</span>.join(df[df[<span class="st">'sentiment_score'</span>] <span class="op">&lt;</span> <span class="dv">0</span>][<span class="st">'body'</span>])</span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Add theme </span></span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>hex_colors <span class="op">=</span> [</span>
+<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#3d6469"</span>, <span class="st">"#ffa205"</span>, <span class="st">"#ff4500"</span>, <span class="st">"#08030a"</span>, <span class="st">"#d40637"</span>, <span class="st">"#5f0922"</span></span>
+<span id="cb45-22"><a href="#cb45-22" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb45-23"><a href="#cb45-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-24"><a href="#cb45-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Define custom color function </span></span>
+<span id="cb45-25"><a href="#cb45-25" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> custom_color(word, font_size, position, orientation, random_state <span class="op">=</span> <span class="va">None</span>, <span class="op">**</span>kwargs):</span>
+<span id="cb45-26"><a href="#cb45-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> random.choice(hex_colors)</span>
+<span id="cb45-27"><a href="#cb45-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-28"><a href="#cb45-28" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">7</span>))</span>
+<span id="cb45-29"><a href="#cb45-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-30"><a href="#cb45-30" aria-hidden="true" tabindex="-1"></a><span class="co"># positive</span></span>
+<span id="cb45-31"><a href="#cb45-31" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb45-32"><a href="#cb45-32" aria-hidden="true" tabindex="-1"></a>wordcloud <span class="op">=</span> WordCloud(background_color<span class="op">=</span><span class="st">'white'</span>, stopwords<span class="op">=</span> custom_stopwords, color_func<span class="op">=</span> custom_color).generate(positive_comments)</span>
+<span id="cb45-33"><a href="#cb45-33" aria-hidden="true" tabindex="-1"></a>plt.imshow(wordcloud, interpolation<span class="op">=</span><span class="st">'bilinear'</span>)</span>
+<span id="cb45-34"><a href="#cb45-34" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">'off'</span>)</span>
+<span id="cb45-35"><a href="#cb45-35" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Positive Comments'</span>)</span>
+<span id="cb45-36"><a href="#cb45-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-37"><a href="#cb45-37" aria-hidden="true" tabindex="-1"></a><span class="co"># negative</span></span>
+<span id="cb45-38"><a href="#cb45-38" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb45-39"><a href="#cb45-39" aria-hidden="true" tabindex="-1"></a>wordcloud <span class="op">=</span> WordCloud(background_color<span class="op">=</span><span class="st">'white'</span>, stopwords<span class="op">=</span> custom_stopwords, color_func<span class="op">=</span> custom_color).generate(negative_comments)</span>
+<span id="cb45-40"><a href="#cb45-40" aria-hidden="true" tabindex="-1"></a>plt.imshow(wordcloud, interpolation<span class="op">=</span><span class="st">'bilinear'</span>)</span>
+<span id="cb45-41"><a href="#cb45-41" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">'off'</span>)</span>
+<span id="cb45-42"><a href="#cb45-42" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Negative Comments'</span>)</span>
+<span id="cb45-43"><a href="#cb45-43" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 64, 66, Finished, Available, Finished)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-nlp-reddit_files/figure-html/cell-22-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="are-there-specific-times-of-day-or-days-of-the-week-when-users-discuss-certain-emotions-more-frequently" class="level2">
+<h2 class="anchored" data-anchor-id="are-there-specific-times-of-day-or-days-of-the-week-when-users-discuss-certain-emotions-more-frequently">Are there specific times of day or days of the week when users discuss certain emotions more frequently?</h2>
+<p><strong>Purpose</strong>: To identify patterns in the timing of emotional discussions, revealing when users are most active or in need of support. This can help understand community dynamics and determine whether certain emotions are more prevalent at specific times or days, providing insights into user engagement and support needs.</p>
+<p><strong>Outcome</strong>: As it is only for one day, we can only do it across the hour. The graph presents sentiment scores across different hours on Monday, indicating variations in sentiment throughout the day. For example, positive sentiment peaks around 8 am and 12 pm, as reflected by scores of 0.377 and 0.253 respectively, while negative sentiment is more prominent at 6 am, 9 am, and 5 pm, with values like -0.664, -0.504, and -0.953. Though it would be better to do it across time.</p>
+<div id="cell-37" class="cell" data-gather="{&quot;logged&quot;:1733785153932}" data-execution_count="30">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># day of the week and hour extraction</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'day_of_week'</span>] <span class="op">=</span> df[<span class="st">'created_utc'</span>].dt.day_name()</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'hour'</span>] <span class="op">=</span> df[<span class="st">'created_utc'</span>].dt.hour</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  verage sentiment score by day of week and hour</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>emotion_by_time <span class="op">=</span> df.groupby([<span class="st">'day_of_week'</span>, <span class="st">'hour'</span>])[<span class="st">'sentiment_score'</span>].mean().unstack()</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="co"># heatmap</span></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">8</span>))</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>sns.heatmap(emotion_by_time, cmap<span class="op">=</span><span class="st">'coolwarm'</span>, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">".2f"</span>)</span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Average Sentiment Score by Day and Hour'</span>)</span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Hour of the Day'</span>)</span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Day of the Week'</span>)</span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 61, 35, Finished, Available, Finished)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-nlp-reddit_files/figure-html/cell-23-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="is-there-a-difference-in-sentiment-or-emotion-between-users-who-post-frequently-versus-those-who-post-infrequently" class="level2">
+<h2 class="anchored" data-anchor-id="is-there-a-difference-in-sentiment-or-emotion-between-users-who-post-frequently-versus-those-who-post-infrequently">Is there a difference in sentiment or emotion between users who post frequently versus those who post infrequently?</h2>
+<p><strong>Purpose</strong>: To explore whether frequent posters differ in sentiment or emotional expression compared to infrequent posters, potentially indicating deeper engagement or ongoing health concerns. Since unique user IDs aren’t available, comment length will be used as a proxy for engagement, with longer comments representing more involved or frequent contributors.</p>
+<p><strong>Outcome</strong>: The sentiment scores suggest that frequent posters have a generally neutral sentiment with a slight positive inclination (-0.011), whereas infrequent posters lean more negative with a sentiment score of -0.407. This indicates that users who post more often may express more balanced or slightly positive emotions, while those who post infrequently tend to express more negativity in their comments. This could reflect a higher level of involvement or support within the community for frequent posters, while infrequent posters may only engage during times of distress or negative experiences.</p>
+<div id="cell-39" class="cell" data-gather="{&quot;logged&quot;:1733785124708}" data-execution_count="29">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># comment length in terms of word count</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'comment_length'</span>] <span class="op">=</span> df[<span class="st">'body'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="bu">len</span>(x.split()))</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="co"># comment length threshold (e.g., more than 50 words as 'detailed' but can edit this</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'engagement_type'</span>] <span class="op">=</span> df[<span class="st">'comment_length'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">'Frequent'</span> <span class="cf">if</span> x <span class="op">&gt;</span> <span class="dv">50</span> <span class="cf">else</span> <span class="st">'Infrequent'</span>)</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="co"># average sentiment score by engagement type</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>avg_sentiment_engagement <span class="op">=</span> df.groupby(<span class="st">'engagement_type'</span>)[<span class="st">'sentiment_score'</span>].mean()</span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>avg_sentiment_engagement.plot(kind<span class="op">=</span><span class="st">'bar'</span>, color<span class="op">=</span>[<span class="st">'skyblue'</span>, <span class="st">'salmon'</span>])</span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Average Sentiment Score by Engagement Type (Proxy)'</span>)</span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Engagement Type (Proxy)'</span>)</span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Average Sentiment Score'</span>)</span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 61, 34, Finished, Available, Finished)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-nlp-reddit_files/figure-html/cell-24-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="do-specific-healthcare-related-terms-or-topics-e.g.-treatment-diagnosis-insurance-correlate-with-particular-emotions" class="level2">
+<h2 class="anchored" data-anchor-id="do-specific-healthcare-related-terms-or-topics-e.g.-treatment-diagnosis-insurance-correlate-with-particular-emotions">Do specific healthcare-related terms or topics (e.g., “treatment,” “diagnosis,” “insurance”) correlate with particular emotions?</h2>
+<p><strong>Purpose:</strong> To explore whether specific healthcare-related terms or topics, like “treatment,” “diagnosis,” or “insurance,” are associated with distinct emotions. For example, discussions around insurance may evoke frustration, while conversations about successful treatments could elicit feelings of relief. Understanding these correlations can provide insight into the emotional landscape surrounding different aspects of healthcare within the community.</p>
+<p><strong>Outcome</strong>: The sentiment scores across various healthcare subreddits show notable variation. Subreddits like CancerCaregivers and WomensHealth display high positive sentiment, potentially reflecting supportive environments or success stories within these communities. Conversely, subreddits such as UlcerativeColitis and Cancersurvivors show significantly negative sentiment scores, possibly indicating the challenges or frustrations often shared in these groups. Topics like HealthInsurance and thyroidcancer have more moderate positive sentiments, while pancreaticcancer and publichealth lean negative, suggesting complex or distressing issues discussed in these areas. This variety in sentiment scores highlights the diverse emotional landscapes within different healthcare communities.</p>
+<div id="cell-41" class="cell" data-execution_count="64">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filtweing comments with healthcare terms </span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>healthcare_terms <span class="op">=</span> [<span class="st">"treatment"</span>, <span class="st">"diagnosis"</span>, <span class="st">"insurance"</span>] <span class="co"># can edit this</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'mentions_healthcare'</span>] <span class="op">=</span> df[<span class="st">'body'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="bu">any</span>(term <span class="kw">in</span> x.lower() <span class="cf">for</span> term <span class="kw">in</span> healthcare_terms))</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="co"># average sentiment score for comments mentioning healthcare terms</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>avg_emotion_healthcare <span class="op">=</span> df[df[<span class="st">'mentions_healthcare'</span>]].groupby(<span class="st">'subreddit'</span>)[<span class="st">'sentiment_score'</span>].mean()</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">8</span>))</span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>avg_emotion_healthcare.plot(kind<span class="op">=</span><span class="st">'bar'</span>, color<span class="op">=</span><span class="st">'purple'</span>)</span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Average Sentiment for Healthcare-Related Comments by Subreddit'</span>)</span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Subreddit'</span>)</span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Average Sentiment Score'</span>)</span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">90</span>)</span>
+<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-nlp-reddit_files/figure-html/cell-25-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="what-are-the-most-common-expressions-of-gratitude-frustration-or-hope" class="level2">
+<h2 class="anchored" data-anchor-id="what-are-the-most-common-expressions-of-gratitude-frustration-or-hope">What are the most common expressions of gratitude, frustration, or hope?</h2>
+<p><strong>Purpose:</strong> Identifying the most common expressions of gratitude, frustration, and hope offers valuable insight into the language used for support, shared challenges, and encouragement within healthcare communities. This analysis helps uncover how individuals convey their emotions, revealing the words and phrases that resonate most when expressing appreciation, challenges, or optimism.</p>
+<p><strong>Note</strong>: The words are editable</p>
+<p><strong>Outcome</strong>: The data reveals that “hope” is the most frequently expressed emotion among the three categories, with 62 mentions. This suggests that individuals within these healthcare communities often express optimism or a desire for positive outcomes. Expressions of gratitude, with 22 mentions, indicate an appreciation for support or shared experiences, reflecting a sense of community and thankfulness. In contrast, “frustration” is mentioned less frequently, with 6 mentions, signaling that while there are challenges, they may be less dominant in the discourse compared to hopeful or thankful sentiments. This analysis, using keywords like “thank you,” “frustrated,” and “hope,” helps highlight the tone of discussions within these communities.</p>
+<div id="cell-43" class="cell" data-gather="{&quot;logged&quot;:1733796242068}" data-execution_count="41">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># keywords for each emotion category</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="co"># can edit these words to anything else</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>gratitude_keywords <span class="op">=</span> [<span class="st">"thank you"</span>, <span class="st">"thanks"</span>, <span class="st">"appreciate"</span>]</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>hope_keywords <span class="op">=</span> [<span class="st">"hope"</span>, <span class="st">"optimistic"</span>, <span class="st">"wish"</span>]</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>frustration_keywords <span class="op">=</span> [<span class="st">"frustrated"</span>, <span class="st">"annoyed"</span>, <span class="st">"disappointed"</span>]</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'gratitude'</span>] <span class="op">=</span> df[<span class="st">'body'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="bu">any</span>(word <span class="kw">in</span> x.lower() <span class="cf">for</span> word <span class="kw">in</span> gratitude_keywords))</span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'frustration'</span>] <span class="op">=</span> df[<span class="st">'body'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="bu">any</span>(word <span class="kw">in</span> x.lower() <span class="cf">for</span> word <span class="kw">in</span> frustration_keywords))</span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'hope'</span>] <span class="op">=</span> df[<span class="st">'body'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="bu">any</span>(word <span class="kw">in</span> x.lower() <span class="cf">for</span> word <span class="kw">in</span> hope_keywords))</span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>emotion_counts <span class="op">=</span> df[[<span class="st">'gratitude'</span>, <span class="st">'hope'</span>, <span class="st">'frustration'</span>]].<span class="bu">sum</span>()</span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Add theming </span></span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>hex_colors <span class="op">=</span> [<span class="st">"#3d6469"</span>, <span class="st">"#ffa205"</span>, <span class="st">"#5f0922"</span>] </span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a>emotion_counts.plot(kind<span class="op">=</span><span class="st">'bar'</span>, color<span class="op">=</span> hex_colors)</span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Frequency of Expressions of Gratitude, Frustration, and Hope'</span>)</span>
+<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Emotion Category'</span>)</span>
+<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequency'</span>)</span>
+<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb52-21"><a href="#cb52-21" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 64, 46, Finished, Available, Finished)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-nlp-reddit_files/figure-html/cell-26-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="are-there-differences-in-the-types-of-issues-discussed-by-new-users-versus-long-time-users" class="level2">
+<h2 class="anchored" data-anchor-id="are-there-differences-in-the-types-of-issues-discussed-by-new-users-versus-long-time-users">Are there differences in the types of issues discussed by new users versus long-time users?</h2>
+<p>Long-time users may focus on sharing ongoing challenges or offering guidance, whereas new users are likely to seek initial support or information. UserID data would be ideal for accurately identifying new versus long-time users, as it would enable a more precise classification based on user history and posting frequency.</p>
+</section>
+<section id="what-are-the-patterns-of-conversation-in-highly-controversial-versus-non-controversial-comments" class="level2">
+<h2 class="anchored" data-anchor-id="what-are-the-patterns-of-conversation-in-highly-controversial-versus-non-controversial-comments">What are the patterns of conversation in highly controversial versus non-controversial comments?</h2>
+<p><strong>Purpose</strong>: To identify topics that spark strong reactions or disagreements within the community by examining highly controversial comments, providing insight into issues that may lead to divided opinions or heightened sensitivity.</p>
+<p><strong>Outcome:</strong> The average sentiment score for highly controversial comments is positive at approximately 0.45, while non-controversial comments tend to have a slightly negative sentiment, averaging around -0.06. This suggests that discussions in controversial comments might evoke a more intense range of emotions, potentially reflecting the engagement or importance of the issues raised.</p>
+<div id="cell-46" class="cell" data-gather="{&quot;logged&quot;:1733785062776}" data-execution_count="27">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># avg sentiment for controversial vs. non-controversial comments</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>avg_sentiment_controversial <span class="op">=</span> df.groupby(<span class="st">'controversiality'</span>)[<span class="st">'sentiment_score'</span>].mean()</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>avg_sentiment_controversial.plot(kind<span class="op">=</span><span class="st">'bar'</span>, color<span class="op">=</span>[<span class="st">'gray'</span>, <span class="st">'purple'</span>])</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Average Sentiment Score for Controversial vs. Non-Controversial Comments'</span>)</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Controversiality'</span>)</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Average Sentiment Score'</span>)</span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 61, 32, Finished, Available, Finished)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-nlp-reddit_files/figure-html/cell-27-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="how-do-emotional-responses-change-when-users-discuss-their-own-health-experiences-versus-others-experiences" class="level2">
+<h2 class="anchored" data-anchor-id="how-do-emotional-responses-change-when-users-discuss-their-own-health-experiences-versus-others-experiences">How do emotional responses change when users discuss their own health experiences versus others’ experiences?</h2>
+<p><strong>Purpose</strong> To understand if users show distinct emotional responses when sharing their own health experiences versus supporting others, providing insight into how personal versus supportive perspectives influence the type and intensity of emotions expressed. This can help identify patterns of empathy, vulnerability, or encouragement within the community.</p>
+<p><strong>Outcome</strong>: The sentiment analysis shows varying emotional responses based on whether users are discussing their own health experiences or others’ experiences. When discussing their own health challenges alone, users express more negative sentiment (average sentiment score of -0.398). In contrast, users who mention both personal and others’ experiences exhibit a slight positive sentiment (0.072). Users focusing solely on others’ experiences show a less negative sentiment (-0.095) compared to personal discussions. This suggests that users may exhibit more vulnerability or frustration when discussing personal challenges, while discussions about others’ experiences might invoke more neutral or positive support-oriented responses.</p>
+<div id="cell-48" class="cell" data-gather="{&quot;logged&quot;:1733785078426}" data-execution_count="28">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using "my" and "your" personal and other-focused comments</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'personal_experience'</span>] <span class="op">=</span> df[<span class="st">'body'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">"i "</span> <span class="kw">in</span> x.lower() <span class="kw">or</span> <span class="st">"my "</span> <span class="kw">in</span> x.lower())</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'other_experience'</span>] <span class="op">=</span> df[<span class="st">'body'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">"you "</span> <span class="kw">in</span> x.lower() <span class="kw">or</span> <span class="st">"your "</span> <span class="kw">in</span> x.lower())</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="co"># avg sentiment for personal vs. other experiences</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>avg_sentiment_experience <span class="op">=</span> df.groupby([<span class="st">'personal_experience'</span>, <span class="st">'other_experience'</span>])[<span class="st">'sentiment_score'</span>].mean()</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>avg_sentiment_experience.plot(kind<span class="op">=</span><span class="st">'bar'</span>, color<span class="op">=</span>[<span class="st">'lightcoral'</span>, <span class="st">'lightblue'</span>])</span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Average Sentiment Score for Personal vs. Other Experiences'</span>)</span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Experience Type'</span>)</span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Average Sentiment Score'</span>)</span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<pre><code>StatementMeta(ba5e360d-f184-47a0-9859-76b5031b79e3, 61, 33, Finished, Available, Finished)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="eda-nlp-reddit_files/figure-html/cell-28-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Content <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> 2023 by [Project Team 1] <br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc" aria-label="creative-commons-nc"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0)</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Made with <i class="fa-brands fa-r-project" aria-label="r-project"></i> and <a href="https://quarto.org/">Quarto</a><br> <a href="https://github.com/anly503/lab-2.1">View the source at <i class="fa-brands fa-github" aria-label="github"></i> GitHub</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
