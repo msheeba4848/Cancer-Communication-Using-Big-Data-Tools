@@ -18,7 +18,7 @@ website:
         text: HINTS ML 
       - href: reddit_ml.qmd
         text: Reddit ML
-      - href: summary.qmd
+      - href: summary.md
         text: Summary
   page-footer:
     left: |
