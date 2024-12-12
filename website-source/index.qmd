@@ -1,4 +1,6 @@
-# Introduction
+# Using Reddit Pushshift to Enrich Understanding of Cancer Communication
+
+## Introduction
 
 Project Authors: Tiana Le, Sheeba Moghal, Ishaan Babbar, Liz Kovalchuk 
 
@@ -10,9 +12,9 @@ Our project explores the Pushshift Reddit Dataset to examine trust in healthcare
 * Is there evidence of trust (or lack thereof) when the public discusses healthcare? 
 * Evidence of other interpersonal conflict in healthcare discussions and emotion / sentiment analysis (e.g. sadness, disgust, surprise, joy, anger). 
 
-# Data Sources 
+## Data Sources 
 
-##  The Health Information National Trends Survey (HINTS) 
+###  The Health Information National Trends Survey (HINTS) 
 
 The Health Information National Trends Survey (HINTS) is a significant research initiative launched by the National Cancer Institute (NCI) in 2001. It aims to assess how adults in the United States access and utilize health information with a particular focus on cancer-related topics. HINTS provides a rich source of data that helps researchers understand public interactions with health information, including trends in health communication, knowledge, attitudes, and behaviors regarding cancer prevention and control.
 
@@ -33,7 +35,7 @@ The survey seeks information on:
 Though HINTS was initially conducted biennially, HINTS has transitioned to an annual survey format. This change enhances the ability to track evolving trends in health information access and utilization over time. 
 
 
-## The Reddit PushShift Data Set 
+### The Reddit PushShift Data Set 
 
 The Pushshift Reddit dataset is a comprehensive collection of submissions and comments from Reddit, designed to facilitate social media research by providing easy access to historical data. Launched in 2015, Pushshift has become a crucial resource for researchers interested in analyzing user-generated content on one of the largest social media platforms.
 
@@ -44,7 +46,7 @@ The data leveraged from the Reddit dataset was from the provided repository of p
 
 The data queried is of both submissions and comments from the PushShift Dataset. 
 
-# Sources: 
+## Sources: 
 
 1. Finney Rutten, L. J., Arora, N. K., Bakken, S., & Hesse, B. W. (2022). Expanding the Health Information National Trends Survey research: A comparison of health information seeking behaviors across countries. Health Communication, 37(1), 1-10. https://doi.org/10.1080/10810730.2022.2134522
 2. National Cancer Institute. (2021). Health Information National Trends Survey (HINTS). Retrieved from https://hints.cancer.gov
