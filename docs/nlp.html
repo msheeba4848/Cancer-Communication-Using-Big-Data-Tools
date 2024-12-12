@@ -98,7 +98,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">HINTS EDA</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./eda_reddit.html"> 
+    <a class="nav-link" href="./eda-nlp-reddit.html"> 
 <span class="menu-text">Reddit EDA</span></a>
   </li>  
   <li class="nav-item">
@@ -107,7 +107,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./hints_regression.html"> 
-<span class="menu-text">Machine Learning</span></a>
+<span class="menu-text">HINTS Machine Learning</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./summary.html"> 
@@ -129,7 +129,21 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#nlp" id="toc-nlp" class="nav-link active" data-scroll-target="#nlp">NLP</a></li>
+  <li><a href="#nlp" id="toc-nlp" class="nav-link active" data-scroll-target="#nlp">NLP</a>
+  <ul class="collapse">
+  <li><a href="#tf-idf" id="toc-tf-idf" class="nav-link" data-scroll-target="#tf-idf">TF-IDF</a>
+  <ul class="collapse">
+  <li><a href="#what-words-are-commonly-used-in-the-cancer-subreddits" id="toc-what-words-are-commonly-used-in-the-cancer-subreddits" class="nav-link" data-scroll-target="#what-words-are-commonly-used-in-the-cancer-subreddits">What words are commonly used in the Cancer Subreddits?</a></li>
+  </ul></li>
+  <li><a href="#sparknlp" id="toc-sparknlp" class="nav-link" data-scroll-target="#sparknlp">SparkNLP</a>
+  <ul class="collapse">
+  <li><a href="#is-there-a-difference-between-cancer-and-non-cancer-related-subreddits" id="toc-is-there-a-difference-between-cancer-and-non-cancer-related-subreddits" class="nav-link" data-scroll-target="#is-there-a-difference-between-cancer-and-non-cancer-related-subreddits">Is there a Difference between Cancer and Non-Cancer Related Subreddits?</a></li>
+  </ul></li>
+  <li><a href="#nrc-lex" id="toc-nrc-lex" class="nav-link" data-scroll-target="#nrc-lex">NRC-LEX</a>
+  <ul class="collapse">
+  <li><a href="#is-there-a-difference-in-emotional-sentiments-between-cancer-and-non-cancer-subreddits" id="toc-is-there-a-difference-in-emotional-sentiments-between-cancer-and-non-cancer-subreddits" class="nav-link" data-scroll-target="#is-there-a-difference-in-emotional-sentiments-between-cancer-and-non-cancer-subreddits">Is there a difference in emotional sentiments between Cancer and Non-Cancer Subreddits?</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -141,8 +155,156 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="nlp" class="level1">
 <h1>NLP</h1>
+<section id="tf-idf" class="level2">
+<h2 class="anchored" data-anchor-id="tf-idf">TF-IDF</h2>
+<section id="what-words-are-commonly-used-in-the-cancer-subreddits" class="level3">
+<h3 class="anchored" data-anchor-id="what-words-are-commonly-used-in-the-cancer-subreddits">What words are commonly used in the Cancer Subreddits?</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Word</th>
+<th>TF-IDF</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>time</td>
+<td>604.333288</td>
+</tr>
+<tr class="even">
+<td>removed</td>
+<td>510.072719</td>
+</tr>
+<tr class="odd">
+<td>thank</td>
+<td>508.752837</td>
+</tr>
+<tr class="even">
+<td>information</td>
+<td>491.421062</td>
+</tr>
+<tr class="odd">
+<td>doctor</td>
+<td>480.772518</td>
+</tr>
+<tr class="even">
+<td>people</td>
+<td>467.593201</td>
+</tr>
+<tr class="odd">
+<td>work</td>
+<td>443.772165</td>
+</tr>
+<tr class="even">
+<td>patient</td>
+<td>387.074392</td>
+</tr>
+<tr class="odd">
+<td>cancer</td>
+<td>365.678933</td>
+</tr>
+<tr class="even">
+<td>best</td>
+<td>340.635342</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="sparknlp" class="level2">
+<h2 class="anchored" data-anchor-id="sparknlp">SparkNLP</h2>
+<section id="is-there-a-difference-between-cancer-and-non-cancer-related-subreddits" class="level3">
+<h3 class="anchored" data-anchor-id="is-there-a-difference-between-cancer-and-non-cancer-related-subreddits">Is there a Difference between Cancer and Non-Cancer Related Subreddits?</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>sentiment_label</th>
+<th>count_cancer</th>
+<th>count_non_cancer</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>positive</td>
+<td>5929</td>
+<td>5715</td>
+</tr>
+<tr class="even">
+<td>negative</td>
+<td>4071</td>
+<td>4285</td>
+</tr>
+</tbody>
+</table>
+<p>Chi-square statistic: 9.325853191514204 P-value: 0.0022594309243996907 Degrees of freedom: 1 Expected frequencies: [[5822. 5822.] [4178. 4178.]]</p>
+</section>
+</section>
+<section id="nrc-lex" class="level2">
+<h2 class="anchored" data-anchor-id="nrc-lex">NRC-LEX</h2>
+<section id="is-there-a-difference-in-emotional-sentiments-between-cancer-and-non-cancer-subreddits" class="level3">
+<h3 class="anchored" data-anchor-id="is-there-a-difference-in-emotional-sentiments-between-cancer-and-non-cancer-subreddits">Is there a difference in emotional sentiments between Cancer and Non-Cancer Subreddits?</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 9%">
+<col style="width: 8%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>subreddit</th>
+<th>positive</th>
+<th>negative</th>
+<th>neutral</th>
+<th>anger</th>
+<th>fear</th>
+<th>disgust</th>
+<th>sadness</th>
+<th>joy</th>
+<th>surprise</th>
+<th>trust</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cancer</td>
+<td>0.202806</td>
+<td>0.119079</td>
+<td>0.0</td>
+<td>0.037681</td>
+<td>0.067383</td>
+<td>0.033798</td>
+<td>0.058226</td>
+<td>0.044399</td>
+<td>0.028933</td>
+<td>0.119079</td>
+</tr>
+<tr class="even">
+<td>Non-Cancer</td>
+<td>0.170739</td>
+<td>0.096125</td>
+<td>0.0</td>
+<td>0.034273</td>
+<td>0.041384</td>
+<td>0.023316</td>
+<td>0.034463</td>
+<td>0.044963</td>
+<td>0.024675</td>
+<td>0.082917</td>
+</tr>
+</tbody>
+</table>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
