@@ -107,7 +107,11 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./hints_regression.html"> 
-<span class="menu-text">Machine Learning</span></a>
+<span class="menu-text">HINTS ML</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./reddit_ml.html"> 
+<span class="menu-text">Reddit ML</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./summary.html" aria-current="page"> 
@@ -124,8 +128,22 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a>
+  <ul class="collapse">
+  <li><a href="#project-approach" id="toc-project-approach" class="nav-link" data-scroll-target="#project-approach">Project Approach</a></li>
+  <li><a href="#question-1-is-trust-in-the-healtchare-system-influenced-by-other-factors-of-trust" id="toc-question-1-is-trust-in-the-healtchare-system-influenced-by-other-factors-of-trust" class="nav-link" data-scroll-target="#question-1-is-trust-in-the-healtchare-system-influenced-by-other-factors-of-trust">Question 1: Is Trust in the Healtchare System Influenced by Other Factors of Trust?</a></li>
+  <li><a href="#question-2-doe-sentiment-vary-between-cancer-and-non-cancer-subreddits" id="toc-question-2-doe-sentiment-vary-between-cancer-and-non-cancer-subreddits" class="nav-link" data-scroll-target="#question-2-doe-sentiment-vary-between-cancer-and-non-cancer-subreddits">Question 2: Doe Sentiment vary Between Cancer and Non-Cancer Subreddits?</a></li>
+  <li><a href="#question-3what-are-the-most-frequently-used-words-in-cancer-subreddits" id="toc-question-3what-are-the-most-frequently-used-words-in-cancer-subreddits" class="nav-link" data-scroll-target="#question-3what-are-the-most-frequently-used-words-in-cancer-subreddits">Question 3:What are the most frequently used words in Cancer Subreddits?</a></li>
+  <li><a href="#question-4-can-we-predict-if-a-comment-will-be-cancer-related" id="toc-question-4-can-we-predict-if-a-comment-will-be-cancer-related" class="nav-link" data-scroll-target="#question-4-can-we-predict-if-a-comment-will-be-cancer-related">Question 4: Can we predict if a comment will be cancer related?</a></li>
+  </ul></li>
+  <li><a href="#takeaways" id="toc-takeaways" class="nav-link" data-scroll-target="#takeaways">Takeaways:</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
@@ -133,8 +151,45 @@ ul.task-list li input[type="checkbox"] {
 
 
 
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<p>Our team set out to understand how people navigate and trust health information. Our goal of examining public trust, frustrations, and sentiment about healthcare and cancer information was met - below are our questions and conclusions based on the analysis from previous sections.</p>
+<section id="project-approach" class="level2">
+<h2 class="anchored" data-anchor-id="project-approach">Project Approach</h2>
+<p>Using our two data sources, Subreddits that mention cancer in comments and the Health Information National Trends Survey (HINTS), we were able to find a linkage between sentiment and many of the HINTS responses.</p>
+</section>
+<section id="question-1-is-trust-in-the-healtchare-system-influenced-by-other-factors-of-trust" class="level2">
+<h2 class="anchored" data-anchor-id="question-1-is-trust-in-the-healtchare-system-influenced-by-other-factors-of-trust">Question 1: Is Trust in the Healtchare System Influenced by Other Factors of Trust?</h2>
+<p>Trust in scientists, religious institutions, the government, etc. might help us understand where individuals go and how they might feel when they are looking for medical advice or information related to cancer. After our analysis trying to predict Trust In Healthcare, we found that the XGBoost (Tuned) model was the best choice to predict Trust in Healthcare based on its highest accuracy (74%) and performance for High Trust in Healthcare. It had a strong recall of 90%. While this model still struggled with Low Trust in Healthcare, the improved overall performance makes it the most reliable model for the task at hand.</p>
+</section>
+<section id="question-2-doe-sentiment-vary-between-cancer-and-non-cancer-subreddits" class="level2">
+<h2 class="anchored" data-anchor-id="question-2-doe-sentiment-vary-between-cancer-and-non-cancer-subreddits">Question 2: Doe Sentiment vary Between Cancer and Non-Cancer Subreddits?</h2>
+<p>In order to investigate the sentiments and emotions in the Reddit data, the comments from cancer-related and non-cancer subreddits were loaded as Parquet files saved in an Azure Blob container. Using the Spark NLP analyze_sentiment pretrained pipeline, the comments were analyzed to classify their sentiment as positive, negative, or neutral. A custom function mapped sentiment labels to numerical scores (positive = 1, negative = -1, neutral = 0) to compute a weighted sentiment score for each comment. Comments were labeled based on their weighted scores (positive, negative, or neutral). The data was grouped by sentiment labels, and counts were computed for cancer-related and non-cancer subreddits. A Chi-square test was conducted to assess whether the differences in sentiment distribution between the two categories were statistically significant. Bar plots were created using Seaborn and Matplotlib to visualize sentiment distributions for cancer and non-cancer subreddit comments. Our biggest finding on this question was that cancer-related comments have a higher proportion of positive sentiment.</p>
+</section>
+<section id="question-3what-are-the-most-frequently-used-words-in-cancer-subreddits" class="level2">
+<h2 class="anchored" data-anchor-id="question-3what-are-the-most-frequently-used-words-in-cancer-subreddits">Question 3:What are the most frequently used words in Cancer Subreddits?</h2>
+<p>This question was target to identify unique or prominent keywords and identify thematic differences in the text-based data. Two separate datasets were loaded: one for cancer-related subreddits and another for non-cancer subreddits. The datasets were combined into a single DataFrame with an additional column specifying the source (cancer or non_cancer). Text content was preprocessed into a column for TF-IDF analysis. Then, the TfidfVectorizer from scikit-learn was applied separately for cancer text data to compute TF-IDF scores for each word in the respective datasets. Standard procedures were followed (common stop words were removed, and the top 20 keywords were extracted based on their aggregated TF-IDF scores across all documents). Words were ranked in descending order of their total TF-IDF scores for the cancer dataset. Rankings allowed for the identification of keywords in the cancer dataset. A word cloud was created to display the rank of keywords, with the top two or three were “time” “removed” and “thank”.</p>
+</section>
+<section id="question-4-can-we-predict-if-a-comment-will-be-cancer-related" class="level2">
+<h2 class="anchored" data-anchor-id="question-4-can-we-predict-if-a-comment-will-be-cancer-related">Question 4: Can we predict if a comment will be cancer related?</h2>
+<p>In this question the Machine Learning concept was classifying cancer-related and non-cancer subreddits using machine learning (Naive Bayes and Logistic Regression). For our approach, we loaded cancer-related and non-cancer subreddit comments and added source column to label as cancer and non. Datasets were combined into a single frame. Text was tokenized and stop words removed, and tokens were converted into raw features using CountVectorizer. The TF-IDF scores were computed using the IDF transformer. Using PySpark ML, created a Naive Bayes and Logistic Regression pipeline with the preprocessing steps. Data was split (80/20) for train and test.</p>
+<p>Naive Bayes outperforms Logistic Regression in text classification</p>
+<p>Naive Bayes:</p>
+<p>Multinomial Naive Bayes achieved test accuracy of 78%. * Precision: 78% * Recall: 78% * F1-Score: 78% * AUC-ROC: 78%</p>
+<p>Logistic Regression: Achieved test accuracy of 71%. * Precision: 71% * Recall: 71% * F1-Score: 71% * AUC-ROC: 71%</p>
+<p>As this was text data, it was a little unsurprising that Naive Bayes outperformed logistic regression. Though 78% is not the highest test accuracy, it is still a healthy setting above 50% (blind guess).</p>
+</section>
+</section>
+<section id="takeaways" class="level1">
+<h1>Takeaways:</h1>
+<ul>
+<li>Subreddits related to cancer revealed a range of emotions, including positivity, negativity, trust, fear, and sadness. These factors suggest that commenters experience complex and multifaceted emotions in their cancer journey.</li>
+<li>Reddit is used as a forum to discuss and look for cancer information with keywords, such as doctor, information, and contact.</li>
+<li>Healthcare professionals could use online forum formats to reach the sentiments of patients while researchers could use the data for patient-centered research.</li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
