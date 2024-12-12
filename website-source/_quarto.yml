@@ -10,7 +10,7 @@ website:
         text: Data Cleaning
       - href: eda_hints.qmd
         text: HINTS EDA
-      - href: eda_reddit.qmd
+      - href: eda-nlp-reddit.ipynb
         text: Reddit EDA
       - href: nlp.qmd
         text: NLP
