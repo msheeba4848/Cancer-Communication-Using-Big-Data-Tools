@@ -30,7 +30,7 @@ The data was grouped by sentiment labels, and counts were computed for cancer-re
 6. Statistical Testing
 A Chi-square test was conducted to assess whether the differences in sentiment distribution between the two categories showed a difference in positive and negative sentiment in the cancer and non-cancer subreddits.
 
-The source code for the sentiment analysis using SparkNLP is here:
+The source code for the sentiment analysis using SparkNLP is here: https://github.com/gu-dsan6000/fall-2024-project-team-35/tree/main/code/nlp/spark-job-with-sparknlp-sentiment
 
 ![Sentiment in Cancer and Non-Cancer Subreddits](plot-images/sparknlp_barplot.png)
 
@@ -69,6 +69,7 @@ Positive sentiment was higher in the cancer subreddit indicating the these group
 
 ### Is there a difference in emotional sentiments between Cancer and Non-Cancer Subreddits?
 
+To analyze the emotions in the Reddit Pushshift dataset, the NRC Emotion Lexicon was used. The NRC Emotion Lexicon is a type of sentiment analysis that calculates the negative, positive, and eight basic emotions (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust). The annotations to determine emotions were manually done through crowdsourcing according to Saif Mohammad and Peter Turney. 
 
 
 ![Sentiment in Cancer and Non-Cancer Subreddits](plot-images/nrc_lex_heatmap.png)
@@ -79,6 +80,12 @@ Positive sentiment was higher in the cancer subreddit indicating the these group
 |------------|----------|----------|---------|---------|---------|---------|---------|---------|----------|---------|
 | Cancer     | 0.202806 | 0.119079 | 0.0     | 0.037681 | 0.067383 | 0.033798 | 0.058226 | 0.044399 | 0.028933 | 0.119079 |
 | Non-Cancer | 0.170739 | 0.096125 | 0.0     | 0.034273 | 0.041384 | 0.023316 | 0.034463 | 0.044963 | 0.024675 | 0.082917 |
+
+
+
+
+The source code for the sentiment analysis using NRC-Lex is here: https://github.com/gu-dsan6000/fall-2024-project-team-35/blob/main/code/nlp/spark-job-with-sparknlp-sentiment/nrc_lex_averages_plot.ipynb
+
 
 ## TF-IDF
 
@@ -124,6 +131,7 @@ Given the results of the sentiment analysis, the frequency of popular words in t
 
 In this word cloud we see words such as time, removed, thank, and information. Some of these words may be used in conversations to talk about cancer care and possibly gratitude from support groups in the Reddit forum. 
 
+The source code for the TF-IDF is in the same notebook as nrc_lex.ipynb: https://github.com/gu-dsan6000/fall-2024-project-team-35/blob/main/code/nlp/spark-job-with-sparknlp-sentiment/nrc_lex.ipynb
 
 ## Sources
 
