@@ -10,7 +10,7 @@ website:
         text: Data Cleaning
       - href: eda_hints.qmd
         text: HINTS EDA
-      - href: eda-nlp-reddit.ipynb
+      - href: eda-nlp-reddit.qmd
         text: Reddit EDA
       - href: nlp.qmd
         text: NLP
@@ -35,5 +35,6 @@ format:
     code-fold: true
     theme: cosmo
     toc: true
+    embed-resources: true
     # Optional: Uncomment if you want to add your custom styles
     # css: styles.css
