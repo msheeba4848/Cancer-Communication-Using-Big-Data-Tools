@@ -19,7 +19,7 @@ library(caret)
 
 ```
 
-The HINTS survey includes 527 questions. To focus on sentiment toward healthcare and cancer, we selected the questions in Table 1. In Table 1, participants were asked various questions about where they access health information, do they trust the provided health information, and if they feel frustrated about the information. 
+The HINTS survey includes 527 questions. To focus on sentiment toward healthcare and cancer, we selected the questions in Table 1. Participants were asked various questions about where they access health information, do they trust the provided health information, and if they feel frustrated about the information. 
 
 **Table 1**
 
@@ -188,7 +188,7 @@ head(hints_select)
 
 # Survey Responses
 
-In the bar graphs, a first look at the data provides an general overview of the responses to the questions. These plots show how much participants agree or disagree to each question. For example, many participants can trust doctors a lot and less than family members.  
+In the bar graphs, a first look at the data provides an general overview of the responses to the questions. These plots show how much participants agree or disagree to each question. For example, many participants trust scientists, but trend to trusting religious organizations less. 
 
 ```{r}
 
@@ -461,25 +461,6 @@ ggplot(boxplot_data_long, aes(x = Variable, y = Value)) +
     y = "Values", 
   ) + coord_cartesian(ylim = c(-1, 4)) 
 
-```
-
-
-# Relationship between different survey questions.
-
-Using a correlation plot, the relationships are evaluated between the different survey questions. In the correlation plot below, we see an negative correlation between trust for doctors versus trusting the government, scientists, and the healthcare system. Further statistical testing can be performed to better understand this initial evaluation.
-
-```{r}
-
-library(corrplot)
-custom_colors <- colorRampPalette(c("#feeece", "#5f0922"))(100)
-cor_matrix <- drop_na(hints_select_coded)
-
-# correlation matrix
-cor_matrix <- cor(cor_matrix[, sapply(cor_matrix, is.numeric)], use = "complete.obs")
-
-# correlation plot
-corrplot(cor_matrix, method = "circle", type = "upper", tl.col = "black", tl.srt = 45, 
-         addCoef.col = "black", number.cex = 0.7, diag = FALSE, col=  custom_colors)
 ```
 
 # Further Directions and Conclusion
