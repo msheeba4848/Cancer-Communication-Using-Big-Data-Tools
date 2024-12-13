@@ -134,14 +134,21 @@ melted_correlation <- melt(correlation_matrix_spearman)
 melted_correlation$value[upper.tri(correlation_matrix_spearman, diag = TRUE)] <- NA
 
 # Create a custom color scale
-custom_colors <- colorRampPalette(c("#ffffff", "#3d6469"))(100)
+custom_colors <- colorRampPalette(c("#ff4500", "#5f0922"))(100)
+
+# Define variable to highlight, Specifcally Doctor, Government and Science 
+highlight_vars <- c("CancerTrustDoctor", "CancerTrustGov", "CancerTrustScientists")
+
+# prepare data for highlighting 
+highlight_data <- melted_correlation %>% filter(Var1 %in% highlight_vars & Var2 %in% highlight_vars&
+  !is.na(melted_correlation$value))
 
 # Plot the heatmap
 ggplot(melted_correlation, aes(x = Var1, y = Var2, fill = value)) +
   geom_tile() +
   scale_fill_gradientn(colours = custom_colors, 
                        limits = c(-1, 1), 
-                       na.value = "white",
+                       na.value = "#feeece",
                        name = "Spearman\nCorrelation") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
@@ -150,11 +157,15 @@ ggplot(melted_correlation, aes(x = Var1, y = Var2, fill = value)) +
         axis.title.y = element_blank(),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank(),
-        legend.position = "right") +
+        legend.position = "right", 
+        panel.background = element_rect(fill = "#feeece", color = "#feeece"), 
+        plot.background = element_rect(fill = "#feeece", color = "#feeece")) +
   labs(title = "Spearman Correlation Matrix (Ordinal Data)") +
   coord_fixed() +
   geom_text(aes(label = ifelse(is.na(value), "", sprintf("%.2f", value))), 
-            color = "black", size = 2.5)
+            color = "black", size = 2.5) + 
+            geom_tile(data = highlight_data, aes(x = Var1, y = Var2), 
+            fill = NA, color = "black", size = 1.2, inherit.aes = FALSE)
 ```
 
 
@@ -201,8 +212,19 @@ plot_data_filtered_2 <- plot_data_filtered %>% filter(Variable %in% columns_2)
 columns_3 <- c("Electronic2_HealthInfo", "MisleadingHealthInfo", "TrustHCSystem")
 plot_data_filtered_3 <- plot_data_filtered %>% filter(Variable %in% columns_3) 
 
+
+
+# Create a custom color scale
+custom_colors <- c(
+  "SeekCancerInfo" = "#ff4500", 
+  "CancerFrustrated" = "#5f0922", 
+  "CancerTrustDoctor" = "#ffa205", 
+  "CancerTrustFamily" = "#08030a"
+)
+
 p <- ggplot(plot_data_filtered_1, aes(x = Value, y = n, fill = Variable)) +
-  geom_bar(stat = "identity") +
+  geom_bar(stat = "identity") + 
+  scale_fill_manual(values = custom_colors) +
   facet_wrap(~ Variable, scales = "free_x") +  # Separate plots for each column
   theme_minimal() +
   labs(
@@ -211,9 +233,11 @@ p <- ggplot(plot_data_filtered_1, aes(x = Value, y = n, fill = Variable)) +
     y = "Count",
     fill = "Question"
   ) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+        panel.background = element_rect(fill = "#feeece", color = "#feeece"), 
+        plot.background = element_rect(fill = "#feeece", color = "#feeece")) 
 
-p
+
 
 png("../data/HINTS6_R_20240524/HINTS_plot1.png", width = 800, height = 600)
 print(p)  
@@ -221,8 +245,17 @@ dev.off()
 ```
 
 ```{r}
+# Create a custom color scale
+custom_colors <- c(
+  "CancerTrustGov" = "#ff4500", 
+  "CancerTrustCharities" = "#5f0922", 
+  "CancerTrustReligiousOrgs" = "#ffa205", 
+  "CancerTrustScientists" = "#08030a"
+)
+
 p <- ggplot(plot_data_filtered_2, aes(x = Value, y = n, fill = Variable)) +
   geom_bar(stat = "identity") +
+  scale_fill_manual(values = custom_colors) +
   facet_wrap(~ Variable, scales = "free_x") +  
   theme_minimal() +
   labs(
@@ -231,7 +264,8 @@ p <- ggplot(plot_data_filtered_2, aes(x = Value, y = n, fill = Variable)) +
     y = "Count",
     fill = "Question"
   ) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),panel.background = element_rect(fill = "#feeece", color = "#feeece"), 
+  plot.background = element_rect(fill = "#feeece", color = "#feeece")) 
 
 p
 
@@ -241,8 +275,15 @@ dev.off()
 ```
 
 ```{r}
+# Create a custom color scale
+custom_colors <- c(
+  "Electronic2_HealthInfo" = "#ff4500", 
+  "MisleadingHealthInfo" = "#5f0922", 
+  "TrustHCSystem" = "#ffa205"
+)
 p <- ggplot(plot_data_filtered_3, aes(x = Value, y = n, fill = Variable)) +
-  geom_bar(stat = "identity") +
+  geom_bar(stat = "identity") + 
+  scale_fill_manual(values = custom_colors) +
   facet_wrap(~ Variable, scales = "free_x", nrow=2) +
   theme_minimal() +
   labs(
@@ -251,7 +292,8 @@ p <- ggplot(plot_data_filtered_3, aes(x = Value, y = n, fill = Variable)) +
     y = "Count",
     fill = "Question"
   ) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),panel.background = element_rect(fill = "#feeece", color = "#feeece"), 
+  plot.background = element_rect(fill = "#feeece", color = "#feeece")) 
 
 p
 
@@ -409,13 +451,14 @@ boxplot_data_long <- boxplot_data %>%
 
 
 ggplot(boxplot_data_long, aes(x = Variable, y = Value)) +
-  geom_boxplot(outlier.colour = "red", outlier.size = 1) +
+  geom_boxplot(outlier.colour = "red", outlier.size = 1, fill ="#ffa205" ) +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +  
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),panel.background = element_rect(fill = "#feeece", color = "#feeece"), 
+  plot.background = element_rect(fill = "#feeece", color = "#feeece")) +  
   labs(
     title = "HINTS Boxplot",
     x = "Variables",
-    y = "Values"
+    y = "Values", 
   ) + coord_cartesian(ylim = c(-1, 4)) 
 
 ```
@@ -428,7 +471,7 @@ Using a correlation plot, the relationships are evaluated between the different 
 ```{r}
 
 library(corrplot)
-
+custom_colors <- colorRampPalette(c("#feeece", "#5f0922"))(100)
 cor_matrix <- drop_na(hints_select_coded)
 
 # correlation matrix
@@ -436,7 +479,7 @@ cor_matrix <- cor(cor_matrix[, sapply(cor_matrix, is.numeric)], use = "complete.
 
 # correlation plot
 corrplot(cor_matrix, method = "circle", type = "upper", tl.col = "black", tl.srt = 45, 
-         addCoef.col = "black", number.cex = 0.7, diag = FALSE)
+         addCoef.col = "black", number.cex = 0.7, diag = FALSE, col=  custom_colors)
 ```
 
 # Further Directions and Conclusion
