@@ -168,6 +168,8 @@ ggplot(melted_correlation, aes(x = Var1, y = Var2, fill = value)) +
             fill = NA, color = "black", size = 1.2, inherit.aes = FALSE)
 ```
 
+The correlations from the Spearman Matrix show that there might be some linkage between trust - 'CancerTrustDoctor' 'CancerTrustGov' 'CancerTrustCharities' 'CancerTrustScientists' and 'CancerTrustReligiousOrgs' all had the highest correlations. This seems to show that trust in one entity might be an element of disposition - that individuals who trust in one area are likely to feel similarly about another. 
+
 
 ```{r}
 
