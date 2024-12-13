@@ -341,5 +341,19 @@
     "title": "Using Reddit Pushshift to Enrich Understanding of Cancer Communication",
     "section": "",
     "text": "Finney Rutten, L. J., Arora, N. K., Bakken, S., & Hesse, B. W. (2022). Expanding the Health Information National Trends Survey research: A comparison of health information seeking behaviors across countries. Health Communication, 37(1), 1-10. https://doi.org/10.1080/10810730.2022.2134522\nNational Cancer Institute. (2021). Health Information National Trends Survey (HINTS). Retrieved from https://hints.cancer.gov\nKreps, G. L., & Neuhauser, L. (2020). The health information national trends survey: Research and implications for health communication. PubMed. https://pubmed.ncbi.nlm.nih.gov/33970822/\nZannettou, S., Caulfield, T., & De Cristofaro, E. (2020). The Pushshift Reddit dataset. arXiv. https://doi.org/10.48550/arXiv.2001.08435\nPushshift. (n.d.). Pushshift Reddit dataset. In Papers with Code. Retrieved from https://paperswithcode.com/dataset/pushshift-reddit"
+  },
+  {
+    "objectID": "reddit_ml.html#methodology",
+    "href": "reddit_ml.html#methodology",
+    "title": "EDA HINTS DATA",
+    "section": "Methodology",
+    "text": "Methodology\nThe dataset preparation and preprocessing were crucial to ensuring the models had the appropriate features for learning. The raw data from the PushShift Reddit Dataset included text data and category labels for cancer-related and non-cancer comments.\nFirst, the data was combined into a single DataFrame, with an additional column named source labeling the comments as “Cancer” or “Non-Cancer.” The comments were then preprocessed to ensure they were in a suitable format for the models.\nText tokenization was applied to split the comments into individual words, enabling feature extraction. Tokenization was followed by the removal of stop words, such as “and,” “the,” and “is,” which are frequent but do not carry significant information for classification. The tokenized words were then converted into numerical vectors using CountVectorizer, which captures word frequencies. To enhance the importance of rare but meaningful words, TF-IDF (Term Frequency-Inverse Document Frequency) scores were computed. This step ensured that commonly occurring but uninformative words received less weight, while rare and distinctive words were emphasized.\nFinally, the labels (“Cancer” and “Non-Cancer”) were encoded numerically as 0 and 1, respectively, using StringIndexer. These preprocessing steps were implemented as a PySpark pipeline to ensure consistency and scalability.\nThe processed dataset was then split into 80% training and 20% testing subsets. Two machine learning models, Naive Bayes and Logistic Regression, were trained on the training data using PySpark’s built-in implementations. The evaluation metrics, such as accuracy, precision, recall, F1-score, and AUC-ROC, were computed on the test set. Additionally, confusion matrices were generated to visualize the distribution of correct and incorrect predictions for both models.\nLogistic Regression and Naive Bayes were chosen for their simplicity, efficiency, and effectiveness in text classification. Naive Bayes handles high-dimensional data well with its independence assumption, while Logistic Regression provides robust, interpretable probability predictions. These models serve as strong benchmarks for binary classification tasks."
+  },
+  {
+    "objectID": "reddit_ml.html#naive-bayes",
+    "href": "reddit_ml.html#naive-bayes",
+    "title": "EDA HINTS DATA",
+    "section": "Naive Bayes",
+    "text": "Naive Bayes"
   }
 ]
