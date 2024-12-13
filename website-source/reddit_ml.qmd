@@ -51,7 +51,7 @@ Table 1 : Performance Metrics for Naive Bayes
 
 The Naive Bayes model achieved an accuracy of 77.5%, indicating that it correctly classified over three-fourths of the test data. Its precision and recall were similarly high, both at approximately 77.5%, reflecting a good balance between identifying cancer-related comments (true positives) and minimizing false positives (non-cancer comments wrongly classified as cancer). The F1-score, a harmonic mean of precision and recall, was also 77.5%, confirming the model's consistent performance. The AUC-ROC score of 77.6% highlights the model's ability to distinguish between the two classes effectively.
 
-![Naive Bayes Classification Confusion Matrix](docs/plot-images/naive_bayes_cm.png)
+![Naive Bayes Classification Confusion Matrix](plot-images/naive_bayes_cm.png)
 
 The confusion matrix provided deeper insights into the model's strengths and weaknesses. Of the cancer-related comments, 1564 were correctly classified, while 391 were misclassified as non-cancer. Conversely, 1517 non-cancer comments were correctly classified, but 501 were incorrectly predicted as cancer. 
 
@@ -61,7 +61,7 @@ Hence, Naive Bayes's bias toward predicting the "Cancer" class (higher false pos
 
 ----
 
-## Logistic Regressio
+## Logistic Regression
 
 ### Rationale
 
@@ -81,7 +81,7 @@ Though Logistic Regression underperformed in comparison to Naive Bayes, it was s
 
 For this question, Logistic Regression performed moderately well, achieving an accuracy of 70.7%. Its precision, recall, and F1-score were all consistent at 70.7%, reflecting a balanced performance but slightly lower than that of Naive Bayes. The AUC-ROC score was also 70.7%, indicating that the model struggled more than Naive Bayes in distinguishing cancer-related from non-cancer comments.
 
-![Naive Bayes Classification Confusion Matrix](docs/plot-images/logistic_regression_cm.png)
+![Naive Bayes Classification Confusion Matrix](plot-images/logistic_regression_cm.png)
 
 The confusion matrix highlighted specific challenges faced by Logistic Regression. While it correctly identified 1374 cancer-related comments, it misclassified 581 as non-cancer, a relatively high number of false negatives. Similarly, 1434 non-cancer comments were correctly classified, but 584 were predicted as cancer, resulting in a comparable number of false positives. These results suggest that the model had difficulty capturing the subtle nuances in the text that differentiate the two categories.
 
