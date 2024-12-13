@@ -90,7 +90,7 @@ The source code for the sentiment analysis using NRC-Lex is here: https://github
 
 ### What words are commonly used in the Cancer Subreddits?
 
-Given the results of the sentiment analysis, the frequency of popular words in the cancer subreddit were assess using term frequency-inverse document frequency (TF-IDF). This method was used to identify unique or prominent keywords. 
+Given the results of the sentiment analysis, the frequency of popular words in the cancer subreddit were assessed using term frequency-inverse document frequency (TF-IDF). This method was used to identify unique or prominent keywords. 
 
 1. Data preparation
 
