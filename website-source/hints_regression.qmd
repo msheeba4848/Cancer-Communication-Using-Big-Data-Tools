@@ -7,7 +7,7 @@ jupyter: python3
 
 # Question: Is Trust in the Healtchare System Influenced by Other Factors of Trust?
 
-The objective of this question was to analyze whether trust in the healthcare system is influenced by other factors of trust, such as trust in doctors, family, government, charities, scientists, and social media use. The analysis utilized the HINTS dataset, which contains ordinal, binary, and categorical variables related to trust and healthcare behaviors. Various machine learning models, including Random Forest and XGBoost, were implemented to evaluate and predict trust levels in the healthcare system.
+Our team sought to analyze whether trust in the healthcare system is influenced by other factors of trust (such as trust in doctors, family, government, charities, scientists, and social media use). The analysis utilized the HINTS dataset, which contains ordinal, binary, and categorical variables related to trust and healthcare behaviors. Various machine learning models, including Random Forest and XGBoost, were implemented to evaluate and predict trust levels in the healthcare system.
 
 ```{python}
 from IPython.display import HTML
