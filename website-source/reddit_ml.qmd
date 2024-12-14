@@ -5,11 +5,9 @@ format:
     embed-resources: true
 ---
 
-# Machine Learning - Reddit Data
-
 # Question : Can we predict if a comment will be cancer related
 
-The goal is to classify Reddit comments into two categories: **Cancer-related** and **Non-Cancer subreddits**, to understand if we can predict if a comment is cancer related or no, based on the added source column to label as cancer and non-cancer . The dataset, sourced from the PushShift Reddit dataset, includes subreddit comments from two periods (2021–2023 and 2023–2024). 
+The goal is to classify Reddit comments into two categories: **Cancer-related** and **Non-Cancer subreddits**, to understand if we can predict if a comment is cancer related or no, based on the added source column to label as cancer and non-cancer. The dataset, sourced from the PushShift Reddit dataset, includes subreddit comments from two periods (2021–2023 and 2023–2024). 
 
 ## Methodology 
 
@@ -37,7 +35,7 @@ In this task, Naive Bayes classified comments as cancer-related or non-cancer ba
 
 ### Model Performance
 
-The model performance, though wasn't that great, still created a strong baseline for further modeling analysis. Using the table below 
+The model performance, though wasn't that great, still created a strong baseline for further modeling analysis.
 
 Table 1 : Performance Metrics for Naive Bayes
 
