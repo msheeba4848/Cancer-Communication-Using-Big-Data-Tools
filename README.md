@@ -6,7 +6,7 @@
 
 The project will be executed over several milestones, and each one has a specific set of requirements and instructions. These instructions are located on the [course website](https://gu-dsan.github.io/6000-fall-2023/project/project.html)
 
-There are four major milestones (click on each one for the approprate instructions and description):
+There are four major milestones (click on each one for the approprate instructions and description): 
 
 1. [Milestone 1: Define the questions and Exploratory Data Analysis](https://gu-dsan.github.io/6000-fall-2023/project/eda.html)
 1. [Milestone 2: NLP and external data overlay](https://gu-dsan.github.io/6000-fall-2023/project/eda.html)
