@@ -5,6 +5,10 @@ code-fold: true
 jupyter: python3
 ---
 
+# Question: Is Trust in the Healtchare System Influenced by Other Factors of Trust?
+
+The objective of this question was to analyze whether trust in the healthcare system is influenced by other factors of trust, such as trust in doctors, family, government, charities, scientists, and social media use. The analysis utilized the HINTS dataset, which contains ordinal, binary, and categorical variables related to trust and healthcare behaviors. Various machine learning models, including Random Forest and XGBoost, were implemented to evaluate and predict trust levels in the healthcare system.
+
 ```{python}
 from IPython.display import HTML
 
@@ -34,6 +38,8 @@ import numpy as np
 ```
 
 ## HINTS Prepartion of Data
+
+The data was sourced from the HINTS dataset, consisting of both ordinal and categorical variables, as seen below.  Cleaning involved mapping categorical responses to numerical values using predefined mappings (e.g., "Not at all" = 4 to "A lot" = 1). Missing values were handled by dropping rows with critical missing data, and the HHID column was removed as it was not relevant for analysis. The cleaned dataset was standardized to ensure all features were on the same scale for better performance during model training and evaluation.
 
 ```{python}
 # Read in data
@@ -151,6 +157,10 @@ correlation_data = correlation_matrix_spearman
 
 # HINTS | Ordinal Regression 
 
+## Rationale 
+
+Ordinal regression was selected because the target variable, `Trust in Healthcare System`, is ordinal in nature, representing ordered levels of trust. This method allows for the modeling of relationships between predictors and the ordered response categories while preserving the ordinal structure. It is also interpretable, providing insights into how changes in predictors affect the probability of belonging to a particular trust level.
+
 ```{python}
 # Convert all numeric columns to integers
 numeric_columns = hints_cleaned.select_dtypes(include='number').columns
@@ -203,9 +213,15 @@ N = 5  # Number of predictions to show
 print("First", N, "predictions:", y_pred[:N])
 ```
 
+## Model Performance
+
 AIC is a measure of the relative quality of the model; lower values of AIC indicate a better fit of the model to the data. With an AIC of 336.5, the model doesn't appear to be fitting well, similar with the BIC score. BIC is similar to AIC, but it penalizes models with more parameters. Like AIC, lower values of BIC indicate a better-fitting model. Here, it is 374.3 - time to move on to other model types. 
 
 # HINTS | Random Forest Classifier
+
+## Rationale 
+
+Random Forest (RF) was chosen for its ability to handle non-linear relationships and complex interactions among features. It is robust to overfitting, especially with categorical and ordinal predictors, and provides feature importance scores, allowing for a better understanding of key drivers of trust in the healthcare system. Additionally, RF works well without requiring extensive feature scaling or preprocessing.
 
 ```{python}
 import pandas as pd
@@ -400,6 +416,10 @@ The Tuned Random Forest model shows improved performance with accuracy increasin
     * The Tuned RF model has the highest accuracy (0.80)
 
 # HINTS | XGBoost
+
+## Rationale 
+
+XGBoost was selected due to its efficiency, ability to handle structured data, and superior performance in capturing non-linear relationships. Its gradient boosting framework optimizes performance by minimizing errors iteratively, making it particularly suited for datasets with complex patterns. Additionally, XGBoost's flexibility in hyperparameter tuning and in-built support for addressing class imbalance make it a robust choice for this task.
 
 ```{python}
 import pandas as pd
@@ -686,6 +706,7 @@ return vl
 attribs = Object.keys(dat[0]).filter(a => !isNaN(dat[0][a])) //Find the attributes that are numbers
 ```
 
+## Model Performance
 
 The Standard XGBoost model performs well for Class 0 (Trust in Healthcare System - High) with high precision and recall, indicating a good balance in identifying instances of this class. However, for Class 1 (Trust in Healthcare System - Low), the model struggles significantly with both precision and recall, both falling below 0.3. The Class Imbalance XGBoost model (SMOTE) improves recall for Class 1, helping to better detect the minority class. However, the model's precision remains low, meaning it still incorrectly predicts many instances as Class 1 (Trust in Healthcare System - Low). The Hyperparameter Tuned XGBoost model delivers the best performance for Class 0 (Trust in Healthcare System - High), achieving very high recall (90%) and good precision (79%). Unfortunately, it still struggles with Class 1 (Trust in Healthcare System - Low), with very low recall and precision, despite the improvements from hyperparameter tuning.
 
