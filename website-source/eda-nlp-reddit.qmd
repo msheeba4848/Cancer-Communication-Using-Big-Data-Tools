@@ -30,13 +30,13 @@ In addition, we combed the entire Reddit PushShift dataset provided based on the
 # Questions to Explore:
 
 
-The primary goal of this exploratory data analysis was to gain a comprehensive understanding of the dataset that would lay the groundwork for us to go into further advanced modeling to answer our questions to address. The dataset includes columns such as 'body', 'controversiality', 'created_utc', and 'subreddit'.
+The primary goal of this exploratory data analysis was to gain a comprehensive understanding of the dataset that would lay the groundwork for advanced modeling to answer our project questions. The dataset includes columns such as 'body', 'controversiality', 'created_utc', and 'subreddit'.
 
 
-The analysis in this section is focused on several key aspects to uncover insights within healthcare-related subreddits. Given the diversity of subreddits, we aimed to examine how emotions vary across different communities, as each subreddit likely captures unique sentiments and experiences related to health. One main target which we wanted to focus on was analyzing certain keywords and the level of frequency between the subreddits to provide insight on certain topics and identifying patterns which we can use for our NLP and ML model analysis.
+The analysis in this section is focused on insights via healthcare-related subreddits. Given the diversity of subreddits, we aimed to examine how emotions vary across different communities, as each subreddit likely captures unique sentiments and experiences related to health. We analyzed keyword frequency to identify patterns to use for NLP and ML model analysis.
 
 
-The 'body' column, containing user comments, was analyzed for sentiment to classify emotions such as sadness, fear, frustration, and joy across different subreddit groups. The 'created_utc' column was leveraged to study temporal trends, analyzing how sentiment and emotion change over time or vary by day of the week. By examining these aspects, we were able to answer targeted questions about user experiences, sentiment distributions, engagement patterns, and common themes discussed within each community, ultimately providing a holistic view of the dataset’s emotional landscape. Overall, using all the existing data will help inform the development of models for advanced analysis, including novel classification techniques.
+The 'body' column, containing user comments, was analyzed for sentiment to classify the emotions sadness, fear, frustration, and joy across different subreddit groups. The 'created_utc' column was leveraged to study temporal trends, analyzing how sentiment and emotion change over time or vary by day of the week. By examining these aspects, we were able to answer targeted questions about user experiences, sentiment distributions, engagement patterns, and common themes discussed within each community, ultimately providing a holistic view of the dataset’s emotional landscape. Overall, using all the existing data will help inform the development of models for advanced analysis, including novel classification techniques.
 
 ## Are certain subreddits more likely to express interpersonal conflict or emotional support?
 

@@ -122,8 +122,6 @@ display(hints_cleaned.head())
 print(hints_cleaned.dtypes)
 ```
 
-# HINTS | Spearman Correlation
-
 ```{python}
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
@@ -149,50 +147,6 @@ correlation_matrix_spearman = standardized_data.corr(method='spearman')
 # Rename the DataFrame to correlation_data
 correlation_data = correlation_matrix_spearman
 
-# Display the full Spearman correlation matrix
-print("Spearman Correlation Matrix (excluding SeekCancerInfo and after standardization):")
-display(correlation_data)
-
-# Focus on the correlation of the target variable with other features
-correlation_with_target_spearman = correlation_data[target_variable].sort_values(ascending=False)
-
-print(f"\nSpearman correlation of features with {target_variable}:")
-display(correlation_with_target_spearman)
-```
-
-```{python}
-# Heat Map of Spearman Correlation
-# Ensure the correlation matrix is symmetric
-correlation_matrix_spearman = correlation_matrix_spearman.loc[correlation_matrix_spearman.index, correlation_matrix_spearman.index]
-
-# Mask the upper triangle of the matrix for better visualization
-mask = np.triu(np.ones_like(correlation_matrix_spearman, dtype=bool))
-
-# Define a custom colormap from white to the specified hex color
-custom_cmap = LinearSegmentedColormap.from_list("custom_cmap", ["#ffffff", "#3d6469"])
-
-# Plot the heatmap
-plt.figure(figsize=(12, 10))
-sns.heatmap(
-    correlation_matrix_spearman,
-    mask=mask,
-    annot=True,
-    fmt=".2f",
-    cmap=custom_cmap,
-    cbar=True,
-    square=True,
-    xticklabels=correlation_matrix_spearman.index,
-    yticklabels=correlation_matrix_spearman.columns
-)
-plt.title("Spearman Correlation Matrix (Ordinal Data)", pad=20)
-plt.xticks(rotation=45, ha='right')
-plt.yticks(rotation=0)
-plt.tight_layout()
-plt.show()
-```
-
-```{python}
-correlation_data.head()
 ```
 
 # HINTS | Ordinal Regression 

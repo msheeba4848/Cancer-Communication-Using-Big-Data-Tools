@@ -6,11 +6,11 @@ Project Authors: Tiana Le, Sheeba Moghal, Ishaan Babbar, Liz Kovalchuk
 
 In the digital age, where information is readily available at our fingertips, understanding how people navigate and trust health information is critical. With countless sources such as healthcare professionals, government agencies, social media, and online forums, it is essential to explore what the United States population believes about the reliability and accessibility of health information. To better understand this phenomenon, data was gathered from an online forum called Reddit. The Reddit dataset comprises textual data that offers valuable insights into the information shared online about health, particularly topics related to cancer. Using NLP methods, we can explore the most common topics and also the sentiment toward these topics. In addition to the textual data, we will also use the Health Information National Trends Survey (HINTS), which is administered by National Cancer Institute. In this survey, people were asked directly about what they think about health information. Using both the Reddit data and HINTS, we seek to understand trust, frustration, and overall sentiment relating to healthcare and cancer.  
 
-Our project explores the Pushshift Reddit Dataset to examine trust in healthcare, likely narrowing specifically to r/cancer forums. While there are some assumptions that need to be made to pair our corroborating dataset, the Health Information National Trends Survey (HINTS) survey, with the Reddit dataset, we believe that we compare and use both of these datasets to investigate the following  questions: 
+Our project explores the Pushshift Reddit Dataset to examine trust in healthcare, narrowing to r/cancer forums. While there are some assumptions that need to be made to pair our corroborating dataset, (the Health Information National Trends Survey (HINTS) survey and the Reddit PushShift dataset) we believe that we compare and use both of these datasets to investigate the following questions: 
 
 * Is public sentiment toward healthcare and cancer generally positive, or negative, in an online social platform? 
 * Is there evidence of trust (or lack thereof) when the public discusses healthcare? 
-* Evidence of other interpersonal conflict in healthcare discussions and emotion / sentiment analysis (e.g. sadness, disgust, surprise, joy, anger). 
+* Is there evidence of other interpersonal conflict in healthcare discussions and emotion / sentiment analysis (e.g. sadness, disgust, surprise, joy, anger). 
 
 ## Data Sources 
 
@@ -20,8 +20,7 @@ The Health Information National Trends Survey (HINTS) is a significant research 
 
 It is an excellent starting place for structured questionnaires that would be helfpul to enhance in a "more accessible" format of Reddit data. 
 
-HINTS employs a cross-sectional, nationally representative survey methodology targeting non-institutionalized adults aged 18 years and older. This design allows for the collection of data that reflects the diverse experiences and perspectives of the U.S. population13.
-Annual Administration: Initially conducted biennially, HINTS has transitioned to an annual survey format. This change enhances the ability to track evolving trends in health information access and utilization over time.
+HINTS employs a cross-sectional, nationally representative survey methodology targeting non-institutionalized adults aged 18 years and older. This design allows for the collection of data that reflects the diverse experiences and perspectives of the U.S. population. Though this survey was initially conducted biennially, HINTS has transitioned to an annual survey format.
 
 The survey seeks information on: 
 
@@ -29,11 +28,8 @@ The survey seeks information on:
 * Cancer prevention and screening practices
 * Knowledge and perceptions related to cancer risks
 * Access to healthcare services
-* Utilization of technology for health information37.
-* Publicly Available Data: HINTS data is freely accessible through its website, allowing researchers, policymakers, and public health professionals to utilize this information for various applications, including the design and evaluation of health communication programs9.
-
-Though HINTS was initially conducted biennially, HINTS has transitioned to an annual survey format. This change enhances the ability to track evolving trends in health information access and utilization over time. 
-
+* Utilization of technology for health information
+* Publicly Available Data: HINTS data is freely accessible through its website, allowing researchers, policymakers, and public health professionals to utilize this information for various applications, including the design and evaluation of health communication programs
 
 ### The Reddit PushShift Data Set 
 
