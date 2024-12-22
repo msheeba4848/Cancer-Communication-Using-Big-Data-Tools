@@ -2,13 +2,6 @@
 
 ## Understanding Cancer Communication Using Big Data Tools
 
-### Project Authors
-- **Sheeba Moghal**
-- **Tiana Le**
-- **Liz Kovalchuk**
-- **Ishaan Babbar**
-
-
 ---
 
 ## **Introduction**
@@ -97,5 +90,5 @@ This project was conducted as part of the Fall 2024 course at Georgetown Univers
 ---
 
 ## **License**
-Content © 2023 by Project Team 1.  
-Licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/).
+This project is licensed under an **All Rights Reserved** license. Unauthorized use, distribution, or modification of the code is strictly prohibited. For inquiries or permission requests, please contact [msheeba00@gmail.com or sm3924@georgetown.edu].
+
