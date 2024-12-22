@@ -3,10 +3,11 @@
 ## Understanding Cancer Communication Using Big Data Tools
 
 ### Project Authors
-- **Tiana Le**
 - **Sheeba Moghal**
-- **Ishaan Babbar**
+- **Tiana Le**
 - **Liz Kovalchuk**
+- **Ishaan Babbar**
+
 
 ---
 
